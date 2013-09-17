@@ -1,8 +1,6 @@
-// Dummy main.cpp
+// Incomplete main file
 // Will change!
 
-int main()
+int main(int argc, const char* argv[])
 {
-
-    return 0;
 }
