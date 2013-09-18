@@ -1,0 +1,48 @@
+# Directory where input files are found
+
+INPUT=../src
+
+# Directory where images can be found
+# May not be used, but just in case. Can't hurt.
+
+IMAGE_PATH=../img
+
+# This allows the
+# /** <brief desc.> .(full stop terminates the brief desc.)
+#  *  <long desc.>
+#  */
+# Doxygen commenting style.
+#
+# I feel that this is the most easy to manage and understand
+# commenting method for Doxygen.
+
+JAVADOC_AUTOBRIEF=YES
+
+# Specifies the project's name
+
+PROJECT_NAME=COS110 Project
+
+# Project version
+# Requires updating every documentation generation, though we'll probably forget.
+
+PROJECT_NUMBER=0.001a
+
+# Brief description of the project
+
+PROJECT_BRIEF=UP COS110 Project for 2013, by Frank Allenby and Lyle Nel
+
+# Doxygen's generated language
+
+OUTPUT_LANGUAGE=English
+
+# Include brief member descriptions in documentation
+
+BRIEF_MEMBER_DESC=YES
+
+# Prepend brief desc. before detailed desc.
+
+REPEAT_BRIEF=YES
+
+# Enable markdown support in comments
+
+MARKDOWN_SUPPORT=YES

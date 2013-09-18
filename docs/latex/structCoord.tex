@@ -1,0 +1,55 @@
+\hypertarget{structCoord}{\section{Coord Struct Reference}
+\label{structCoord}\index{Coord@{Coord}}
+}
+
+
+Struct to hold coordinates of objects in the \hyperlink{classMap}{Map}.  
+
+
+
+
+{\ttfamily \#include $<$Map.\-h$>$}
+
+Inheritance diagram for Coord\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{structCoord}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{structCoord_a685dd99f1e32d5e79f1fe6a7bbbceb76}{int \& {\bfseries x} ()}\label{structCoord_a685dd99f1e32d5e79f1fe6a7bbbceb76}
+
+\item 
+\hypertarget{structCoord_ab924c640df45524f31d54ee5c4870cbc}{int \& {\bfseries y} ()}\label{structCoord_ab924c640df45524f31d54ee5c4870cbc}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Struct to hold coordinates of objects in the \hyperlink{classMap}{Map}. 
+
+This struct inherits from std\-::pair to enable the functionality that might be attractive in doing so.
+
+Also, it keeps Lyle happy. He wanted the pair, and I wanted the struct. It's a middle-\/ground! \-:D Besides, Lyle, a pair is just a struct with some bolted-\/on stuffs anyway;
+
+template $<$class T1, class T2$>$ struct pair; www.\-cplusplus.\-com/reference/utility/pair/ 
+
+
+
+Use of this struct would be as follows;
+
+\hyperlink{structCoord}{Coord} c;
+
+c.\-x() = 4; c.\-y() = 5;
+
+int x = c.\-x(); int y = c.\-y();
+
+etc.
+
+It's pretty nifty, yes? 
+
+The documentation for this struct was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+/home/tom/\-Documents/\-Dev/\-C\-O\-S110\-\_\-\-Project/src/Map.\-h\end{DoxyCompactItemize}
