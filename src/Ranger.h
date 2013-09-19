@@ -2,8 +2,9 @@
 #define RANGER_H
 
 #include "RangedSprite.h"
+#include "AmmoUnit.h"
 
-class Ranger : public RangedSprite
+class Ranger : public RangedSprite, public AmmoUnit
 {
 
 };
