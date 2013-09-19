@@ -30,7 +30,10 @@ void Menu::print(std::ostream& outStream)
 
 std::ostream& operator<<(std::ostream& ostr, Menu& menu)
 {
-    // TODO: Implement this!
+    for (unsigned i = 0; i < menu.items.size(); ++i)
+    {
+        ostr << (i + 1) << ". " << *menu.items[i] << '\n';
+    }
     return ostr;
 }
 

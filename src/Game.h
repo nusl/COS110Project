@@ -3,9 +3,11 @@
 
 #include <vector>
 #include <string>
+#include <iostream>
 
 #include "Map.h"
 #include "Player.h"
+#include "ClassMenu.h"
 
 class Game
 {
@@ -15,7 +17,7 @@ class Game
          *
          *  @param fileName a constant std::string reference
          */
-        Game(const std::string& fileName);
+        Game();
 
         /** The Game class' destructor. */
         ~Game();
@@ -25,15 +27,7 @@ class Game
 
     private:
 
-
         void readFromFile(const std::string& fileName);
-
-        /** A list of strings representing the possible map choices from file.
-         *
-         *  Maps will be read from file as strings into this vector, from which
-         *  the player will be able to choose a map to play.
-         */
-        std::vector<std::string> mapList;
 
         /** A handle on the chosen map to be used for the game.
          *
