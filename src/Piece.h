@@ -3,7 +3,8 @@
 
 class Piece
 {
-
+    public:
+    private:
 };
 
 #endif

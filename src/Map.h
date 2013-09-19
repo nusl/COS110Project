@@ -2,6 +2,8 @@
 #define MAP_H
 
 #include <vector>
+#include <string>
+
 #include "Piece.h"
 
 /** Struct to hold coordinates of objects in the Map.
@@ -59,6 +61,20 @@ class Map
 {
     public:
 
+        /** The constructor for the map class accepting a std::string representing the map state.
+         *
+         *  The given map state will be used to initialize the Map class' internal vector of Pieces.
+         *
+         *  @param mapState a constant std::string reference.
+         */
+        Map(const std::string& mapState);
+
+        /** The Map class' descructor.
+         *
+         *  Cleanup of the Map class occurs here.
+         */
+        ~Map();
+
         /** Move the piece at the first coordinate on the map to the location of the second coordinate on the map.
          *
          *  The function will perform the actual move on the map should the move be valid and possible,
@@ -76,9 +92,9 @@ class Map
          *  Not as generic as it could be.
          *
          *  @param coord a constant Coord reference.
-         *  @return The relative coordinate to the Player's Sprite on the map.
+         *  @return The relative coordinate to the Player's Sprite on the map as a const Coord copy.
          */
-        Coord* getSpriteRelativeCoord(const Coord& coord) const;
+        const Coord getSpriteRelativeCoord(const Coord& coord) const;
 
         /** Set the piece at the coordinate on the map to the provided piece.
          *
@@ -90,12 +106,10 @@ class Map
 
         /** Get handle of piece at a coordinate on the map.
          *
-         *  Might need to be a pointer, we'll see.
-         *
          *  @param coord a constant Coord reference.
-         *  @return The Piece object at the coordinate on the map.
+         *  @return The Piece object at the coordinate on the map as a constant Piece pointer.
          */
-        Piece* getHandleAt(const Coord& coord) const;
+        const Piece* getHandleAt(const Coord& coord) const;
 
         /** Update the current state of the map.
          *
@@ -114,6 +128,14 @@ class Map
          *  its pieces.
          */
         std::vector<std::vector<Piece*> > map;
+
+        /** Castrate the copy constructor.
+         *
+         *  We do this to prevent copies of the Map being made.
+         *
+         * @param other a constant Map reference
+         */
+        Map(const Map& other);
 };
 
 #endif
