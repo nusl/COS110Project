@@ -20,7 +20,7 @@ JAVADOC_AUTOBRIEF=YES
 
 # Specifies the project's name
 
-PROJECT_NAME=COS110 Project
+PROJECT_NAME="COS110 Project"
 
 # Project version
 # Requires updating every documentation generation, though we'll probably forget.
@@ -29,7 +29,7 @@ PROJECT_NUMBER=0.001a
 
 # Brief description of the project
 
-PROJECT_BRIEF=UP COS110 Project for 2013, by Frank Allenby and Lyle Nel
+PROJECT_BRIEF="UP COS110 Project for 2013, by Frank Allenby and Lyle Nel"
 
 # Doxygen's generated language
 
