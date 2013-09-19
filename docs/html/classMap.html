@@ -64,6 +64,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
       <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
 <!-- window showing the filter options -->
@@ -71,7 +72,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -89,32 +90,185 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">Map Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>The <a class="el" href="classMap.html" title="The Map class.">Map</a> class.  
+ <a href="classMap.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="Map_8h_source.html">Map.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a69c9a3943d42cf80c8c30f9deb4a005c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a69c9a3943d42cf80c8c30f9deb4a005c"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>move</b> (const int &amp;fromX, const int &amp;fromY, const int &amp;toX, const int &amp;toY)</td></tr>
-<tr class="separator:a69c9a3943d42cf80c8c30f9deb4a005c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0fe1ddd2dafee9300357235e371fb58f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0fe1ddd2dafee9300357235e371fb58f"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>getSpriteRelativeCoord</b> (int &amp;x, int &amp;y) const </td></tr>
-<tr class="separator:a0fe1ddd2dafee9300357235e371fb58f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a89ce533c9916dcfe795268e862d2cd47"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a89ce533c9916dcfe795268e862d2cd47"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setPieceAt</b> (const <a class="el" href="classPiece.html">Piece</a> *, const int &amp;x, const int &amp;y)</td></tr>
-<tr class="separator:a89ce533c9916dcfe795268e862d2cd47"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abc61a6ff624751ee05d5537d68f497d7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abc61a6ff624751ee05d5537d68f497d7"></a>
-<a class="el" href="classPiece.html">Piece</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getHandleAt</b> (const int &amp;x, const int &amp;y)</td></tr>
-<tr class="separator:abc61a6ff624751ee05d5537d68f497d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab1478fe29ce5286ab5dabf134c9ea050"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab1478fe29ce5286ab5dabf134c9ea050"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>runAction</b> ()</td></tr>
-<tr class="separator:ab1478fe29ce5286ab5dabf134c9ea050"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f7ddbd8a2830d766e4c6aa05451a537"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMap.html#a2f7ddbd8a2830d766e4c6aa05451a537">move</a> (const <a class="el" href="structCoord.html">Coord</a> &amp;from, const <a class="el" href="structCoord.html">Coord</a> &amp;to)</td></tr>
+<tr class="memdesc:a2f7ddbd8a2830d766e4c6aa05451a537"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move the piece at the first coordinate on the map to the location of the second coordinate on the map.  <a href="#a2f7ddbd8a2830d766e4c6aa05451a537">More...</a><br/></td></tr>
+<tr class="separator:a2f7ddbd8a2830d766e4c6aa05451a537"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae55dbf516d3caebb9572540e2bedcf5f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structCoord.html">Coord</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMap.html#ae55dbf516d3caebb9572540e2bedcf5f">getSpriteRelativeCoord</a> (const <a class="el" href="structCoord.html">Coord</a> &amp;coord) const </td></tr>
+<tr class="memdesc:ae55dbf516d3caebb9572540e2bedcf5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the <a class="el" href="classPlayer.html">Player</a> <a class="el" href="classSprite.html">Sprite</a>'s relative coordinates to the provided coordinates.  <a href="#ae55dbf516d3caebb9572540e2bedcf5f">More...</a><br/></td></tr>
+<tr class="separator:ae55dbf516d3caebb9572540e2bedcf5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0dffeac7daa5b0ea4c4f6f288926698c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMap.html#a0dffeac7daa5b0ea4c4f6f288926698c">setPieceAt</a> (const <a class="el" href="classPiece.html">Piece</a> *piece, const <a class="el" href="structCoord.html">Coord</a> &amp;coord)</td></tr>
+<tr class="memdesc:a0dffeac7daa5b0ea4c4f6f288926698c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the piece at the coordinate on the map to the provided piece.  <a href="#a0dffeac7daa5b0ea4c4f6f288926698c">More...</a><br/></td></tr>
+<tr class="separator:a0dffeac7daa5b0ea4c4f6f288926698c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aecc5a11d70fd7b77a829932632cbf107"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classPiece.html">Piece</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMap.html#aecc5a11d70fd7b77a829932632cbf107">getHandleAt</a> (const <a class="el" href="structCoord.html">Coord</a> &amp;coord) const </td></tr>
+<tr class="memdesc:aecc5a11d70fd7b77a829932632cbf107"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get handle of piece at a coordinate on the map.  <a href="#aecc5a11d70fd7b77a829932632cbf107">More...</a><br/></td></tr>
+<tr class="separator:aecc5a11d70fd7b77a829932632cbf107"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab12643cc3a8d5e48f566c1abb571e9bf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMap.html#ab12643cc3a8d5e48f566c1abb571e9bf">update</a> ()</td></tr>
+<tr class="memdesc:ab12643cc3a8d5e48f566c1abb571e9bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the current state of the map.  <a href="#ab12643cc3a8d5e48f566c1abb571e9bf">More...</a><br/></td></tr>
+<tr class="separator:ab12643cc3a8d5e48f566c1abb571e9bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>The <a class="el" href="classMap.html" title="The Map class.">Map</a> class. </p>
+<p>Holds the current state of the game's map as well as some functions to facilitate actions on the map itself. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="aecc5a11d70fd7b77a829932632cbf107"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classPiece.html">Piece</a>* Map::getHandleAt </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structCoord.html">Coord</a> &amp;&#160;</td>
+          <td class="paramname"><em>coord</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get handle of piece at a coordinate on the map. </p>
+<p>Might need to be a pointer, we'll see.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">coord</td><td>a constant <a class="el" href="structCoord.html" title="Struct to hold coordinates of objects in the Map.">Coord</a> reference. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The <a class="el" href="classPiece.html">Piece</a> object at the coordinate on the map. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ae55dbf516d3caebb9572540e2bedcf5f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structCoord.html">Coord</a>* Map::getSpriteRelativeCoord </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structCoord.html">Coord</a> &amp;&#160;</td>
+          <td class="paramname"><em>coord</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the <a class="el" href="classPlayer.html">Player</a> <a class="el" href="classSprite.html">Sprite</a>'s relative coordinates to the provided coordinates. </p>
+<p>Not as generic as it could be.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">coord</td><td>a constant <a class="el" href="structCoord.html" title="Struct to hold coordinates of objects in the Map.">Coord</a> reference. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The relative coordinate to the <a class="el" href="classPlayer.html">Player</a>'s <a class="el" href="classSprite.html">Sprite</a> on the map. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a2f7ddbd8a2830d766e4c6aa05451a537"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Map::move </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structCoord.html">Coord</a> &amp;&#160;</td>
+          <td class="paramname"><em>from</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structCoord.html">Coord</a> &amp;&#160;</td>
+          <td class="paramname"><em>to</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Move the piece at the first coordinate on the map to the location of the second coordinate on the map. </p>
+<p>The function will perform the actual move on the map should the move be valid and possible, and then return true. Should the move not be valid and possible, the function will return false and not perform any moves.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">from</td><td>a constant <a class="el" href="structCoord.html" title="Struct to hold coordinates of objects in the Map.">Coord</a> reference. </td></tr>
+    <tr><td class="paramname">to</td><td>a constant <a class="el" href="structCoord.html" title="Struct to hold coordinates of objects in the Map.">Coord</a> reference. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A boolean signifying whether or not the move is possible. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a0dffeac7daa5b0ea4c4f6f288926698c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Map::setPieceAt </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classPiece.html">Piece</a> *&#160;</td>
+          <td class="paramname"><em>piece</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structCoord.html">Coord</a> &amp;&#160;</td>
+          <td class="paramname"><em>coord</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the piece at the coordinate on the map to the provided piece. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">piece</td><td>a constant <a class="el" href="classPiece.html">Piece</a> pointer. </td></tr>
+    <tr><td class="paramname">coord</td><td>a constant <a class="el" href="structCoord.html" title="Struct to hold coordinates of objects in the Map.">Coord</a> reference. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ab12643cc3a8d5e48f566c1abb571e9bf"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Map::update </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Update the current state of the map. </p>
+<p>This update performs any moves or actions necessary and updates the map accordingly before ending the function.</p>
+<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>/home/tom/Documents/Dev/COS110_Project/src/<a class="el" href="Map_8h_source.html">Map.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Sep 18 2013 23:44:47 for COS110Project by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Sep 19 2013 12:33:02 for COS110Project by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>

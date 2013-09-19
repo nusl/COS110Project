@@ -1,24 +1,140 @@
 \hypertarget{classMap}{\section{Map Class Reference}
 \label{classMap}\index{Map@{Map}}
 }
+
+
+The \hyperlink{classMap}{Map} class.  
+
+
+
+
+{\ttfamily \#include $<$Map.\-h$>$}
+
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{classMap_a69c9a3943d42cf80c8c30f9deb4a005c}{bool {\bfseries move} (const int \&from\-X, const int \&from\-Y, const int \&to\-X, const int \&to\-Y)}\label{classMap_a69c9a3943d42cf80c8c30f9deb4a005c}
+bool \hyperlink{classMap_a2f7ddbd8a2830d766e4c6aa05451a537}{move} (const \hyperlink{structCoord}{Coord} \&from, const \hyperlink{structCoord}{Coord} \&to)
+\begin{DoxyCompactList}\small\item\em Move the piece at the first coordinate on the map to the location of the second coordinate on the map. \end{DoxyCompactList}\item 
+\hyperlink{structCoord}{Coord} $\ast$ \hyperlink{classMap_ae55dbf516d3caebb9572540e2bedcf5f}{get\-Sprite\-Relative\-Coord} (const \hyperlink{structCoord}{Coord} \&coord) const 
+\begin{DoxyCompactList}\small\item\em Get the \hyperlink{classPlayer}{Player} \hyperlink{classSprite}{Sprite}'s relative coordinates to the provided coordinates. \end{DoxyCompactList}\item 
+void \hyperlink{classMap_a0dffeac7daa5b0ea4c4f6f288926698c}{set\-Piece\-At} (const \hyperlink{classPiece}{Piece} $\ast$piece, const \hyperlink{structCoord}{Coord} \&coord)
+\begin{DoxyCompactList}\small\item\em Set the piece at the coordinate on the map to the provided piece. \end{DoxyCompactList}\item 
+\hyperlink{classPiece}{Piece} $\ast$ \hyperlink{classMap_aecc5a11d70fd7b77a829932632cbf107}{get\-Handle\-At} (const \hyperlink{structCoord}{Coord} \&coord) const 
+\begin{DoxyCompactList}\small\item\em Get handle of piece at a coordinate on the map. \end{DoxyCompactList}\item 
+void \hyperlink{classMap_ab12643cc3a8d5e48f566c1abb571e9bf}{update} ()
+\begin{DoxyCompactList}\small\item\em Update the current state of the map. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
-\item 
-\hypertarget{classMap_a0fe1ddd2dafee9300357235e371fb58f}{void {\bfseries get\-Sprite\-Relative\-Coord} (int \&x, int \&y) const }\label{classMap_a0fe1ddd2dafee9300357235e371fb58f}
 
-\item 
-\hypertarget{classMap_a89ce533c9916dcfe795268e862d2cd47}{void {\bfseries set\-Piece\-At} (const \hyperlink{classPiece}{Piece} $\ast$, const int \&x, const int \&y)}\label{classMap_a89ce533c9916dcfe795268e862d2cd47}
+\subsection{Detailed Description}
+The \hyperlink{classMap}{Map} class. 
 
-\item 
-\hypertarget{classMap_abc61a6ff624751ee05d5537d68f497d7}{\hyperlink{classPiece}{Piece} \& {\bfseries get\-Handle\-At} (const int \&x, const int \&y)}\label{classMap_abc61a6ff624751ee05d5537d68f497d7}
+Holds the current state of the game's map as well as some functions to facilitate actions on the map itself. 
 
-\item 
-\hypertarget{classMap_ab1478fe29ce5286ab5dabf134c9ea050}{void {\bfseries run\-Action} ()}\label{classMap_ab1478fe29ce5286ab5dabf134c9ea050}
+\subsection{Member Function Documentation}
+\hypertarget{classMap_aecc5a11d70fd7b77a829932632cbf107}{\index{Map@{Map}!get\-Handle\-At@{get\-Handle\-At}}
+\index{get\-Handle\-At@{get\-Handle\-At}!Map@{Map}}
+\subsubsection[{get\-Handle\-At}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Piece}$\ast$ Map\-::get\-Handle\-At (
+\begin{DoxyParamCaption}
+\item[{const {\bf Coord} \&}]{coord}
+\end{DoxyParamCaption}
+) const}}\label{classMap_aecc5a11d70fd7b77a829932632cbf107}
 
-\end{DoxyCompactItemize}
+
+Get handle of piece at a coordinate on the map. 
+
+Might need to be a pointer, we'll see.
+
+
+\begin{DoxyParams}{Parameters}
+{\em coord} & a constant \hyperlink{structCoord}{Coord} reference. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The \hyperlink{classPiece}{Piece} object at the coordinate on the map. 
+\end{DoxyReturn}
+\hypertarget{classMap_ae55dbf516d3caebb9572540e2bedcf5f}{\index{Map@{Map}!get\-Sprite\-Relative\-Coord@{get\-Sprite\-Relative\-Coord}}
+\index{get\-Sprite\-Relative\-Coord@{get\-Sprite\-Relative\-Coord}!Map@{Map}}
+\subsubsection[{get\-Sprite\-Relative\-Coord}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Coord}$\ast$ Map\-::get\-Sprite\-Relative\-Coord (
+\begin{DoxyParamCaption}
+\item[{const {\bf Coord} \&}]{coord}
+\end{DoxyParamCaption}
+) const}}\label{classMap_ae55dbf516d3caebb9572540e2bedcf5f}
+
+
+Get the \hyperlink{classPlayer}{Player} \hyperlink{classSprite}{Sprite}'s relative coordinates to the provided coordinates. 
+
+Not as generic as it could be.
+
+
+\begin{DoxyParams}{Parameters}
+{\em coord} & a constant \hyperlink{structCoord}{Coord} reference. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The relative coordinate to the \hyperlink{classPlayer}{Player}'s \hyperlink{classSprite}{Sprite} on the map. 
+\end{DoxyReturn}
+\hypertarget{classMap_a2f7ddbd8a2830d766e4c6aa05451a537}{\index{Map@{Map}!move@{move}}
+\index{move@{move}!Map@{Map}}
+\subsubsection[{move}]{\setlength{\rightskip}{0pt plus 5cm}bool Map\-::move (
+\begin{DoxyParamCaption}
+\item[{const {\bf Coord} \&}]{from, }
+\item[{const {\bf Coord} \&}]{to}
+\end{DoxyParamCaption}
+)}}\label{classMap_a2f7ddbd8a2830d766e4c6aa05451a537}
+
+
+Move the piece at the first coordinate on the map to the location of the second coordinate on the map. 
+
+The function will perform the actual move on the map should the move be valid and possible, and then return true. Should the move not be valid and possible, the function will return false and not perform any moves.
+
+
+\begin{DoxyParams}{Parameters}
+{\em from} & a constant \hyperlink{structCoord}{Coord} reference. \\
+\hline
+{\em to} & a constant \hyperlink{structCoord}{Coord} reference. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A boolean signifying whether or not the move is possible. 
+\end{DoxyReturn}
+\hypertarget{classMap_a0dffeac7daa5b0ea4c4f6f288926698c}{\index{Map@{Map}!set\-Piece\-At@{set\-Piece\-At}}
+\index{set\-Piece\-At@{set\-Piece\-At}!Map@{Map}}
+\subsubsection[{set\-Piece\-At}]{\setlength{\rightskip}{0pt plus 5cm}void Map\-::set\-Piece\-At (
+\begin{DoxyParamCaption}
+\item[{const {\bf Piece} $\ast$}]{piece, }
+\item[{const {\bf Coord} \&}]{coord}
+\end{DoxyParamCaption}
+)}}\label{classMap_a0dffeac7daa5b0ea4c4f6f288926698c}
+
+
+Set the piece at the coordinate on the map to the provided piece. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em piece} & a constant \hyperlink{classPiece}{Piece} pointer. \\
+\hline
+{\em coord} & a constant \hyperlink{structCoord}{Coord} reference. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{classMap_ab12643cc3a8d5e48f566c1abb571e9bf}{\index{Map@{Map}!update@{update}}
+\index{update@{update}!Map@{Map}}
+\subsubsection[{update}]{\setlength{\rightskip}{0pt plus 5cm}void Map\-::update (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classMap_ab12643cc3a8d5e48f566c1abb571e9bf}
+
+
+Update the current state of the map. 
+
+This update performs any moves or actions necessary and updates the map accordingly before ending the function.
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
 
 
 The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}

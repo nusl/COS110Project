@@ -64,6 +64,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
       <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
 <!-- window showing the filter options -->
@@ -71,7 +72,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -90,7 +91,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 
-<p>Struct to hold coordinates of objects in the <a class="el" href="classMap.html">Map</a>.  
+<p>Struct to hold coordinates of objects in the <a class="el" href="classMap.html" title="The Map class.">Map</a>.  
  <a href="structCoord.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="Map_8h_source.html">Map.h</a>&gt;</code></p>
@@ -105,15 +106,15 @@ Inheritance diagram for Coord:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a685dd99f1e32d5e79f1fe6a7bbbceb76"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a685dd99f1e32d5e79f1fe6a7bbbceb76"></a>
-int &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>x</b> ()</td></tr>
+<tr class="memitem:a685dd99f1e32d5e79f1fe6a7bbbceb76"><td class="memItemLeft" align="right" valign="top">int &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structCoord.html#a685dd99f1e32d5e79f1fe6a7bbbceb76">x</a> ()</td></tr>
+<tr class="memdesc:a685dd99f1e32d5e79f1fe6a7bbbceb76"><td class="mdescLeft">&#160;</td><td class="mdescRight">The x coordinate.  <a href="#a685dd99f1e32d5e79f1fe6a7bbbceb76">More...</a><br/></td></tr>
 <tr class="separator:a685dd99f1e32d5e79f1fe6a7bbbceb76"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab924c640df45524f31d54ee5c4870cbc"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab924c640df45524f31d54ee5c4870cbc"></a>
-int &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>y</b> ()</td></tr>
+<tr class="memitem:ab924c640df45524f31d54ee5c4870cbc"><td class="memItemLeft" align="right" valign="top">int &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structCoord.html#ab924c640df45524f31d54ee5c4870cbc">y</a> ()</td></tr>
+<tr class="memdesc:ab924c640df45524f31d54ee5c4870cbc"><td class="mdescLeft">&#160;</td><td class="mdescRight">The y coordinate.  <a href="#ab924c640df45524f31d54ee5c4870cbc">More...</a><br/></td></tr>
 <tr class="separator:ab924c640df45524f31d54ee5c4870cbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Struct to hold coordinates of objects in the <a class="el" href="classMap.html">Map</a>. </p>
+<div class="textblock"><p>Struct to hold coordinates of objects in the <a class="el" href="classMap.html" title="The Map class.">Map</a>. </p>
 <p>This struct inherits from std::pair to enable the functionality that might be attractive in doing so.</p>
 <p>Also, it keeps Lyle happy. He wanted the pair, and I wanted the struct. It's a middle-ground! :D Besides, Lyle, a pair is just a struct with some bolted-on stuffs anyway;</p>
 <p>template &lt;class T1, class T2&gt; struct pair; www.cplusplus.com/reference/utility/pair/ </p>
@@ -124,13 +125,66 @@ int &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>y</b> ()</td></t
 <p>int x = c.x(); int y = c.y();</p>
 <p>etc.</p>
 <p>It's pretty nifty, yes? </p>
-</div><hr/>The documentation for this struct was generated from the following file:<ul>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="a685dd99f1e32d5e79f1fe6a7bbbceb76"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int&amp; Coord::x </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>The x coordinate. </p>
+<dl class="section return"><dt>Returns</dt><dd>An integer reference. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ab924c640df45524f31d54ee5c4870cbc"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int&amp; Coord::y </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>The y coordinate. </p>
+<dl class="section return"><dt>Returns</dt><dd>An integer reference. </dd></dl>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
 <li>/home/tom/Documents/Dev/COS110_Project/src/<a class="el" href="Map_8h_source.html">Map.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Sep 18 2013 23:44:46 for COS110Project by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Sep 19 2013 12:33:01 for COS110Project by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>

@@ -1,5 +1,6 @@
 #ifndef MAP_H
 #define MAP_H
+
 #include <vector>
 #include "Piece.h"
 
@@ -30,27 +31,88 @@
  */
 struct Coord : public std::pair<int, int>
 {
+    /** The x coordinate.
+     *
+     * @return An integer reference.
+     */
     int& x()
     {
         return first;
     }
+
+    /** The y coordinate.
+     *
+     * @return An integer reference.
+     */
     int& y()
     {
         return second;
     }
 };
 
+/** The Map class.
+ *
+ *  Holds the current state of the game's map as well as some functions to
+ *  facilitate actions on the map itself.
+ */
 class Map
 {
     public:
-        bool move(const int& fromX, const int& fromY, const int& toX, const int& toY);
-        void getSpriteRelativeCoord(int& x, int& y) const;//not as generic as it could be
-        void setPieceAt(const Piece* ,const int& x, const int& y);
-        Piece& getHandleAt(const int& x, const int& y);//might need to be a pointer, we'll see
 
-        void runAction();
+        /** Move the piece at the first coordinate on the map to the location of the second coordinate on the map.
+         *
+         *  The function will perform the actual move on the map should the move be valid and possible,
+         *  and then return true. Should the move not be valid and possible, the function will return
+         *  false and not perform any moves.
+         *
+         *  @param from a constant Coord reference.
+         *  @param to a constant Coord reference.
+         *  @return A boolean signifying whether or not the move is possible.
+         */
+        bool move(const Coord& from, const Coord& to);
+
+        /** Get the Player Sprite's relative coordinates to the provided coordinates.
+         *
+         *  Not as generic as it could be.
+         *
+         *  @param coord a constant Coord reference.
+         *  @return The relative coordinate to the Player's Sprite on the map.
+         */
+        Coord* getSpriteRelativeCoord(const Coord& coord) const;
+
+        /** Set the piece at the coordinate on the map to the provided piece.
+         *
+         *  @param piece a constant Piece pointer.
+         *  @param coord a constant Coord reference.
+         *  @return void
+         */
+        void setPieceAt(const Piece* piece, const Coord& coord);
+
+        /** Get handle of piece at a coordinate on the map.
+         *
+         *  Might need to be a pointer, we'll see.
+         *
+         *  @param coord a constant Coord reference.
+         *  @return The Piece object at the coordinate on the map.
+         */
+        Piece* getHandleAt(const Coord& coord) const;
+
+        /** Update the current state of the map.
+         *
+         *  This update performs any moves or actions necessary and updates the map accordingly
+         *  before ending the function.
+         *
+         *  @return void
+         */
+        void update();
 
     private:
+
+        /** A 2D vector of pointers to pieces present on the map.
+         *
+         *  This vector represents the current state of the map in terms of
+         *  its pieces.
+         */
         std::vector<std::vector<Piece*> > map;
 };
 
