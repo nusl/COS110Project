@@ -8,6 +8,7 @@
 #include "Map.h"
 #include "Player.h"
 #include "ClassMenu.h"
+#include "MapMenu.h"
 
 class Game
 {

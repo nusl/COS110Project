@@ -12,9 +12,9 @@ Menu::~Menu()
     }
 }
 
-const MenuItem* Menu::operator[](const unsigned& index)
+MenuItem* Menu::operator[](const unsigned& index)
 {
-    if (index < 0 || index >= items.size())
+    if (index <= 0 || index >= items.size())
     {
         throw new OutOfBoundsException("Index was invalid or out of bounds when attempting to access a menu item in the Menu class.");
     }

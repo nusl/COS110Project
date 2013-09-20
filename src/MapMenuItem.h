@@ -3,10 +3,14 @@
 
 #include "MenuItem.h"
 
+#include <string>
+
 class MapMenuItem : public MenuItem
 {
     public:
         MapMenuItem(const std::string& name);
+
+        virtual void execute(std::string&);
 };
 
 #endif

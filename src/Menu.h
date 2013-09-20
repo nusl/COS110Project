@@ -32,7 +32,7 @@ class Menu
          * @param index a constant int reference
          * @return A constant MenuItem reference
          */
-        const MenuItem* operator[](const unsigned& index);
+        MenuItem* operator[](const unsigned& index);
 
         /** Stream insertion operator for the Menu class.
          *
