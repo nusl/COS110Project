@@ -9,7 +9,7 @@ class MageClassMenuItem : public ClassMenuItem
     public:
         MageClassMenuItem();
 
-        virtual void execute(Sprite*);
+        virtual void execute(Sprite*&);
 };
 
 #endif

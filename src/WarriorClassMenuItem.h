@@ -9,7 +9,7 @@ class WarriorClassMenuItem : public ClassMenuItem
     public:
         WarriorClassMenuItem();
 
-        virtual void execute(Sprite*);
+        virtual void execute(Sprite*&);
 };
 
 #endif

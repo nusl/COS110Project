@@ -33,6 +33,17 @@
  */
 struct Coord : public std::pair<int, int>
 {
+    /** Coord struct constructor.
+     *
+     *  @param inX a constant integer reference
+     *  @param inY a constant integer reference
+     */
+    Coord(const int& inX, const int& inY)
+    {
+        x() = inX;
+        y() = inY;
+    }
+
     /** The x coordinate.
      *
      * @return An integer reference.

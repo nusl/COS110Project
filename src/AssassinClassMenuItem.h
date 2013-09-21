@@ -9,7 +9,7 @@ class AssassinClassMenuItem : public ClassMenuItem
     public:
         AssassinClassMenuItem();
 
-        virtual void execute(Sprite*);
+        virtual void execute(Sprite*&);
 };
 
 #endif
