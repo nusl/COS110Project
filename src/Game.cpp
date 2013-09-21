@@ -1,6 +1,7 @@
 #include "Game.h"
 
 #include "OutOfBoundsException.h"
+#include "tutils.h"
 
 Game::Game()
 {
@@ -15,23 +16,49 @@ Game::~Game()
 
 void Game::start()
 {
-    std::cout << "Please select a class:" << std::endl;
-    ClassMenu* cMenu = new ClassMenu();
-    cMenu->print(std::cout);
+    ClassMenu cMenu;
+    cMenu.print(std::cout);
 
-    int selection;
-    std::cin >> selection;
+    Sprite* sprite = 0;
 
-    try
+    bool menuDone = false;
+    std::string selection;
+    int iSel = 0;
+
+    while(!menuDone)
     {
-        Sprite* s = 0;
-        (*cMenu)[selection - 1]->execute(s);
-        std::cout << s << std::endl;
-    } catch(OutOfBoundsException ex)
-    {
-        std::cout << "Invalid selection" << std::endl;
+        std::cout << "Option:" << std::endl;
+
+        std::cin >> selection;
+        tutils::convert<std::string, int>(selection, iSel);
+
+        try
+        {
+            cMenu[iSel - 1].execute(sprite);
+            menuDone = true;
+        } catch(OutOfBoundsException ex){}
     }
 
-    MapMenu* mMenu = new MapMenu();
-    mMenu->print(std::cout);
+    MapMenu mMenu;
+    mMenu.print(std::cout);
+
+    std::string s;
+
+    menuDone = false;
+
+    while(!menuDone)
+    {
+        std::cout << "Map number:" << std::endl;
+
+        std::cin >> selection;
+        tutils::convert<std::string, int>(selection, iSel);
+
+        try
+        {
+            mMenu[iSel - 1].execute(s);
+            menuDone = true;
+        } catch(OutOfBoundsException ex){}
+    }
+
+    // DO STUFFS HURR
 }

@@ -4,7 +4,7 @@ MageClassMenuItem::MageClassMenuItem() : ClassMenuItem("Mage")
 {
 }
 
-void MageClassMenuItem::execute(Sprite* s)
+void MageClassMenuItem::execute(Sprite *&s)
 {
     s = new Mage();
 }

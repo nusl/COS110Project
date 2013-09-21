@@ -19,6 +19,8 @@ class ClassMenu : public Menu
          *
          */
         ClassMenu();
+
+        virtual void printPrompt(std::ostream &outStream);
 };
 
 #endif

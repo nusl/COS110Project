@@ -9,7 +9,7 @@ class RangerClassMenuItem : public ClassMenuItem
     public:
         RangerClassMenuItem();
 
-        virtual void execute(Sprite*);
+        virtual void execute(Sprite*&);
 };
 
 #endif

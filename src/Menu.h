@@ -23,16 +23,22 @@ class Menu
 
         /** Prints the menu to the supplied std::ostream.
          *
-         *  @param outStream a constant std::ostream reference
+         *  @param outStream a std::ostream reference
          */
         void print(std::ostream& outStream);
+
+        /** Prints the Menu's prompt to the supplied std::ostream.
+         *
+         * @param outStream a std::ostream reference
+         */
+        virtual void printPrompt(std::ostream& outStream) = 0;
 
         /** Subscript operator for the Menu class.
          *
          * @param index a constant int reference
          * @return A constant MenuItem reference
          */
-        MenuItem* operator[](const unsigned& index);
+        MenuItem& operator[](const unsigned& index);
 
         /** Stream insertion operator for the Menu class.
          *

@@ -1,13 +1,26 @@
 #include "MapMenu.h"
 
-#include <dirent.h>
-
 #include "MapMenuItem.h"
+#include "tutils.h"
+
+#include <algorithm>
 
 MapMenu::MapMenu()
 {
+    unsigned lastSortLoc = 0;
+
     std::vector<std::string> fileNames;
-    getFilesInSaveDir(fileNames);
+
+    tutils::getFilesInDirRecursive(fileNames, "Maps/Easy", ".txt");
+    std::sort(fileNames.begin(), fileNames.end());
+    lastSortLoc = fileNames.size();
+
+    tutils::getFilesInDirRecursive(fileNames, "Maps/Medium", ".txt");
+    std::sort(fileNames.begin() + lastSortLoc, fileNames.end());
+    lastSortLoc = fileNames.size();
+
+    tutils::getFilesInDirRecursive(fileNames, "Maps/Hard", ".txt");
+    std::sort(fileNames.begin() + lastSortLoc, fileNames.end());
 
     for (unsigned i = 0; i < fileNames.size(); ++i)
     {
@@ -15,18 +28,7 @@ MapMenu::MapMenu()
     }
 }
 
-void MapMenu::getFilesInSaveDir(std::vector<std::string>& list)
+void MapMenu::printPrompt(std::ostream &outStream)
 {
-    DIR *dir;
-    struct dirent *file;
-
-    dir = opendir("./");
-
-    if (dir != NULL){
-       while ((file = readdir(dir))){
-          list.push_back(file->d_name);
-       }
-    }
-
-    closedir(dir);
+    outStream << "Please select a map to play.\n";
 }

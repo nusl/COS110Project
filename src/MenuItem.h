@@ -8,11 +8,13 @@
 class MenuItem
 {
     public:
-        MenuItem(const std::string& nme);
+        explicit MenuItem(const std::string& nme);
         virtual ~MenuItem(){}
 
-        virtual void execute(Sprite*){}
+        virtual void execute(Sprite*&){}
         virtual void execute(std::string&){}
+
+        const std::string& getName();
 
         friend std::ostream& operator<<(std::ostream& ostr, MenuItem& item);
     private:
