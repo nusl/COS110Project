@@ -55,6 +55,7 @@ struct Coord : public std::pair<int, int>
  *  Holds the current state of the game's map as well as some functions to
  *  facilitate actions on the map itself.
  */
+class Piece;
 class Map
 {
     public:

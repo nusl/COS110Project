@@ -1,6 +1,9 @@
 #ifndef PIECE_H
 #define PIECE_H
 
+#include "Map.h"
+
+class Map;
 class Piece
 {
 	public:
@@ -15,7 +18,8 @@ class Piece
 		,double inDodgeChance
 		,double inParryChance
 		,char inState
-		,char inType):
+		,char inType
+		,bool inMoveOnto):
 
 		 maxLife(inMaxLife)
 		,currentLife(inCurrentLife)
@@ -27,17 +31,21 @@ class Piece
 		,dodgeChance(inDodgeChance)
 		,parryChance(inParryChance)
 		,state(inState)
-		,type(inType){}
+		,type(inType)
+		,moveOnto(inMoveOnto)
+		{}
 		
 
-		virtual ~Piece() = 0;
+		~Piece(){};
 		
-		void action(const int& x, const int& y);
+		//we can change this if needed. I know Frank, just bare with me bro... We can make it a member with 2 line changes.
+		virtual void action(const int& x, const int& y, Map* caller) = 0;
 		
 		const char getState(){return state;}
 		const char getType(){return type;}
 		
 	protected:
+	//TODO: Some of these functions can be moved to a lower level in the hierarchy. But later...
 	
 		void setState(const char& inState){state = inState;}
 		
@@ -51,6 +59,8 @@ class Piece
 		const double getCritChance(){return critChance;}
 		const double getDodgeChance(){return dodgeChance;}
 		const double getParryChance(){return parryChance;}
+		
+		const bool canBeMovedOnto(){return moveOnto;}//can I be moved onto by another piece? Like a waypoint and an empty piece.
 
 	private:
 	
@@ -67,6 +77,8 @@ class Piece
 
 		char state;
 		char type;
+		
+		bool moveOnto;
 };
 
 #endif
