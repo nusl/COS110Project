@@ -1,10 +1,13 @@
 // Incomplete main file
 // Will change!
 
-#include "Game.h"
+#include <iostream>
+#include "Mage.h"
 
-int main(int argc, const char* argv[])
+int main()
 {
-    Game g;
+	Piece *test = new Mage();
+	std::cout << test->getType() << std::endl;
+	Game g;
     g.start();
 }
