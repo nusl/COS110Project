@@ -35,6 +35,7 @@ class Hammer : public Creep
 		//,false//inMoveOnto
 		)
 		{}
+		virtual void action(const int& x, const int& y, Map* caller){};
 };
 
 #endif

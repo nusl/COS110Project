@@ -2,6 +2,7 @@
 // Will change!
 
 #include <iostream>
+#include "Game.h"
 #include "Mage.h"
 
 int main()

@@ -43,6 +43,7 @@ class Ranger : public RangedSprite, public AmmoUnit
 		,10//inpPowerIncrease
 		)
 		{}
+		virtual void action(const int& x, const int& y, Map* caller){};
 };
 
 #endif

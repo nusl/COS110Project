@@ -37,6 +37,7 @@ class Warrior : public MeleeSprite
 		,10//inRegenCounter
 		)
 		{}
+		virtual void action(const int& x, const int& y, Map* caller){};
 };
 
 #endif
