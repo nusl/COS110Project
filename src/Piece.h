@@ -49,7 +49,7 @@ class Piece
 	//TODO: Some of these functions can be moved to a lower level in the hierarchy. But later...
 	
 		void setState(const char& inState){state = inState;}
-		
+
 		const unsigned int getMaxLife(){return maxLife;}
 		const unsigned int getCurrentLife(){return currentLife;}
 		const unsigned int getMoveCount(){return moveCount;}

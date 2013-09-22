@@ -2,6 +2,7 @@
 #define MAP_H
 
 #include <vector>
+#include <stack>
 #include <string>
 
 #include "Piece.h"
@@ -79,13 +80,14 @@ class Map
          *
          *  @param mapState a constant std::string reference.
          */
-        Map(const std::string& mapState);
+        Map(const std::vector<std::string>& mapState);
 
         /** The Map class' descructor.
          *
          *  Cleanup of the Map class occurs here.
          */
         ~Map();
+        //TODO:deallocMap();
 
         /** Move the piece at the first coordinate on the map to the location of the second coordinate on the map.
          *
@@ -105,7 +107,7 @@ class Map
          *  @param coord a constant Coord reference.
          *  @return void
          */
-        void setPieceAt(const Piece* piece, const Coord& coord);
+        void placePieceAt(const Piece* piece, const Coord& coord);
 
         /** Get handle of piece at a coordinate on the map.
          *
@@ -144,12 +146,14 @@ class Map
 
     private:
 
-        /** A 2D vector of pointers to pieces present on the map.
+        /** A 2D vector of a stack of pointers to pieces present on the map.
          *
          *  This vector represents the current state of the map in terms of
-         *  its pieces.
+         *  its pieces. Pieces can be stacked on top of each other at any one location on the map.
+         *	This way it is easy to put a sprite on a waypoint and move it off a waypoint. 
+         *	It also makes it simpler when we need to move objects from one place to another, or when we need to destroy them.
          */
-        std::vector<std::vector<Piece*> > map;
+        std::vector<std::vector<std::stack<Piece*> > > map;
 
         /** Castrate the copy constructor.
          *
