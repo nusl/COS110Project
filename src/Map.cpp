@@ -1,8 +1,9 @@
 #include <vector>
 #include <stack>
 #include <string>
-#include <stdexcept>
-#include <cassert>
+#include <stdexcept>	//domain_error
+#include <cassert>		//assert
+#include <typeinfo>  	//typeid
 
 #include "Map.h"
 
@@ -92,6 +93,9 @@ void Map::deallocMap()
 
 bool Map::move(const Coord& from, const Coord& to)
 {
+	//We cannot move an EmptySpace, the caller is broken if this happens.
+	assert(typeid(*getHandleAt(from)) != typeid(EmptySpace));
+
 	//Are we referring to a location on the map that exists?
 	if(from.x >= map.size())
 		return false;
