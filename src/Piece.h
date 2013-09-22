@@ -44,7 +44,8 @@ class Piece
 		
 		const char getState(){return state;}
 		const char getType(){return type;}
-		
+		const bool canBeMovedOnto() const{return moveOnto;}//can I be moved onto by another piece? Like a waypoint and an empty piece.
+
 	protected:
 	//TODO: Some of these functions can be moved to a lower level in the hierarchy. But later...
 	
@@ -61,8 +62,6 @@ class Piece
 		const double getDodgeChance(){return dodgeChance;}
 		const double getParryChance(){return parryChance;}
 		
-		const bool canBeMovedOnto(){return moveOnto;}//can I be moved onto by another piece? Like a waypoint and an empty piece.
-
 	private:
 	
 		unsigned int maxLife;

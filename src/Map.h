@@ -7,61 +7,21 @@
 
 #include "Piece.h"
 
-/** Struct to hold coordinates of objects in the Map.
- *  This struct inherits from std::pair to enable the functionality that might be attractive in doing so.
- *
- *  Also, it keeps Lyle happy. He wanted the pair, and I wanted the struct. It's a middle-ground! :D
- *  Besides, Lyle, a pair is just a struct with some bolted-on stuffs anyway;
- *
- *  template <class T1, class T2> struct pair;
- *  www.cplusplus.com/reference/utility/pair/
- *
- *  ---
- *
- *  Use of this struct would be as follows;
- *
- *  Coord c;
- *
- *  c.x() = 4;
- *  c.y() = 5;
- *
- *  int x = c.x();
- *  int y = c.y();
- *
- *  etc.
- *
- *  It's pretty nifty, yes?
- */
-struct Coord : public std::pair<int, int>
+
+struct Coord
 {
     /** Coord struct constructor.
      *
      *  @param inX a constant integer reference
      *  @param inY a constant integer reference
      */
-    Coord(const int& inX, const int& inY)
+    Coord(const unsigned int& inX, const unsigned int& inY)
     {
-        x() = inX;
-        y() = inY;
+        x = inX;
+        y = inY;
     }
-
-    /** The x coordinate.
-     *
-     * @return An integer reference.
-     */
-    int& x()
-    {
-        return first;
-    }
-
-    /** The y coordinate.
-     *
-     * @return An integer reference.
-     */
-    int& y()
-    {
-        return second;
-    }
+    unsigned int x;
+    unsigned int y;
 };
 
 /** The Map class.
@@ -87,7 +47,7 @@ class Map
          *  Cleanup of the Map class occurs here.
          */
         ~Map();
-        //TODO:deallocMap();
+        void deallocMap();
 
         /** Move the piece at the first coordinate on the map to the location of the second coordinate on the map.
          *
@@ -107,7 +67,7 @@ class Map
          *  @param coord a constant Coord reference.
          *  @return void
          */
-        void placePieceAt(const Piece* piece, const Coord& coord);
+        bool placePieceAt(Piece* piece, const Coord& coord);
 
         /** Get handle of piece at a coordinate on the map.
          *
@@ -150,7 +110,7 @@ class Map
          *
          *  This vector represents the current state of the map in terms of
          *  its pieces. Pieces can be stacked on top of each other at any one location on the map.
-         *	This way it is easy to put a sprite on a waypoint and move it off a waypoint. 
+         *	This way it is easy to put a sprite on a waypoint and move it off a waypoint.
          *	It also makes it simpler when we need to move objects from one place to another, or when we need to destroy them.
          */
         std::vector<std::vector<std::stack<Piece*> > > map;
