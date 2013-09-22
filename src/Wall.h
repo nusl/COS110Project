@@ -36,7 +36,7 @@ class Wall : public ImmovablePiece
 		,false//inMoveOnto
 		)
 		{}
-		virtual void action(const int& x, const int& y, Map* caller){};
+		virtual void action(const Coord& coord, Map* caller){};
 };
 
 #endif

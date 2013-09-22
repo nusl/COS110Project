@@ -99,15 +99,6 @@ class Map
          */
         bool move(const Coord& from, const Coord& to);
 
-        /** Get the Player Sprite's relative coordinates to the provided coordinates.
-         *
-         *  Not as generic as it could be.
-         *
-         *  @param coord a constant Coord reference.
-         *  @return The relative coordinate to the Player's Sprite on the map as a const Coord copy.
-         */
-        const Coord getSpriteRelativeCoord(const Coord& coord) const;
-
         /** Set the piece at the coordinate on the map to the provided piece.
          *
          *  @param piece a constant Piece pointer.
@@ -122,7 +113,7 @@ class Map
          *  @return The Piece object at the coordinate on the map as a constant Piece pointer.
          */
         const Piece* getHandleAt(const Coord& coord) const;
-
+        
         /** Update the current state of the map.
          *
          *  This update performs any moves or actions necessary and updates the map accordingly
@@ -131,6 +122,25 @@ class Map
          *  @return void
          */
         void update();
+        
+       /*NON GENERICS:*/
+       
+		/** Get a handle on the waypoint with state S, which is start.
+		 *
+		 *
+         *  @param void
+         *  @return Handle(pointer) to Waypoint with state start of type Piece.
+         */
+   		const Piece* getHandleWaypointStart();
+
+        /** Get the Player Sprite's relative coordinates to the provided coordinates.
+         *
+         *  Not as generic as it could be.
+         *
+         *  @param coord a constant Coord reference.
+         *  @return The relative coordinate to the Player's Sprite on the map as a const Coord copy.
+         */
+        const Coord getSpriteRelativeCoord(const Coord& coord) const;
 
     private:
 

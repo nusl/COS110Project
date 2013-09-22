@@ -40,9 +40,16 @@ class Sprite : public MovablePiece
 		,regenCounter(inRegenCounter)
 		{}
 		
+		//Recieves a command, validates if it exists(return bool), sets the intent. Afterward, action() is called. 
+		bool command(const char& in)
+		{
+			intent = in;
+			return true;//return true if command exists
+		}
 	private:
 		double regenRate;
 		unsigned int regenCounter;
+		char intent;
 };
 
 #endif

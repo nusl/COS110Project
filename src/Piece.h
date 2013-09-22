@@ -4,6 +4,7 @@
 #include "Map.h"
 
 class Map;
+struct Coord;
 class Piece
 {
 	public:
@@ -39,7 +40,7 @@ class Piece
 		~Piece(){};
 		
 		//we can change this if needed. I know Frank, just bare with me bro... We can make it a member with 2 line changes.
-		virtual void action(const int& x, const int& y, Map* caller) = 0;
+		virtual void action(const Coord& coord, Map* caller) = 0;
 		
 		const char getState(){return state;}
 		const char getType(){return type;}
