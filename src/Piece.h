@@ -36,8 +36,7 @@ class Piece
 		,moveOnto(inMoveOnto)
 		{}
 		
-
-		~Piece(){};
+        virtual ~Piece(){};
 		
 		//we can change this if needed. I know Frank, just bare with me bro... We can make it a member with 2 line changes.
 		virtual void action(const Coord& coord, Map* caller) = 0;
