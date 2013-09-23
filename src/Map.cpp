@@ -4,9 +4,11 @@
 #include <stdexcept>	//domain_error
 #include <cassert>		//assert
 #include <typeinfo>  	//typeid
+#include <ostream>
 
 #include "Map.h"
 
+#include "Sprite.h"//used in dynamic casting
 #include "Critter.h"
 #include "Hammer.h"
 #include "Hunter.h"
@@ -16,6 +18,13 @@
 #include "Wall.h"
 #include "Waypoint.h"
 #include "EmptySpace.h"
+
+typedef std::vector<std::vector<std::stack<Piece*> > >::const_iterator	const_mapIterator;
+typedef std::vector<std::stack<Piece*> >::const_iterator				const_rowIterator;
+typedef std::vector<std::vector<std::stack<Piece*> > >::iterator		mapIterator;
+typedef std::vector<std::stack<Piece*> >::iterator						rowIterator;
+typedef std::vector<std::vector<std::stack<Piece*> > >::size_type		mapSize;
+typedef std::vector<std::stack<Piece*> >::size_type						rowSize;
 
 
 Map::Map(const std::vector<std::string>& mapState)
@@ -74,10 +83,7 @@ Map::~Map()
 }
 
 void Map::deallocMap()
-{
-	typedef std::vector<std::vector<std::stack<Piece*> > >::iterator	mapIterator;
-	typedef std::vector<std::stack<Piece*> >::iterator					rowIterator;
-	
+{	
 	for(mapIterator it = map.begin(); it!=map.end(); ++it)
 	{
 		for(rowIterator it2 = it->begin(); it2!=it->end(); ++it2)
@@ -123,7 +129,71 @@ bool Map::placePieceAt(Piece* piece, const Coord& coord)
 	return true;
 }
 
+void Map::destroyPieceAt(const Coord& coord)
+{
+	//We should not delete an EmptySpace except in the destructor, the caller is broken if this happens.
+	assert(typeid(*getHandleAt(coord)) != typeid(EmptySpace));
+	
+	delete map.at(coord.x).at(coord.y).top();
+	map.at(coord.x).at(coord.y).pop();
+}
+
 const Piece* Map::getHandleAt(const Coord& coord) const
 {
 	return map.at(coord.x).at(coord.y).top();
+}
+
+//Call action() of pieces on top of the stack at each coordinate.
+//Actions are called on a row by row bases.
+void Map::update()
+{
+	for(mapSize y = 0; y!=map.size(); ++y)
+		for(rowSize x = 0; x!=map[y].size(); ++x)
+			map[y][x].top()->action(Coord(x,y), this);
+}
+
+//Renders the map by calling getState()
+void Map::render(std::ostream& os) const
+{	
+	os << " ";
+	for(rowSize i = 0; i != map[0].size(); ++i)//NOTE: Does not work if the map is not of rectangular dimensions
+		os << "-";
+	os << std::endl;
+	
+	for(const_mapIterator it = map.begin(); it!=map.end(); ++it)
+	{
+		os << "|";
+		for(const_rowIterator it2 = it->begin(); it2!=it->end(); ++it2)
+				os << it2->top()->getState();
+		os << "|";
+	}
+
+	os << " ";
+	for(rowSize i = 0; i != map[0].size(); ++i)
+		os << "-";
+	os << std::endl;
+}
+
+const Piece* Map::getHandleWaypointStart() const
+{
+	for(const_mapIterator it = map.begin(); it!=map.end(); ++it)
+	{
+		for(const_rowIterator it2 = it->begin(); it2!=it->end(); ++it2)
+		{
+			if(typeid(*(it2->top())) == typeid(Waypoint))
+				if(it2->top()->getState() == 'S')//If the waypoint is start
+					return it2->top();
+		}
+	}
+	assert(false);//we should never fail to return a handle to a starting waypoint.
+	//This function is solely used during setup phase. If an object is on the waypoint, we have passed setup phase.
+}
+
+const Coord Map::getSpriteCoord() const
+{
+	for(mapSize y = 0; y!=map.size(); ++y)
+		for(rowSize x = 0; x!=map[y].size(); ++x)
+			if(dynamic_cast<Sprite*>(map[y][x].top()))//TODO: This is expensive, if we need to optimise, put a coord in map that points to sprite.
+				return Coord(x,y);
+	assert(false);//we should never fail to return a coordinate to a sprite.	
 }

@@ -4,6 +4,7 @@
 #include <vector>
 #include <stack>
 #include <string>
+#include <ostream>
 
 #include "Piece.h"
 
@@ -30,6 +31,8 @@ struct Coord
  *  facilitate actions on the map itself.
  */
 class Piece;
+
+//Map takes ownership of all pointers that are passed to it.
 class Map
 {
     public:
@@ -44,7 +47,7 @@ class Map
 
         /** The Map class' descructor.
          *
-         *  Cleanup of the Map class occurs here.
+         *  Cleanup of the Map class occurs here. Calls deallocMap().
          */
         ~Map();
         void deallocMap();
@@ -65,9 +68,19 @@ class Map
          *
          *  @param piece a constant Piece pointer.
          *  @param coord a constant Coord reference.
-         *  @return void
+         *  @return bool indicating if it is possible to place a piece on top of whatever piece is already in place at coord.
          */
         bool placePieceAt(Piece* piece, const Coord& coord);
+
+        /** Destroys piece at coord.
+         *
+         *	Deletes the memory location pointed to, by the top pointer on the stack at that particular location, indicated by coord.
+         *	It then pops the invalidated pointer of the stack.
+         *
+         *  @param coord a constant Coord reference.
+         *  @return void
+         */
+		void destroyPieceAt(const Coord& coord);
 
         /** Get handle of piece at a coordinate on the map.
          *
@@ -78,12 +91,20 @@ class Map
         
         /** Update the current state of the map.
          *
-         *  This update performs any moves or actions necessary and updates the map accordingly
-         *  before ending the function.
+         *  This update calls action() on every piece on the board that is at the top of the board stack.
+         *  Action(), implemented in Piece hierarchy, defines the behaviour for that piece.
+         *	Actions are called on a row by row bases.
          *
          *  @return void
          */
         void update();
+
+		/** Renders the map by reading the state of every piece on top of the stack.
+		 *
+         *  @param ostream&
+         *  @return void
+         */
+		void render(std::ostream& os) const;
         
        /*NON GENERICS:*/
        
@@ -93,16 +114,16 @@ class Map
          *  @param void
          *  @return Handle(pointer) to Waypoint with state start of type Piece.
          */
-   		const Piece* getHandleWaypointStart();
+   		const Piece* getHandleWaypointStart() const;
 
-        /** Get the Player Sprite's relative coordinates to the provided coordinates.
+        /** Get the Player Sprite's coordinates.
          *
          *  Not as generic as it could be.
          *
          *  @param coord a constant Coord reference.
-         *  @return The relative coordinate to the Player's Sprite on the map as a const Coord copy.
+         *  @return The coordinate to the Player's Sprite on the map as a const Coord copy.
          */
-        const Coord getSpriteRelativeCoord(const Coord& coord) const;
+        const Coord getSpriteCoord() const;
 
     private:
 
@@ -110,7 +131,7 @@ class Map
          *
          *  This vector represents the current state of the map in terms of
          *  its pieces. Pieces can be stacked on top of each other at any one location on the map.
-         *	This way it is easy to put a sprite on a waypoint and move it off a waypoint.
+         *	This way, it is easy to put a sprite on a waypoint and move it off a waypoint.
          *	It also makes it simpler when we need to move objects from one place to another, or when we need to destroy them.
          */
         std::vector<std::vector<std::stack<Piece*> > > map;
