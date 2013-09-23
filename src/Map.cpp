@@ -67,6 +67,7 @@ Map::Map(const std::vector<std::string>& mapState)
 				case '.':
 					//The first object created at the bottom of all stacks is an EmptySpace() object
 					//So, do not create one here.
+					break;
 				default:
 					deallocMap();
 					throw std::domain_error("Map that was loaded specifies a board piece that does not exist");
@@ -165,7 +166,7 @@ void Map::render(std::ostream& os) const
 		os << "|";
 		for(const_rowIterator it2 = it->begin(); it2!=it->end(); ++it2)
 				os << it2->top()->getState();
-		os << "|";
+		os << "|" << '\n';
 	}
 
 	os << " ";
