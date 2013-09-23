@@ -1,5 +1,8 @@
 #include "Game.h"
 
+#include <vector>
+#include <iostream>
+
 #include "OutOfBoundsException.h"
 #include "tutils.h"
 
@@ -42,7 +45,7 @@ void Game::start()
     MapMenu mMenu;
     mMenu.print(std::cout);
 
-    std::string s;
+    std::vector<std::string> s;
 
     menuDone = false;
 
@@ -58,6 +61,11 @@ void Game::start()
             mMenu[iSel - 1].execute(s);
             menuDone = true;
         } catch(OutOfBoundsException ex){}
+    }
+
+    for(unsigned i = 0; i < s.size(); ++i)
+    {
+        std::cout << s[i] << std::endl;
     }
 
     // DO STUFFS HURR

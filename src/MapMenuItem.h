@@ -4,13 +4,14 @@
 #include "MenuItem.h"
 
 #include <string>
+#include <vector>
 
 class MapMenuItem : public MenuItem
 {
     public:
         MapMenuItem(const std::string& name);
 
-        virtual void execute(std::string&);
+        virtual void execute(std::vector<std::string> &);
 };
 
 #endif

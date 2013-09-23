@@ -3,6 +3,8 @@
 
 #include <string>
 #include <iostream>
+#include <vector>
+
 #include "Sprite.h"
 
 class MenuItem
@@ -12,7 +14,7 @@ class MenuItem
         virtual ~MenuItem(){}
 
         virtual void execute(Sprite*&){}
-        virtual void execute(std::string&){}
+        virtual void execute(std::vector<std::string>&){}
 
         const std::string& getName();
 

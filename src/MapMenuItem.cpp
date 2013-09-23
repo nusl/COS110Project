@@ -2,16 +2,27 @@
 
 #include <fstream>
 #include <streambuf>
+#include <sstream>
 
 MapMenuItem::MapMenuItem(const std::string& name) : MenuItem(name)
 {
 }
 
-void MapMenuItem::execute(std::string& s)
+void MapMenuItem::execute(std::vector<std::string>& s)
 {
-    // Open the file, get its contents, return as one string
+    // Open the file, get its contents, return as a vector of strings
 
     std::ifstream stream(getName().c_str());
     std::string nStr((std::istreambuf_iterator<char>(stream)), std::istreambuf_iterator<char>());
-    s = nStr;
+
+    std::string temp;
+    std::stringstream strStream(nStr);
+
+    // Kill the first line(contains useless map dimension information)
+    std::getline(strStream, temp);
+
+    while(std::getline(strStream, temp))
+    {
+        s.push_back(temp);
+    }
 }
