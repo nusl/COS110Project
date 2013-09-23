@@ -67,6 +67,7 @@ void Game::start()
     {
         std::cout << s[i] << std::endl;
     }
+    std::cout << std::endl << s.size() << std::endl;
 
     // DO STUFFS HURR
 }

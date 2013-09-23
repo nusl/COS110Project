@@ -125,6 +125,19 @@ namespace tutils
         closedir(dir);
     }
 
+    inline void sanitize(std::string& str, const std::string& list)
+    {
+        std::string temp;
+        for (unsigned i = 0; i < str.length(); ++i)
+        {
+            if (list.find(str[i]) == std::string::npos)
+            {
+                temp += str[i];
+            }
+        }
+        str = temp;
+    }
+
 } // namespace tutils
 
 #endif

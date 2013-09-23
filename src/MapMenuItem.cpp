@@ -1,5 +1,7 @@
 #include "MapMenuItem.h"
 
+#include "tutils.h"
+
 #include <fstream>
 #include <streambuf>
 #include <sstream>
@@ -23,6 +25,7 @@ void MapMenuItem::execute(std::vector<std::string>& s)
 
     while(std::getline(strStream, temp))
     {
+        tutils::sanitize(temp, "\r\n");
         s.push_back(temp);
     }
 }
