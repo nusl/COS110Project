@@ -1,12 +1,12 @@
-#ifndef CRITTER_H
-#define CRITTER_H
+#ifndef EMPTYSPACE_H
+#define EMPTYSPACE_H
 
-#include "Creep.h"
+#include "ImmovablePiece.h"
 
-class Critter : public Creep
+class EmptySpace : public ImmovablePiece
 {
 	public:
-		Critter
+		EmptySpace
 		(//unsigned int inMaxLife
 		//,unsigned int inCurrentLife
 		//,unsigned int inMoveCount
@@ -20,19 +20,19 @@ class Critter : public Creep
 		//,char inType
 		//,bool inMoveOnto
 		):
-		Creep
-		(5//inMaxLife
-		,5//inCurrentLife
-		,0//inMoveCount
-		,1//inRange
-		,10//inAttackPower
-		,1.0//inHitChance
-		,0.5//inCritChance
-		,0.1//inDodgeChance
-		,0.2//inParryChance
-		,'C'//inState
-		,'C'//inType
-		//,false//inMoveOnto
+		ImmovablePiece
+		(1//inMaxLife
+		,1//inCurrentLife
+		//,0//inMoveCount
+		//,0//inRange
+		//,0//inAttackPower
+		//,0//inHitChance
+		//,0//inCritChance
+		//,0//inDodgeChance
+		//,0//inParryChance
+		,'0'//inState
+		,'0'//inType
+		,true//inMoveOnto
 		)
 		{}
 		virtual void action(const Coord& coord, Map* caller){};

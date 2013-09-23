@@ -2,65 +2,27 @@
 #define MAP_H
 
 #include <vector>
+#include <stack>
 #include <string>
+#include <ostream>
 
 #include "Piece.h"
 
-/** Struct to hold coordinates of objects in the Map.
- *  This struct inherits from std::pair to enable the functionality that might be attractive in doing so.
- *
- *  Also, it keeps Lyle happy. He wanted the pair, and I wanted the struct. It's a middle-ground! :D
- *  Besides, Lyle, a pair is just a struct with some bolted-on stuffs anyway;
- *
- *  template <class T1, class T2> struct pair;
- *  www.cplusplus.com/reference/utility/pair/
- *
- *  ---
- *
- *  Use of this struct would be as follows;
- *
- *  Coord c;
- *
- *  c.x() = 4;
- *  c.y() = 5;
- *
- *  int x = c.x();
- *  int y = c.y();
- *
- *  etc.
- *
- *  It's pretty nifty, yes?
- */
-struct Coord : public std::pair<int, int>
+
+struct Coord
 {
     /** Coord struct constructor.
      *
      *  @param inX a constant integer reference
      *  @param inY a constant integer reference
      */
-    Coord(const int& inX, const int& inY)
+    Coord(const unsigned int& inX, const unsigned int& inY)
     {
-        x() = inX;
-        y() = inY;
+        x = inX;
+        y = inY;
     }
-
-    /** The x coordinate.
-     *
-     * @return An integer reference.
-     */
-    int& x()
-    {
-        return first;
-    }
-
-    /** The y coordinate.
-     *
-     * @return An integer reference.
-     */
-    int& y()
-    {
-        return second;
-    }
+    unsigned int x;
+    unsigned int y;
 };
 
 /** The Map class.
@@ -68,6 +30,9 @@ struct Coord : public std::pair<int, int>
  *  Holds the current state of the game's map as well as some functions to
  *  facilitate actions on the map itself.
  */
+class Piece;
+
+//Map takes ownership of all pointers that are passed to it.
 class Map
 {
     public:
@@ -78,13 +43,14 @@ class Map
          *
          *  @param mapState a constant std::string reference.
          */
-        Map(const std::string& mapState);
+        Map(const std::vector<std::string>& mapState);
 
         /** The Map class' descructor.
          *
-         *  Cleanup of the Map class occurs here.
+         *  Cleanup of the Map class occurs here. Calls deallocMap().
          */
         ~Map();
+        void deallocMap();
 
         /** Move the piece at the first coordinate on the map to the location of the second coordinate on the map.
          *
@@ -98,22 +64,23 @@ class Map
          */
         bool move(const Coord& from, const Coord& to);
 
-        /** Get the Player Sprite's relative coordinates to the provided coordinates.
-         *
-         *  Not as generic as it could be.
-         *
-         *  @param coord a constant Coord reference.
-         *  @return The relative coordinate to the Player's Sprite on the map as a const Coord copy.
-         */
-        const Coord getSpriteRelativeCoord(const Coord& coord) const;
-
         /** Set the piece at the coordinate on the map to the provided piece.
          *
          *  @param piece a constant Piece pointer.
          *  @param coord a constant Coord reference.
+         *  @return bool indicating if it is possible to place a piece on top of whatever piece is already in place at coord.
+         */
+        bool placePieceAt(Piece* piece, const Coord& coord);
+
+        /** Destroys piece at coord.
+         *
+         *	Deletes the memory location pointed to, by the top pointer on the stack at that particular location, indicated by coord.
+         *	It then pops the invalidated pointer of the stack.
+         *
+         *  @param coord a constant Coord reference.
          *  @return void
          */
-        void setPieceAt(const Piece* piece, const Coord& coord);
+		void destroyPieceAt(const Coord& coord);
 
         /** Get handle of piece at a coordinate on the map.
          *
@@ -121,24 +88,53 @@ class Map
          *  @return The Piece object at the coordinate on the map as a constant Piece pointer.
          */
         const Piece* getHandleAt(const Coord& coord) const;
-
+        
         /** Update the current state of the map.
          *
-         *  This update performs any moves or actions necessary and updates the map accordingly
-         *  before ending the function.
+         *  This update calls action() on every piece on the board that is at the top of the board stack.
+         *  Action(), implemented in Piece hierarchy, defines the behaviour for that piece.
+         *	Actions are called on a row by row bases.
          *
          *  @return void
          */
         void update();
 
+		/** Renders the map by reading the state of every piece on top of the stack.
+		 *
+         *  @param ostream&
+         *  @return void
+         */
+		void render(std::ostream& os) const;
+        
+       /*NON GENERICS:*/
+       
+		/** Get a handle on the waypoint with state S, which is start.
+		 *
+		 *
+         *  @param void
+         *  @return Handle(pointer) to Waypoint with state start of type Piece.
+         */
+   		const Piece* getHandleWaypointStart() const;
+
+        /** Get the Player Sprite's coordinates.
+         *
+         *  Not as generic as it could be.
+         *
+         *  @param coord a constant Coord reference.
+         *  @return The coordinate to the Player's Sprite on the map as a const Coord copy.
+         */
+        const Coord getSpriteCoord() const;
+
     private:
 
-        /** A 2D vector of pointers to pieces present on the map.
+        /** A 2D vector of a stack of pointers to pieces present on the map.
          *
          *  This vector represents the current state of the map in terms of
-         *  its pieces.
+         *  its pieces. Pieces can be stacked on top of each other at any one location on the map.
+         *	This way, it is easy to put a sprite on a waypoint and move it off a waypoint.
+         *	It also makes it simpler when we need to move objects from one place to another, or when we need to destroy them.
          */
-        std::vector<std::vector<Piece*> > map;
+        std::vector<std::vector<std::stack<Piece*> > > map;
 
         /** Castrate the copy constructor.
          *
