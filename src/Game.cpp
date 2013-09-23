@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "Map.h"
 
 #include <vector>
 #include <iostream>
@@ -45,7 +46,7 @@ void Game::start()
     MapMenu mMenu;
     mMenu.print(std::cout);
 
-    std::vector<std::string> s;
+    std::vector<std::string> selectedMap;
 
     menuDone = false;
 
@@ -58,15 +59,18 @@ void Game::start()
 
         try
         {
-            mMenu[iSel - 1].execute(s);
+            mMenu[iSel - 1].execute(selectedMap);
             menuDone = true;
         } catch(OutOfBoundsException ex){}
     }
 
-    for(unsigned i = 0; i < s.size(); ++i)
+    for(unsigned i = 0; i < selectedMap.size(); ++i)
     {
-        std::cout << s[i] << std::endl;
+        std::cout << selectedMap[i] << std::endl;
     }
 
     // DO STUFFS HURR
+    
+    Map testMap(selectedMap);
+    testMap.render(std::cout);
 }
