@@ -16,7 +16,7 @@ struct Coord
      *  @param inX a constant integer reference
      *  @param inY a constant integer reference
      */
-    Coord(const unsigned int& inX, const unsigned int& inY)
+    Coord(const unsigned int& inY, const unsigned int& inX)
     {
         x = inX;
         y = inY;
@@ -32,7 +32,19 @@ struct Coord
  */
 class Piece;
 
-//Map takes ownership of all pointers that are passed to it.
+/** Map class.
+ *
+ *  Stores the different pieces in the game on a cartesian map.
+ *	It provides a platform that pieces can interact with each other with the provided functions.
+ *	It updates the map, which gives each piece to perform its own actions, as well as rendering the map.
+ *	The map reads as a book does, that is, row by row.
+ *	Each line has is a unique y, and each element on a line is a unique x value.
+ *	
+ *	The datastructure that holds the pieces is a 2d vector with a stack of pointers at each coordinate.
+ *
+ *
+ *	NOTE: This class takes ownership of all pointers that is placed in the map datastructure.
+ */
 class Map
 {
     public:
@@ -89,6 +101,15 @@ class Map
          */
         const Piece* getHandleAt(const Coord& coord) const;
         
+        /** Get the coordinate of a Piece.
+         *
+         *	Searches for an object by address.
+         *  @param coord a constant Coord reference.
+         *  @return The coordinate to the Player's Sprite on the map as a const Coord copy.
+         */
+         const Coord getCoordOfPiece(Piece* piece) const;
+
+        
         /** Update the current state of the map.
          *
          *  This update calls action() on every piece on the board that is at the top of the board stack.
@@ -115,6 +136,14 @@ class Map
          *  @return Handle(pointer) to Waypoint with state start of type Piece.
          */
    		const Piece* getHandleWaypointStart() const;
+   		
+		/** Get a coord on the waypoint with state S, which is start.
+		 *
+		 *
+         *  @param void
+         *  @return Coord to Waypoint with state start of type Piece.
+         */
+   		const Coord getCoordWaypointStart() const;
 
         /** Get the Player Sprite's coordinates.
          *
@@ -124,7 +153,7 @@ class Map
          *  @return The coordinate to the Player's Sprite on the map as a const Coord copy.
          */
         const Coord getSpriteCoord() const;
-
+        
     private:
 
         /** A 2D vector of a stack of pointers to pieces present on the map.
