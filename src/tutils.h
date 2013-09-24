@@ -135,7 +135,7 @@ namespace tutils
     inline void sanitize(std::string& str, const std::string& list)
     {
         std::string temp;
-        for (int i = 0; i < str.length(); ++i)
+        for (unsigned i = 0; i < str.length(); ++i)
         {
             if (list.find(str[i]) == std::string::npos)
             {

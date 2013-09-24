@@ -38,7 +38,7 @@ class Piece
 		
         virtual ~Piece(){};
 		
-		//we can change this if needed. I know Frank, just bare with me bro... We can make it a member with 2 line changes.
+        //we can change this if needed.
 		virtual void action(const Coord& coord, Map* caller) = 0;
 		
 		const char getState(){return state;}

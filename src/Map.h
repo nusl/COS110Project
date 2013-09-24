@@ -24,22 +24,6 @@ struct Coord
     unsigned int y;
 };
 
-struct Offset
-{
-    /** Offset struct constructor.
-     *
-     *  @param inX a constant integer reference
-     *  @param inY a constant integer reference
-     */
-    Offset(const int& inX, const int& inY)
-    {
-        x = inX;
-        y = inY;
-    }
-    int x;
-    int y;
-};
-
 /** The Map class.
  *
  *  Holds the current state of the game's map as well as some functions to
