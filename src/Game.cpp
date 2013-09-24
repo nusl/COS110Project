@@ -74,7 +74,22 @@ void Game::start()
 
     // DO STUFFS HURR
 //test stuff
-/******************************************************************************************************************************/    
+/******************************************************************************************************************************/
+//Map()						--PASSED
+//~Map();					--PASSED
+//deallocMap();				--PASSED
+//move() 					--PASSED
+//placePieceAt()			--PASSED
+//destroyPieceAt()			--PASSED
+//getSpriteCoord()			--PASSED
+//getHandleAt()				--PASSED
+//getCoordOfPiece()			--NOT TESTED
+//update()					--NOT TESTED
+//render()					--PASSED
+//getHandleWaypointStart()	--PASSED
+//getCoordWaypointStart()	--PASSED
+//getSpriteCoord()			--PASSED
+
     Map testMap(selectedMap);
     testMap.render(std::cout);
     
@@ -94,5 +109,14 @@ void Game::start()
     if(!testMap.move(testMap.getSpriteCoord(), spriteCoord))
     	std::cout << "cannot move" << std::endl;
     testMap.render(std::cout);
+    
+    Coord someCoord(0, 6);
+    std::cout << "Abitrary state of someobject: " << testMap.getHandleAt(someCoord)->getState() << std::endl;
+    std::cout << "Abitrary state of waypoint start: " << testMap.getHandleWaypointStart()->getState() << std::endl;
+
+    testMap.destroyPieceAt(testMap.getCoordWaypointStart());
+    testMap.render(std::cout);
+    
+    testMap.update();
 /******************************************************************************************************************************/
 }

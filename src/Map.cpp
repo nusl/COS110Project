@@ -139,7 +139,7 @@ void Map::destroyPieceAt(const Coord& coord)
 	map.at(coord.y).at(coord.x).pop();
 }
 
-const Piece* Map::getHandleAt(const Coord& coord) const
+const inline Piece* Map::getHandleAt(const Coord& coord) const
 {
 	return map.at(coord.y).at(coord.x).top();
 }

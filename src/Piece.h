@@ -41,8 +41,8 @@ class Piece
 		//we can change this if needed. I know Frank, just bare with me bro... We can make it a member with 2 line changes.
 		virtual void action(const Coord& coord, Map* caller) = 0;
 		
-		const char getState(){return state;}
-		const char getType(){return type;}
+		const char getState() const{return state;}
+		const char getType() const{return type;}
 		const bool canBeMovedOnto() const{return moveOnto;}//can I be moved onto by another piece? Like a waypoint and an empty piece.
 
 	protected:
