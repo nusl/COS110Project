@@ -125,10 +125,17 @@ namespace tutils
         closedir(dir);
     }
 
+    /** Sanitize a string.
+     *
+     *  Removes all characters in the given string from the original string.
+     *
+     *  @param str a std::string reference
+     *  @param list a constant std::string reference
+     */
     inline void sanitize(std::string& str, const std::string& list)
     {
         std::string temp;
-        for (unsigned i = 0; i < str.length(); ++i)
+        for (int i = 0; i < str.length(); ++i)
         {
             if (list.find(str[i]) == std::string::npos)
             {
