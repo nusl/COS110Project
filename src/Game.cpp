@@ -67,22 +67,6 @@ void Game::start()
     }
 
     // DO STUFFS HURR
-//test stuff
-/******************************************************************************************************************************/
-//Map()						--PASSED
-//~Map();					--PASSED
-//deallocMap();				--PASSED
-//move() 					--PASSED
-//placePieceAt()			--PASSED
-//destroyPieceAt()			--PASSED
-//getSpriteCoord()			--PASSED
-//getHandleAt()				--PASSED
-//getCoordOf()				--NOT TESTED
-//update()					--PASSED
-//render()					--PASSED
-//getHandleWaypointStart()	--PASSED
-//getCoordWaypointStart()	--PASSED
-//getSpriteCoord()			--PASSED
 
     Map testMap(selectedMap);
     testMap.render(std::cout);

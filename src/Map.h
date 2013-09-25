@@ -191,3 +191,20 @@ class Map
 };
 
 #endif
+
+//test stuff
+/******************************************************************************************************************************/
+//Map()						--PASSED
+//~Map();					--PASSED
+//deallocMap();				--PASSED
+//move() 					--PASSED
+//placePieceAt()			--PASSED
+//destroyPieceAt()			--PASSED
+//getSpriteCoord()			--PASSED
+//getHandleAt()				--PASSED
+//getCoordOf()				--NOT TESTED
+//update()					--PASSED
+//render()					--PASSED
+//getHandleWaypointStart()	--PASSED
+//getCoordWaypointStart()	--PASSED
+//getSpriteCoord()			--PASSED
