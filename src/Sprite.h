@@ -3,6 +3,15 @@
 
 #include "MovablePiece.h"
 
+namespace Direction
+{
+        const char left = '{';
+        const char right = '}';
+        const char up = '^';
+        const char down = 'v';
+        const char invalid = '!';
+}
+
 class Sprite : public MovablePiece
 {
 	public:
@@ -39,16 +48,33 @@ class Sprite : public MovablePiece
 		,regenRate(inRegenRate)
         ,regenCounter(inRegenCounter)
 		{}
-		
+
+        char getIntent() const;
+        const char getDirectionFromIntent() const;
+
 		//Recieves a command, validates if it exists(return bool), sets the intent. Afterward, action() is called. 
         bool command(const char& in);
+
+        virtual void attack(Map& caller){};
+        virtual void rotate(Map& caller){};
+        virtual void move(Map& caller){};
+        virtual void pass(Map& caller){};
+
+        bool attemptAction(Map& caller, const int& attempt);
+
+        bool isAttackIntent() const;
+        bool isRotateIntent() const;
+        bool isMoveIntent() const;
+        bool isPassIntent() const;
 
 	private:
 		double regenRate;
 		unsigned int regenCounter;
-		char intent;
+        char intent;
 
-        static const std::string commandList; //!< Possible commands the Sprite can perform
+        static const std::string commandIntentList;
+        static const std::string attackIntentList;
+        static const std::string passIntentList;
 };
 
 #endif

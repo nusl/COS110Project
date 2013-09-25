@@ -22,9 +22,9 @@ class Piece
 		,char inType
 		,bool inMoveOnto):
 
-		 maxLife(inMaxLife)
+         maxLife(inMaxLife)
 		,currentLife(inCurrentLife)
-		,moveCount(inMoveCount)
+        ,moveCount(inMoveCount)
 		,range(inRange)
 		,attackPower(inAttackPower)
 		,hitChance(inHitChance)
@@ -41,8 +41,8 @@ class Piece
         //we can change this if needed.
 		virtual void action(const Coord& coord, Map* caller) = 0;
 		
-		const char getState(){return state;}
-		const char getType(){return type;}
+        const char getState() const {return state;}
+        const char getType() const {return type;}
 		const bool canBeMovedOnto() const{return moveOnto;}//can I be moved onto by another piece? Like a waypoint and an empty piece.
 
 	protected:
@@ -50,22 +50,22 @@ class Piece
 	
 		void setState(const char& inState){state = inState;}
 
-		const unsigned int getMaxLife(){return maxLife;}
-		const unsigned int getCurrentLife(){return currentLife;}
-		const unsigned int getMoveCount(){return moveCount;}
-		const unsigned int getRange(){return range;}
-		const unsigned int getAttackPower(){return attackPower;}
+        const unsigned int getMaxLife() const {return maxLife;}
+        const unsigned int getCurrentLife() const {return currentLife;}
+        const unsigned int getMoveCount() const {return moveCount;}
+        const unsigned int getRange() const {return range;}
+        const unsigned int getAttackPower() const {return attackPower;}
 
-		const double getHitChance(){return hitChance;}
-		const double getCritChance(){return critChance;}
-		const double getDodgeChance(){return dodgeChance;}
-		const double getParryChance(){return parryChance;}
-		
+        const double getHitChance() const {return hitChance;}
+        const double getCritChance() const {return critChance;}
+        const double getDodgeChance() const {return dodgeChance;}
+        const double getParryChance() const {return parryChance;}
+
 	private:
 	
 		unsigned int maxLife;
 		unsigned int currentLife;
-		unsigned int moveCount;
+        unsigned int moveCount;
 		unsigned int range;
 		unsigned int attackPower;
 

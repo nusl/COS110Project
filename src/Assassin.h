@@ -45,7 +45,14 @@ class Assassin : public MeleeSprite, public AmmoUnit
 		,20//inPowerIncrease
 		)
 		{}
-		virtual void action(const Coord& coord, Map* caller){};
+
+        virtual void action(const Coord& coord, Map* caller){};
+
+        virtual void attack(Map& caller);
+        virtual void rotate(Map& caller);
+        virtual void move(Map& caller);
+        virtual void pass(Map& caller);
+
 };
 
 #endif

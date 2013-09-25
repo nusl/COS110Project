@@ -41,16 +41,14 @@ const int& Player::getScore() const
     return score;
 }
 
-bool Player::move(const Coord& coord, Map* caller, const char& c)
+bool Player::executeCommand(Map &caller, const char& c, const int& attempt)
 {
     if (!(sprite->command(c)))
     {
         return false;
     }
 
-    sprite->action(coord, caller);
-
-    return true;
+    return sprite->attemptAction(caller, attempt);
 }
 
 const Sprite* Player::getSpriteHandle() const
@@ -58,12 +56,12 @@ const Sprite* Player::getSpriteHandle() const
     return sprite;
 }
 
-bool Player::placeSprite(Map& map)  const
+bool Player::placeSprite(Map& map) const
 {
     return map.placePieceAt(sprite, map.getCoordWaypointStart());
 }
 
 bool Player::moveSprite(Map& map, const Coord& coord) const
 {
-    return map.move(testMap.getSpriteCoord(), coord);
+    return map.move(map.getSpriteCoord(), coord);
 }

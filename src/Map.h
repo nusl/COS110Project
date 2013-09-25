@@ -32,8 +32,6 @@ class Piece;
  *  facilitate actions on the map itself.
  *  Map takes ownership of all pointers that are passed to it.
  */
-<<<<<<< HEAD
-=======
 class Piece;
 
 /** Map class.
@@ -49,7 +47,7 @@ class Piece;
  *
  *	NOTE: This class takes ownership of all pointers that is placed in the map datastructure.
  */
->>>>>>> experimental
+
 class Map
 {
     public:

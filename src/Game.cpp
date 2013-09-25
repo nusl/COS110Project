@@ -66,11 +66,23 @@ void Game::start()
         } catch(OutOfBoundsException ex){}
     }
 
-    for(unsigned i = 0; i < selectedMap.size(); ++i)
-    {
-        std::cout << selectedMap[i] << std::endl;
-    }
-    std::cout << std::endl << selectedMap.size() << std::endl;
-
     // DO STUFFS HURR
+
+    Map testMap(selectedMap);
+    testMap.render(std::cout);
+
+    std::cout << testMap.getCoordWaypointStart().x << " " << testMap.getCoordWaypointStart().y << std::endl;
+
+    Player p(sprite);
+    assert(p.placeSprite(testMap));
+
+    char intent;
+    while (std::cin >> intent)
+    {
+        if(!p.executeCommand(testMap, intent, 1))
+            std::cout << "cannot move" << std::endl;
+
+        testMap.render(std::cout);
+    }
+
 }

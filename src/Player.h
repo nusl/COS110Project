@@ -15,9 +15,9 @@ class Player
         const int& getScore() const;
 
         const Sprite* getSpriteHandle() const;
-        bool placeSprite(Map* map) const;
+        bool placeSprite(Map& map) const;
 
-        bool move(const Coord& coord, Map* caller, const char& c);
+        bool executeCommand(Map& caller, const char& c, const int &attempt);
 
     private:
         bool moveSprite(Map& map, const Coord& coord) const;
