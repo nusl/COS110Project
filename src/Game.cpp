@@ -83,8 +83,8 @@ void Game::start()
 //destroyPieceAt()			--PASSED
 //getSpriteCoord()			--PASSED
 //getHandleAt()				--PASSED
-//getCoordOfPiece()			--NOT TESTED
-//update()					--NOT TESTED
+//getCoordOf()				--NOT TESTED
+//update()					--PASSED
 //render()					--PASSED
 //getHandleWaypointStart()	--PASSED
 //getCoordWaypointStart()	--PASSED
