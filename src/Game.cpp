@@ -1,7 +1,10 @@
 #include "Game.h"
+#include "Map.h"
 
 #include <vector>
 #include <iostream>
+#include <cassert>
+
 
 #include "OutOfBoundsException.h"
 #include "tutils.h"
@@ -45,7 +48,7 @@ void Game::start()
     MapMenu mMenu;
     mMenu.print(std::cout);
 
-    std::vector<std::string> s;
+    std::vector<std::string> selectedMap;
 
     menuDone = false;
 
@@ -58,37 +61,16 @@ void Game::start()
 
         try
         {
-            mMenu[iSel - 1].execute(s);
+            mMenu[iSel - 1].execute(selectedMap);
             menuDone = true;
         } catch(OutOfBoundsException ex){}
     }
 
-    for(unsigned i = 0; i < s.size(); ++i)
+    for(unsigned i = 0; i < selectedMap.size(); ++i)
     {
-        std::cout << s[i] << std::endl;
+        std::cout << selectedMap[i] << std::endl;
     }
-    std::cout << std::endl << s.size() << std::endl;
+    std::cout << std::endl << selectedMap.size() << std::endl;
 
     // DO STUFFS HURR
-    //test stuff
-    /******************************************************************************************************************************/
-        Map testMap(selectedMap);
-        testMap.render(std::cout);
-
-        std::cout << testMap.getCoordWaypointStart().x << " " << testMap.getCoordWaypointStart().y << std::endl;
-
-        if(!testMap.placePieceAt(sprite, testMap.getCoordWaypointStart()))
-            assert(false);
-        testMap.render(std::cout);
-
-        std::cout << "Sprite Coord:" << testMap.getSpriteCoord().y << testMap.getSpriteCoord().x << std::endl;
-
-        Coord spriteCoord(testMap.getSpriteCoord());
-        spriteCoord.y += 0;
-        spriteCoord.x += 2;
-
-        if(!testMap.move(testMap.getSpriteCoord(), spriteCoord))
-            std::cout << "cannot move" << std::endl;
-        testMap.render(std::cout);
-    /******************************************************************************************************************************/
 }

@@ -67,6 +67,7 @@ Map::Map(const std::vector<std::string>& mapState)
 				case '.':
 					//The first object created at the bottom of all stacks is an EmptySpace() object
 					//So, do not create one here.
+					break;
 				default:
 					deallocMap();
 					throw std::domain_error("Map that was loaded specifies a board piece that does not exist");
@@ -103,19 +104,19 @@ bool Map::move(const Coord& from, const Coord& to)
 	assert(typeid(*getHandleAt(from)) != typeid(EmptySpace));
 
 	//Are we referring to a location on the map that exists?
-	if(from.x >= map.size())
+	if(from.y >= map.size())
 		return false;
-	if(from.y == map.at(from.x).size())
+	if(from.x == map.at(from.y).size())
 		return false;
-	if(to.x >= map.size())
+	if(to.y >= map.size())
 		return false;
-	if(to.y == map.at(to.x).size())
+	if(to.x == map.at(to.y).size())
 		return false;
 	
 	//Is the location that we want to move into occupied by a piece that we cannot stack on top of?
-	if(!placePieceAt(map.at(from.x).at(from.y).top(), to))
+	if(!placePieceAt(map.at(from.y).at(from.x).top(), to))
 		return false;
-	map.at(from.x).at(from.y).pop();
+	map.at(from.y).at(from.x).pop();
 	return true;
 }
 
@@ -125,7 +126,7 @@ bool Map::placePieceAt(Piece* piece, const Coord& coord)
 	if(!(getHandleAt(coord)->canBeMovedOnto()))
 		return false;
 	
-	map.at(coord.x).at(coord.y).push(piece);
+	map.at(coord.y).at(coord.x).push(piece);
 	return true;
 }
 
@@ -134,13 +135,13 @@ void Map::destroyPieceAt(const Coord& coord)
 	//We should not delete an EmptySpace except in the destructor, the caller is broken if this happens.
 	assert(typeid(*getHandleAt(coord)) != typeid(EmptySpace));
 	
-	delete map.at(coord.x).at(coord.y).top();
-	map.at(coord.x).at(coord.y).pop();
+	delete map.at(coord.y).at(coord.x).top();
+	map.at(coord.y).at(coord.x).pop();
 }
 
 const Piece* Map::getHandleAt(const Coord& coord) const
 {
-	return map.at(coord.x).at(coord.y).top();
+	return map.at(coord.y).at(coord.x).top();
 }
 
 //Call action() of pieces on top of the stack at each coordinate.
@@ -149,7 +150,7 @@ void Map::update()
 {
 	for(mapSize y = 0; y!=map.size(); ++y)
 		for(rowSize x = 0; x!=map[y].size(); ++x)
-			map[y][x].top()->action(Coord(x,y), this);
+			map[y][x].top()->action(Coord(y,x), this);
 }
 
 //Renders the map by calling getState()
@@ -165,7 +166,7 @@ void Map::render(std::ostream& os) const
 		os << "|";
 		for(const_rowIterator it2 = it->begin(); it2!=it->end(); ++it2)
 				os << it2->top()->getState();
-		os << "|";
+		os << "|" << '\n';
 	}
 
 	os << " ";
@@ -189,11 +190,22 @@ const Piece* Map::getHandleWaypointStart() const
 	//This function is solely used during setup phase. If an object is on the waypoint, we have passed setup phase.
 }
 
+const Coord Map::getCoordWaypointStart() const
+{
+	for(mapSize y = 0; y!=map.size(); ++y)
+		for(rowSize x = 0; x!=map[y].size(); ++x)
+			if(typeid(*map[y][x].top()) == typeid(Waypoint))
+				if(map[y][x].top()->getState() == 'S')//If the waypoint is start
+					return Coord(y,x);
+	assert(false);//we should never fail to return a coordinate to a starting waypoint.
+	//This function is solely used during setup phase. If an object is on the waypoint, we have passed setup phase.
+}
+
 const Coord Map::getSpriteCoord() const
 {
 	for(mapSize y = 0; y!=map.size(); ++y)
 		for(rowSize x = 0; x!=map[y].size(); ++x)
 			if(dynamic_cast<Sprite*>(map[y][x].top()))//TODO: This is expensive, if we need to optimise, put a coord in map that points to sprite.
-				return Coord(x,y);
+				return Coord(y,x);
 	assert(false);//we should never fail to return a coordinate to a sprite.	
 }

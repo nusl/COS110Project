@@ -30,7 +30,7 @@ class EmptySpace : public ImmovablePiece
 		//,0//inCritChance
 		//,0//inDodgeChance
 		//,0//inParryChance
-		,'0'//inState
+		,'.'//inState
 		,'0'//inType
 		,true//inMoveOnto
 		)
