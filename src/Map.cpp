@@ -100,18 +100,18 @@ void Map::deallocMap()
 
 bool Map::move(const Coord& from, const Coord& to)
 {
-	//We cannot move an EmptySpace, the caller is broken if this happens.
-	assert(typeid(*getHandleAt(from)) != typeid(EmptySpace));
-
 	//Are we referring to a location on the map that exists?
 	if(from.y >= map.size())
 		return false;
-	if(from.x == map.at(from.y).size())
+	if(from.x >= map.at(from.y).size())
 		return false;
 	if(to.y >= map.size())
 		return false;
-	if(to.x == map.at(to.y).size())
+	if(to.x >= map.at(to.y).size())
 		return false;
+
+	//We cannot move an EmptySpace, the caller is broken if this happens.
+	assert(typeid(*getHandleAt(from)) != typeid(EmptySpace));
 	
 	//Is the location that we want to move into occupied by a piece that we cannot stack on top of?
 	if(!placePieceAt(map.at(from.y).at(from.x).top(), to))
@@ -148,9 +148,10 @@ const inline Piece* Map::getHandleAt(const Coord& coord) const
 //Actions are called on a row by row bases.
 void Map::update()
 {
-	for(mapSize y = 0; y!=map.size(); ++y)
-		for(rowSize x = 0; x!=map[y].size(); ++x)
-			map[y][x].top()->action(Coord(y,x), this);
+	std::vector<std::vector<std::stack<Piece*> > > strictOrder = map;//FIXME: This could get expensive
+	for(mapSize y = 0; y!=strictOrder.size(); ++y)
+		for(rowSize x = 0; x!=strictOrder[y].size(); ++x)
+			strictOrder[y][x].top()->action(Coord(y,x), this);
 }
 
 //Renders the map by calling getState()

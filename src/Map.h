@@ -20,18 +20,25 @@ struct Coord
     y(inY),
  	x(inX){}
 
- 	bool operator==(const Coord& rhs)
+ 	bool operator==(const Coord& rhs) const
  	{
  		if(this->y != rhs.y) return false;
  		if(this->x != rhs.x) return false;
 		return true;
  	}
  	
- 	Coord operator+(const Coord& rhs)
+ 	Coord operator+(const Coord& rhs) const
  	{
  		Coord temp(0,0);
  		temp.y = this->y + rhs.y;
  		temp.x = this->x + rhs.x;
+ 		return temp;
+ 	}
+ 	Coord operator-(const Coord& rhs) const
+ 	{
+ 		Coord temp(0,0);
+ 		temp.y = this->y - rhs.y;
+ 		temp.x = this->x - rhs.x;
  		return temp;
  	}
 	

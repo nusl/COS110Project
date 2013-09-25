@@ -5,10 +5,12 @@
 #include "MovablePiece.h"
 
 
-/** Offset struct constructor.
- *	FIXME: Traditional x y coordinates will not suffice since it would be prone to overflow. This is due to the fact that coordinates are unsigned.
- *  @param inX a constant integer reference
- *  @param inY a constant integer reference
+/** Offset struct.
+ *	FIXME: Traditional x y coordinates will not suffice since it would be prone to overflow.
+ *	This is due to the fact that coordinates are unsigned.
+ *	Even though this would only occur on a map that has a few billion pieces, it can still happen.
+ *  @param coordinate from
+ *  @param coordinate to
  */
 struct Offset
 {
@@ -18,12 +20,12 @@ struct Offset
 		Offset(const Coord& from, const Coord& to)
 		{
 			offsetY = static_cast<int>(to.y) - static_cast<int>(from.y);
-			offsetX = static_cast<int>(to.x) - static_cast<int>(from.y);
+			offsetX = static_cast<int>(to.x) - static_cast<int>(from.x);
 		}
 		int offsetY;
 		int offsetX;
 		
-		Offset operator+(const Offset& rhs)
+		Offset operator+(const Offset& rhs) const
 		{
 			Offset temp;
 			temp.offsetY = this->offsetY + rhs.offsetY;
@@ -73,10 +75,15 @@ class Creep : public MovablePiece
 		{
 			offsetHistory.push_back(Offset());
 		}
-		
-	bool move(const Coord& from, const Coord& to, Map* caller);
-		
+	
+	protected:
+		bool moveLeft	(Coord& from, Map* caller);
+		bool moveRight	(Coord& from, Map* caller);
+		bool moveUp		(Coord& from, Map* caller);
+		bool moveDown	(Coord& from, Map* caller);
 	private:
+		bool move(const Coord& from, const Coord& to, Map* caller);
+		
 		std::deque<Offset> offsetHistory;
 };
 
