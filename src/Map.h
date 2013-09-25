@@ -15,13 +15,34 @@ struct Coord
      *  @param inX a constant integer reference
      *  @param inY a constant integer reference
      */
-    Coord(const unsigned int& inY, const unsigned int& inX)
-    {
-        x = inX;
-        y = inY;
-    }
-    unsigned int x;
+    Coord(const unsigned int& inY, const unsigned int& inX):
+    y(inY),
+ 	x(inX){}
+
+ 	bool operator==(const Coord& rhs) const
+ 	{
+ 		if(this->y != rhs.y) return false;
+ 		if(this->x != rhs.x) return false;
+		return true;
+ 	}
+ 	
+ 	Coord operator+(const Coord& rhs) const
+ 	{
+ 		Coord temp(0,0);
+ 		temp.y = this->y + rhs.y;
+ 		temp.x = this->x + rhs.x;
+ 		return temp;
+ 	}
+ 	Coord operator-(const Coord& rhs) const
+ 	{
+ 		Coord temp(0,0);
+ 		temp.y = this->y - rhs.y;
+ 		temp.x = this->x - rhs.x;
+ 		return temp;
+ 	}
+	
     unsigned int y;
+    unsigned int x;
 };
 
 class Piece;
@@ -105,12 +126,12 @@ class Map
         const Piece* getHandleAt(const Coord& coord) const;
         
         /** Get the coordinate of a Piece.
-         *
+         *	Not needed yet.
          *	Searches for an object by address.
          *  @param coord a constant Coord reference.
          *  @return The coordinate to the Player's Sprite on the map as a const Coord copy.
          */
-         const Coord getCoordOfPiece(Piece* piece) const;
+         //const Coord getCoordOf(Piece* piece) const;
 
         
         /** Update the current state of the map.

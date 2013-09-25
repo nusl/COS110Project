@@ -1,6 +1,7 @@
 #ifndef HAMMER_H
 #define HAMMER_H
 
+#include <iostream>
 #include "Creep.h"
 
 class Hammer : public Creep
@@ -35,7 +36,23 @@ class Hammer : public Creep
 		//,false//inMoveOnto
 		)
 		{}
-		virtual void action(const Coord& coord, Map* caller){};
+
+		virtual void action(const Coord& coord, Map* caller)
+		{
+			Coord location(coord);
+/*
+			moveDown(location,caller);
+			moveRight(location,caller);
+			moveUp(location,caller);
+			moveLeft(location,caller);
+*/
+			moveLeft(location,caller);
+			if(!moveLeft(location,caller))
+				std::cout << "cannot move left" << std::endl;
+			else
+				std::cout << "moved left" << std::endl;
+
+		};
 };
 
 #endif

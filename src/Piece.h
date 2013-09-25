@@ -22,9 +22,9 @@ class Piece
 		,char inType
 		,bool inMoveOnto):
 
-         maxLife(inMaxLife)
+		 maxLife(inMaxLife)
 		,currentLife(inCurrentLife)
-        ,moveCount(inMoveCount)
+		,moveCount(inMoveCount)
 		,range(inRange)
 		,attackPower(inAttackPower)
 		,hitChance(inHitChance)
@@ -37,8 +37,8 @@ class Piece
 		{}
 		
         virtual ~Piece(){};
-		
-        //we can change this if needed.
+
+
 		virtual void action(const Coord& coord, Map* caller) = 0;
 		
         const char getState() const {return state;}
@@ -65,7 +65,7 @@ class Piece
 	
 		unsigned int maxLife;
 		unsigned int currentLife;
-        unsigned int moveCount;
+		unsigned int moveCount;
 		unsigned int range;
 		unsigned int attackPower;
 
