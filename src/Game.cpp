@@ -70,4 +70,26 @@ void Game::start()
     std::cout << std::endl << s.size() << std::endl;
 
     // DO STUFFS HURR
+    //test stuff
+    /******************************************************************************************************************************/
+        Map testMap(selectedMap);
+        testMap.render(std::cout);
+
+        std::cout << testMap.getCoordWaypointStart().x << " " << testMap.getCoordWaypointStart().y << std::endl;
+
+        if(!testMap.placePieceAt(sprite, testMap.getCoordWaypointStart()))
+            assert(false);
+        testMap.render(std::cout);
+
+        std::cout << "Sprite Coord:" << testMap.getSpriteCoord().y << testMap.getSpriteCoord().x << std::endl;
+
+
+        Coord spriteCoord(testMap.getSpriteCoord());
+        spriteCoord.y += 0;
+        spriteCoord.x += 2;
+
+        if(!testMap.move(testMap.getSpriteCoord(), spriteCoord))
+            std::cout << "cannot move" << std::endl;
+        testMap.render(std::cout);
+    /******************************************************************************************************************************/
 }
