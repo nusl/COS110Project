@@ -83,7 +83,6 @@ void Game::start()
 
         std::cout << "Sprite Coord:" << testMap.getSpriteCoord().y << testMap.getSpriteCoord().x << std::endl;
 
-
         Coord spriteCoord(testMap.getSpriteCoord());
         spriteCoord.y += 0;
         spriteCoord.x += 2;
