@@ -19,6 +19,22 @@ struct Coord
     Coord(const unsigned int& inY, const unsigned int& inX):
     y(inY),
  	x(inX){}
+
+ 	bool operator==(const Coord& rhs)
+ 	{
+ 		if(this->y != rhs.y) return false;
+ 		if(this->x != rhs.x) return false;
+		return true;
+ 	}
+ 	
+ 	Coord operator+(const Coord& rhs)
+ 	{
+ 		Coord temp(0,0);
+ 		temp.y = this->y + rhs.y;
+ 		temp.x = this->x + rhs.x;
+ 		return temp;
+ 	}
+	
     unsigned int y;
     unsigned int x;
 };
