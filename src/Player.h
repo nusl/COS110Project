@@ -7,12 +7,14 @@ class Player
 {
     public:
         Player(Sprite *);
+        virtual ~Player();
 
         void addScore(const int& value);
         void removeScore(const int& value);
         const int& getScore() const;
 
-        virtual ~Player();
+        bool move(const Coord& coord, Map* caller, const char& c);
+
     private:
         Sprite *sprite;
 

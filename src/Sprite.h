@@ -37,19 +37,18 @@ class Sprite : public MovablePiece
 		//,false//inMoveOnto
 		)
 		,regenRate(inRegenRate)
-		,regenCounter(inRegenCounter)
+        ,regenCounter(inRegenCounter)
 		{}
 		
 		//Recieves a command, validates if it exists(return bool), sets the intent. Afterward, action() is called. 
-		bool command(const char& in)
-		{
-			intent = in;
-			return true;//return true if command exists
-		}
+        bool command(const char& in);
+
 	private:
 		double regenRate;
 		unsigned int regenCounter;
 		char intent;
+
+        static const std::string commandList; //!< Possible commands the Sprite can perform
 };
 
 #endif

@@ -24,14 +24,14 @@ struct Coord
     unsigned int y;
 };
 
+class Piece;
+
 /** The Map class.
  *
  *  Holds the current state of the game's map as well as some functions to
  *  facilitate actions on the map itself.
+ *  Map takes ownership of all pointers that are passed to it.
  */
-class Piece;
-
-//Map takes ownership of all pointers that are passed to it.
 class Map
 {
     public:
@@ -134,14 +134,6 @@ class Map
          *	It also makes it simpler when we need to move objects from one place to another, or when we need to destroy them.
          */
         std::vector<std::vector<std::stack<Piece*> > > map;
-
-        /** Castrate the copy constructor.
-         *
-         *  We do this to prevent copies of the Map being made.
-         *
-         * @param other a constant Map reference
-         */
-        Map(const Map& other);
 };
 
 #endif
