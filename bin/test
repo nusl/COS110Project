@@ -1,0 +1,6 @@
+#!/bin/bash
+
+cat input|./RPG_linux_64	> expected_output
+cat input|./RPG 			> actual_output
+
+diff expected_output actual_output
