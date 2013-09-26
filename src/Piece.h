@@ -42,7 +42,7 @@ class Piece
 
 		virtual void action(const Coord& coord, Map* caller) = 0;
 		virtual Piece* whoAttackedMe(){return myAssailant;}
-		virtual void iAttackedYou(Piece* assailant){myAssailant = assailant;}
+		virtual void iAttackedYou(Piece* assailant, Map* caller){myAssailant = assailant;}
 		
         const char getState() const {return state;}
         const char getType() const {return type;}

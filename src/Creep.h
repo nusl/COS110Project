@@ -77,6 +77,10 @@ class Creep : public MovablePiece
 		}
 	
 	protected:
+
+		bool huntDown	(Coord& from, Map* caller);
+		void wander		(Coord& from, Map* caller);
+
 		bool moveLeft	(Coord& from, Map* caller);
 		bool moveRight	(Coord& from, Map* caller);
 		bool moveUp		(Coord& from, Map* caller);
