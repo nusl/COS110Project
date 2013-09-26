@@ -22,7 +22,8 @@ class Piece
 		,char inType
 		,bool inMoveOnto):
 
-		 maxLife(inMaxLife)
+		myAssailant(0)
+		,maxLife(inMaxLife)
 		,currentLife(inCurrentLife)
 		,moveCount(inMoveCount)
 		,range(inRange)
@@ -40,6 +41,8 @@ class Piece
 
 
 		virtual void action(const Coord& coord, Map* caller) = 0;
+		virtual Piece* whoAttackedMe(){return myAssailant;}
+		virtual void iAttackedYou(Piece* assailant){myAssailant = assailant;}
 		
         const char getState() const {return state;}
         const char getType() const {return type;}
@@ -62,7 +65,8 @@ class Piece
         const double getParryChance() const {return parryChance;}
 
 	private:
-	
+		Piece* myAssailant;
+
 		unsigned int maxLife;
 		unsigned int currentLife;
 		unsigned int moveCount;
