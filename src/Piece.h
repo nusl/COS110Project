@@ -48,11 +48,6 @@ class Piece
         const char getType() const {return type;}
 		const bool canBeMovedOnto() const{return moveOnto;}//can I be moved onto by another piece? Like a waypoint and an empty piece.
 
-	protected:
-	//TODO: Some of these functions can be moved to a lower level in the hierarchy. But later...
-	
-		void setState(const char& inState){state = inState;}
-
         const unsigned int getMaxLife() const {return maxLife;}
         const unsigned int getCurrentLife() const {return currentLife;}
         const unsigned int getMoveCount() const {return moveCount;}
@@ -63,6 +58,10 @@ class Piece
         const double getCritChance() const {return critChance;}
         const double getDodgeChance() const {return dodgeChance;}
         const double getParryChance() const {return parryChance;}
+
+    protected:
+
+		void setState(const char& inState){state = inState;}
 
 	private:
 		Piece* myAssailant;

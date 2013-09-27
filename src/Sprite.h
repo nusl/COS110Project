@@ -55,11 +55,7 @@ class Sprite : public MovablePiece
 		//Recieves a command, validates if it exists(return bool), sets the intent. Afterward, action() is called. 
         bool command(const char& in);
 
-        virtual void attack(Map& caller){};
-        virtual void rotate(Map& caller){};
-        virtual void move(Map& caller){};
-        virtual void pass(Map& caller){};
-
+        // Returns true if a turn-consuming action was performed, otherwise returns false
         bool attemptAction(Map& caller, const int& attempt);
 
         bool isAttackIntent() const;
@@ -67,7 +63,20 @@ class Sprite : public MovablePiece
         bool isMoveIntent() const;
         bool isPassIntent() const;
 
-	private:
+        // Returns true if attack successful, as any valid attack counts as a turn
+        virtual bool attack(Map& caller) = 0;
+
+        // Always return false, as no move is made when rotating
+        virtual bool rotate(Map& caller) = 0;
+
+        // Returns true if move was made, as a move counts as a turn
+        virtual bool move(Map& caller) = 0;
+
+        // Always returns true, as pass counts as a turn
+        virtual bool pass(Map& caller) = 0;
+
+    private:
+
 		double regenRate;
 		unsigned int regenCounter;
         char intent;

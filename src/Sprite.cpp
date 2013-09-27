@@ -2,6 +2,8 @@
 
 #include "InvalidParameterException.h"
 
+#include <iostream>
+
 const std::string Sprite::commandIntentList = "WASDKP";
 const std::string Sprite::attackIntentList = "K";
 const std::string Sprite::passIntentList = "P";
@@ -55,19 +57,35 @@ bool Sprite::attemptAction(Map& caller, const int& attempt)
         throw InvalidParameterException("Sprite::customAction() - attempt parameter of value zero received.");
     }
 
+    // Cannot make more moves than possible move count
     if ((getMoveCount() - attempt) < 0)
     {
-        throw InvalidParameterException("Sprite::customAction() - sprite action attempts exceeded number of possible moves.");
+        return false;
     }
 
+    // If you're going to mess with this if-stack please expect weird behavior.
+    // Removing the 'else's will cause undefined behavior because the isMoveIntent()
+    // function is dependant on the current state of the Sprite, which would be changed by
+    // the rotate() function, thus allowing the piece to both rotate and move in one turn.
+    // Rather leave it like this, mmkay?
     if (isRotateIntent())
-        rotate(caller);
-    if (isAttackIntent())
-        attack(caller);
-    if (isMoveIntent())
-        move(caller);
+    {
+        return rotate(caller);
+    }
+    else if (isAttackIntent())
+    {
+        return attack(caller);
+    }
+    else if (isMoveIntent())
+    {
+        return move(caller);
+    }
+    else if (isPassIntent())
+    {
+        return pass(caller);
+    }
 
-    return ((getMoveCount() - attempt) == 0);
+    return false;
 }
 
 bool Sprite::isAttackIntent() const

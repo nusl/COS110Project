@@ -24,20 +24,20 @@ class Assassin : public MeleeSprite, public AmmoUnit
 		//,bool inMoveOnto
 		):
 		MeleeSprite
-		(250//inMaxLife
-		,250//inCurrentLife
-		,1//inMoveCount
+        (150//inMaxLife
+        ,150//inCurrentLife
+        ,2//inMoveCount
 		//,1//inRange
-		,20//inAttackPower
+        ,5   //inAttackPower
 		,0.95//inHitChance
-		,0.05//inCritChance
-		,0.025//inDodgeChance
-		,0.25//inParryChance
+        ,0.20//inCritChance
+        ,0.50//inDodgeChance
+        ,0.20//inParryChance
 		,'v'//inState
 		,'a'//inType
 		//,false//inMoveOnto
 		,0.10//inRegenRate
-		,10//inRegenCounter
+        ,5//inRegenCounter
 		),
 		AmmoUnit
 		(25//inMaxAmmo
@@ -48,10 +48,10 @@ class Assassin : public MeleeSprite, public AmmoUnit
 
         virtual void action(const Coord& coord, Map* caller){};
 
-        virtual void attack(Map& caller);
-        virtual void rotate(Map& caller);
-        virtual void move(Map& caller);
-        virtual void pass(Map& caller);
+        virtual bool attack(Map& caller);
+        virtual bool rotate(Map& caller);
+        virtual bool move(Map& caller);
+        virtual bool pass(Map& caller);
 
 };
 

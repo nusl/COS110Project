@@ -4,7 +4,7 @@
 #include <vector>
 #include <iostream>
 #include <cassert>
-
+#include <limits>
 
 #include "OutOfBoundsException.h"
 #include "tutils.h"
@@ -76,13 +76,48 @@ void Game::start()
     Player p(sprite);
     assert(p.placeSprite(testMap));
 
-    char intent;
-    while (std::cin >> intent)
+    testMap.render(std::cout);
+
+    /* Using a string(as suggested by Lyle) rather than a char prevents undefined input behavior,
+     * as inputting multiple characters would cause the game to loop again for each of those characters.
+     */
+    std::string intent;
+
+    unsigned attempt = 1;
+
+    while (true)
     {
-        if(!p.executeCommand(testMap, intent, 1))
-            std::cout << "cannot move" << std::endl;
+        // Start of global turn
+
+        std::cout << "GLOBAL TURN COMMENCED" << std::endl;
+
+        /* CAUTION/WARNING AHEAD:
+         * ('caution' is a REALLY ugly looking-and-feeling word, wow.)
+         *
+         * Undefined behavior could result when the user somehow manages to input more than one line,
+         * as getline will read each line individually and therefore trigger a new game loop for each
+         * line it finds. I spent a number of hours trying to find a good solution(like flushing cin buffer
+         * after a read, or reading the entire buffer, thereby grabbing everything at once) but the solutions
+         * I tried didn't really work. Use with caution, and take note.
+         */
+        while ((attempt <= p.getSpriteHandle()->getMoveCount()))
+        {
+            // Start of player turn
+
+            std::cout << "PLAYER TURN COMMENCED" << std::endl;
+
+            std::cin >> intent;
+
+            if(p.executeCommand(testMap, intent[0], attempt))
+            {
+                ++attempt;
+            }
+
+            testMap.render(std::cout);
+        }
 
         testMap.render(std::cout);
+        attempt = 1;
     }
 
 }
