@@ -41,8 +41,18 @@ class Piece
 
 
 		virtual void action(const Coord& coord, Map* caller) = 0;
-		virtual Piece* whoAttackedMe(){return myAssailant;}
-		virtual void iAttackedYou(Piece* assailant, Map* caller){myAssailant = assailant;}
+
+		virtual Piece* whoAttackedMe(){return myAssailant;}		
+		/** Used for interaction between pieces
+		 *
+		 *
+         *  @param handle to the assailant
+         *  @param Damage to be dealt to the victim. It is passed by non-const reference so that the victim can modify the damage
+         *	depending on its abilities, such as dodge, parry, or simply invulnerability.
+         *  @param handle to the assailant
+         *  @return void
+         */
+		virtual void iAttackedYou(Piece* assailant, unsigned int& damage, Map* caller){myAssailant = assailant;}
 		
         const char getState() const {return state;}
         const char getType() const {return type;}
