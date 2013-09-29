@@ -148,7 +148,7 @@ const inline Piece* Map::getHandleAt(const Coord& coord) const
 //Actions are called on a row by row bases.
 void Map::update()
 {
-	std::vector<std::vector<std::stack<Piece*> > > strictOrder = map;//FIXME: This could get expensive
+	const std::vector<std::vector<std::stack<Piece*> > > strictOrder = map;//FIXME: This could get expensive
 	for(mapSize y = 0; y!=strictOrder.size(); ++y)
 		for(rowSize x = 0; x!=strictOrder[y].size(); ++x)
 			strictOrder[y][x].top()->action(Coord(y,x), this);
