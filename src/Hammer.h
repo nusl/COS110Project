@@ -51,7 +51,9 @@ class Hammer : public Creep
 				std::cout << "cannot move left" << std::endl;
 			else
 				std::cout << "moved left" << std::endl;
-
+			std::cout << random() << std::endl;
+			std::cout << random() << std::endl;
+			std::cout << random() << std::endl;
 		};
 };
 

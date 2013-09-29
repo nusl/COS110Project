@@ -180,8 +180,6 @@ class Map
         
     private:
 
-        void setMapState(const std::vector<std::string>& mapState);
-
         /** A 2D vector of a stack of pointers to pieces present on the map.
          *
          *  This vector represents the current state of the map in terms of

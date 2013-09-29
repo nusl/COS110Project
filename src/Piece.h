@@ -1,11 +1,12 @@
 #ifndef PIECE_H
 #define PIECE_H
 
+#include "RNG.h"
 #include "Map.h"
 
 class Map;
 struct Coord;
-class Piece
+class Piece: public RNG
 {
 	public:
 		Piece

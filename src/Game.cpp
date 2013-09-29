@@ -116,7 +116,9 @@ void Game::start()
             testMap.render(std::cout);
         }
 
+        testMap.update();//we need allow pieces to act before rendering the new board state
         testMap.render(std::cout);
+        
         attempt = 1;
     }
 
