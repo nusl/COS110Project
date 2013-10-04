@@ -17,7 +17,6 @@ class Menu
         /** The Menu class' destructor.
          *
          *  Handles deletion of the MenuItem list.
-         *
          */
         virtual ~Menu();
 

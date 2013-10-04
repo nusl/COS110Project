@@ -4,7 +4,6 @@
 #include <vector>
 #include <iostream>
 #include <cassert>
-#include <stdlib.h>
 
 #include "OutOfBoundsException.h"
 #include "PlayerQuitException.h"
@@ -118,20 +117,13 @@ void Game::start()
             } catch (PlayerQuitException pex)
             {
                 std::cout << pex.getMessage() << std::endl;
-                map.deallocMap();
-                exit(EXIT_SUCCESS);
+                std::terminate();
             }
         }
 
         std::cout << "Player's turn has ended." << std::endl;
 
         map.update();//we need allow pieces to act before rendering the new board state
-
-        /* No need to render new board state here.
-         * Provided application output differs.
-         *
-         * testMap.render(std::cout);
-         */
 
         // Reset the current attempt to the first attempt(used in player's turn)
         attempt = 1;
