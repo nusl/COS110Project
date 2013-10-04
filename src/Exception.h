@@ -19,11 +19,17 @@ class Exception
          */
         Exception(const std::string& message, const std::string& desc);
 
-        /** Function to get the Exception's currently held message concatenated with its description.
+        /** Function to get the Exception's currently held message.
          *
-         * @return A constant std::string reference to the Exception's message concatenated with its description.
+         * @return A constant std::string reference to the Exception's message.
          */
-        const std::string getMessage();
+        const std::string& getMessage() const;
+
+        /** Function to get the Exception's currently held description.
+         *
+         * @return A constant std::string reference to the Exception's description.
+         */
+        const std::string& getDescription() const;
 
     private:
         /** Member variable of type std::string to hold the Exception class' error message. */

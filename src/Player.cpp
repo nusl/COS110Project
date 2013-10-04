@@ -1,6 +1,9 @@
 #include "Player.h"
 
 #include "InvalidParameterException.h"
+#include "PlayerQuitException.h"
+
+const std::string Player::commands = "Q";
 
 Player::Player(Sprite* s)
 {
@@ -43,6 +46,16 @@ const int& Player::getScore() const
 
 bool Player::executeCommand(Map &caller, const char& c, const int& attempt)
 {
+    if (command(c))
+    {
+        switch (toupper(c))
+        {
+            case 'Q':
+                quit();
+                break;
+        }
+    }
+
     if (!(sprite->command(c)))
     {
         return false;
@@ -64,4 +77,14 @@ bool Player::placeSprite(Map& map) const
 bool Player::moveSprite(Map& map, const Coord& coord) const
 {
     return map.move(map.getSpriteCoord(), coord);
+}
+
+bool Player::command(const char& c) const
+{
+    return commands.find(toupper(c), 0) != std::string::npos;
+}
+
+void Player::quit() const
+{
+    throw PlayerQuitException("Player quit");
 }

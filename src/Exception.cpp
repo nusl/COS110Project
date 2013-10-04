@@ -6,7 +6,12 @@ Exception::Exception(const std::string& inMsg, const std::string& desc)
     description = desc;
 }
 
-const std::string Exception::getMessage()
+const std::string& Exception::getMessage() const
 {
-    return message + " Description: " + description;
+    return message;
+}
+
+const std::string& Exception::getDescription() const
+{
+    return description;
 }

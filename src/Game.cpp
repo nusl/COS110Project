@@ -4,9 +4,11 @@
 #include <vector>
 #include <iostream>
 #include <cassert>
-#include <limits>
+#include <stdlib.h>
 
 #include "OutOfBoundsException.h"
+#include "PlayerQuitException.h"
+
 #include "tutils.h"
 
 Game::Game()
@@ -68,15 +70,12 @@ void Game::start()
 
     // DO STUFFS HURR
 
-    Map testMap(selectedMap);
-    testMap.render(std::cout);
-
-    std::cout << testMap.getCoordWaypointStart().x << " " << testMap.getCoordWaypointStart().y << std::endl;
+    Map map(selectedMap);
 
     Player p(sprite);
-    assert(p.placeSprite(testMap));
+    assert(p.placeSprite(map));
 
-    testMap.render(std::cout);
+    map.render(std::cout);
 
     /* Using a string(as suggested by Lyle) rather than a char prevents undefined input behavior,
      * as inputting multiple characters would cause the game to loop again for each of those characters.
@@ -89,7 +88,7 @@ void Game::start()
     {
         // Start of global turn
 
-        std::cout << "GLOBAL TURN COMMENCED" << std::endl;
+        std::cout << "Player's turn has begun." << std::endl;
 
         /* CAUTION/WARNING AHEAD:
          * ('caution' is a REALLY ugly looking-and-feeling word, wow.)
@@ -104,21 +103,37 @@ void Game::start()
         {
             // Start of player turn
 
-            std::cout << "PLAYER TURN COMMENCED" << std::endl;
+            map.render(std::cout);
+
+            std::cout << "The player currently has a life amount of " << p.getSpriteHandle()->getCurrentLife() << "." << std::endl;
 
             std::cin >> intent;
 
-            if(p.executeCommand(testMap, intent[0], attempt))
+            try
             {
-                ++attempt;
+                if(p.executeCommand(map, intent[0], attempt))
+                {
+                    ++attempt;
+                }
+            } catch (PlayerQuitException pex)
+            {
+                std::cout << pex.getMessage() << std::endl;
+                map.deallocMap();
+                exit(EXIT_SUCCESS);
             }
-
-            testMap.render(std::cout);
         }
 
-        testMap.update();//we need allow pieces to act before rendering the new board state
-        testMap.render(std::cout);
-        
+        std::cout << "Player's turn has ended." << std::endl;
+
+        map.update();//we need allow pieces to act before rendering the new board state
+
+        /* No need to render new board state here.
+         * Provided application output differs.
+         *
+         * testMap.render(std::cout);
+         */
+
+        // Reset the current attempt to the first attempt(used in player's turn)
         attempt = 1;
     }
 

@@ -21,10 +21,14 @@ class Player
 
     private:
         bool moveSprite(Map& map, const Coord& coord) const;
+        bool command(const char& c) const;
+        void quit() const;
 
         Sprite *sprite;
 
         int score;
+
+        static const std::string commands;
 };
 
 #endif

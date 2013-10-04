@@ -7,8 +7,6 @@
 
 int main()
 {
-	Piece *test = new Mage();
-	std::cout << test->getType() << std::endl;
 	Game g;
     g.start();
 }
