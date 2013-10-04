@@ -12,11 +12,6 @@ Player::Player(Sprite* s)
 
 Player::~Player()
 {
-    if (sprite)
-    {
-        delete sprite;
-        sprite = 0;
-    }
 }
 
 void Player::addScore(const int& value)

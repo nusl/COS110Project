@@ -103,9 +103,17 @@ namespace tutils
 
                 if (file->d_type == DT_REG)
                 {
-                    if (fName.find_last_of(ext) == fName.length() - 1)
+                    if (fName.length() > ext.length())
                     {
-                        outList.push_back(rootPath + ((rootPath.find_last_of("/") == rootPath.length() - 1) ? "" : "/") + fName);
+                        if (fName.substr(fName.length() - ext.length(), ext.length()) == ext)
+                        {
+                            if (rootPath == ".")
+                            {
+                                outList.push_back(fName);
+                            } else {
+                                outList.push_back(rootPath + ((rootPath.find_last_of("/") == rootPath.length() - 1) ? "" : "/") + fName);
+                            }
+                        }
                     }
                 }
 
