@@ -98,6 +98,15 @@ void Map::deallocMap()
 	}
 }
 
+void Map::saveMapState()
+{
+	savedMap = map;
+}
+void Map::resetMapState()
+{
+	map = savedMap;
+}
+
 bool Map::move(const Coord& from, const Coord& to)
 {
 	//Are we referring to a location on the map that exists?
@@ -134,8 +143,7 @@ void Map::destroyPieceAt(const Coord& coord)
 {
 	//We should not delete an EmptySpace except in the destructor, the caller is broken if this happens.
 	assert(typeid(*getHandleAt(coord)) != typeid(EmptySpace));
-	
-	delete map.at(coord.y).at(coord.x).top();
+
 	map.at(coord.y).at(coord.x).pop();
 }
 
@@ -209,4 +217,24 @@ const Coord Map::getSpriteCoord() const
 			if(dynamic_cast<Sprite*>(map[y][x].top()))//TODO: This is expensive, if we need to optimise, put a coord in map that points to sprite.
 				return Coord(y,x);
 	assert(false);//we should never fail to return a coordinate to a sprite.	
+}
+
+const Piece* const Map::getHandleBelowOfType(const Coord& coord, const char* const type) const//FIXME: Is there a mechanism to compare types without comparing strings?
+{
+	std::stack<Piece*> temp = map[coord.y][coord.x];
+	assert(temp.size() != 0);
+
+	if(temp.size() == 1)
+		return 0;
+
+	temp.pop();
+	
+	while(temp.size())
+	{
+		if(std::string(typeid(*temp.top()).name()) == std::string(type))
+			return temp.top();
+		temp.pop();
+	}
+	
+	return 0;
 }

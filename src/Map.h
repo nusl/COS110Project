@@ -5,6 +5,7 @@
 #include <stack>
 #include <string>
 #include <ostream>
+#include <typeinfo>  	//typeid
 
 #include "Piece.h"
 
@@ -87,6 +88,9 @@ class Map
          */
         ~Map();
         void deallocMap();
+        
+        void saveMapState();
+        void resetMapState();
 
         /** Move the piece at the first coordinate on the map to the location of the second coordinate on the map.
          *
@@ -178,6 +182,9 @@ class Map
          */
         const Coord getSpriteCoord() const;
         
+        const Piece* const getHandleBelowOfType(const Coord& coord, const char* const type) const;
+
+        
     private:
 
         /** A 2D vector of a stack of pointers to pieces present on the map.
@@ -188,6 +195,7 @@ class Map
          *	It also makes it simpler when we need to move objects from one place to another, or when we need to destroy them.
          */
         std::vector<std::vector<std::stack<Piece*> > > map;
+        std::vector<std::vector<std::stack<Piece*> > > savedMap;
 };
 
 #endif

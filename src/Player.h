@@ -20,7 +20,6 @@ class Player
         bool executeCommand(Map& caller, const char& c, const int &attempt);
 
     private:
-        bool moveSprite(Map& map, const Coord& coord) const;
         bool command(const char& c) const;
         void quit() const;
 

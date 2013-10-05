@@ -56,7 +56,7 @@ bool Player::executeCommand(Map &caller, const char& c, const int& attempt)
         return false;
     }
 
-    return sprite->attemptAction(caller, attempt);
+	return sprite->attemptAction(caller, attempt);
 }
 
 const Sprite* Player::getSpriteHandle() const
@@ -67,11 +67,6 @@ const Sprite* Player::getSpriteHandle() const
 bool Player::placeSprite(Map& map) const
 {
     return map.placePieceAt(sprite, map.getCoordWaypointStart());
-}
-
-bool Player::moveSprite(Map& map, const Coord& coord) const
-{
-    return map.move(map.getSpriteCoord(), coord);
 }
 
 bool Player::command(const char& c) const
