@@ -133,3 +133,9 @@ bool Sprite::isPassIntent() const
 {
     return passIntentList.find(toupper(intent), 0) != std::string::npos;
 }
+
+void Sprite::reset()
+{
+	Piece::reset();
+	setState('v');
+}

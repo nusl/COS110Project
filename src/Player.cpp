@@ -5,7 +5,7 @@
 
 const std::string Player::commands = "Q";
 
-Player::Player(Sprite* s)
+Player::Player(Sprite* s) : score(0)
 {
     sprite = s;
 }

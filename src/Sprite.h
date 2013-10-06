@@ -74,6 +74,8 @@ class Sprite : public MovablePiece
 
         // Always returns true, as pass counts as a turn
         virtual bool pass(Map& caller) = 0;
+        
+        virtual void reset();//Specialised from Piece implementation
 
     private:
 

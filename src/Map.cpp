@@ -98,13 +98,25 @@ void Map::deallocMap()
 	}
 }
 
-void Map::saveMapState()
+void Map::saveState()
 {
 	savedMap = map;
 }
-void Map::resetMapState()
+void Map::resetState()
 {
 	map = savedMap;
+	std::vector<std::vector<std::stack<Piece*> > > temp = map;//FIXME: This could get expensive
+	for(mapIterator it = temp.begin(); it!=temp.end(); ++it)
+	{
+		for(rowIterator it2 = it->begin(); it2!=it->end(); ++it2)
+		{
+			while(it2->size())
+			{
+				it2->top()->reset();
+				it2->pop();
+			}
+		}
+	}
 }
 
 bool Map::move(const Coord& from, const Coord& to)

@@ -7,6 +7,8 @@
 
 #include "OutOfBoundsException.h"
 #include "PlayerQuitException.h"
+#include "PlayerEndException.h"
+#include "PlayerResetException.h"
 
 #include "tutils.h"
 
@@ -73,6 +75,7 @@ void Game::start()
 
     Player p(sprite);
     assert(p.placeSprite(map));
+    map.saveState();
 
     map.render(std::cout);
 
@@ -87,45 +90,62 @@ void Game::start()
     {
         while (true)
         {
-            // Start of global turn
+        
+			try
+			{
+        
+		        // Start of global turn
 
-            std::cout << "Player's turn has begun." << std::endl;
+		        std::cout << "Player's turn has begun." << std::endl;
 
-            /* CAUTION/WARNING AHEAD:
-             * ('caution' is a REALLY ugly looking-and-feeling word, wow.)
-             *
-             * Undefined behavior could result when the user somehow manages to input more than one line,
-             * as getline will read each line individually and therefore trigger a new game loop for each
-             * line it finds. I spent a number of hours trying to find a good solution(like flushing cin buffer
-             * after a read, or reading the entire buffer, thereby grabbing everything at once) but the solutions
-             * I tried didn't really work. Use with caution, and take note.
-             */
-            while ((attempt <= p.getSpriteHandle()->getMoveCount()))
-            {
-                // Start of player turn
+		        /* CAUTION/WARNING AHEAD:
+		         * ('caution' is a REALLY ugly looking-and-feeling word, wow.)
+		         *
+		         * Undefined behavior could result when the user somehow manages to input more than one line,
+		         * as getline will read each line individually and therefore trigger a new game loop for each
+		         * line it finds. I spent a number of hours trying to find a good solution(like flushing cin buffer
+		         * after a read, or reading the entire buffer, thereby grabbing everything at once) but the solutions
+		         * I tried didn't really work. Use with caution, and take note.
+		         */
+		        while ((attempt <= p.getSpriteHandle()->getMoveCount()))
+		        {
+		            // Start of player turn
 
-                map.render(std::cout);
+		            map.render(std::cout);
 
-                std::cout << "The player currently has a life amount of " << p.getSpriteHandle()->getCurrentLife() << "." << std::endl;
+		            std::cout << "Player currently has a life amount of " << p.getSpriteHandle()->getCurrentLife() << "." << std::endl;
 
-                std::cin >> intent;
+		            std::cin >> intent;
 
-                if(p.executeCommand(map, intent[0], attempt))
-                {
-                    ++attempt;
-                }
-            }
-
+		            if(p.executeCommand(map, intent[0], attempt))
+		            {
+		                ++attempt;
+		            }
+		        }
+		        
+		        map.update();//we need allow pieces to act before rendering the new board state
+			}
+		    catch (PlayerResetException pqex)
+			{
+				std::cout << pqex.getMessage() << std::endl;
+				map.resetState();
+			}
+			
             std::cout << "Player's turn has ended." << std::endl;
-
-            map.update();//we need allow pieces to act before rendering the new board state
 
             // Reset the current attempt to the first attempt(used in player's turn)
             attempt = 1;
         }
-    } catch (PlayerQuitException pex)
+    }
+    catch (PlayerQuitException pqex)
     {
-        std::cout << pex.getMessage() << std::endl;
+        std::cout << pqex.getMessage() << std::endl;
+    }
+    catch (PlayerEndException peex)
+    {
+    	p.addScore(250);
+        std::cout << peex.getMessage() << p.getScore() << "." << std::endl;
+        map.render(std::cout);
     }
 
 }

@@ -89,8 +89,8 @@ class Map
         ~Map();
         void deallocMap();
         
-        void saveMapState();
-        void resetMapState();
+        void saveState();
+        void resetState();
 
         /** Move the piece at the first coordinate on the map to the location of the second coordinate on the map.
          *

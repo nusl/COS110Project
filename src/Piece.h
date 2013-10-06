@@ -40,6 +40,12 @@ class Piece: public RNG
 		
         virtual ~Piece(){};
 
+		virtual void reset()
+		{
+			currentLife = maxLife;
+			myAssailant = 0;
+			//NOTE: State?
+		}
 
 		virtual void action(const Coord& coord, Map* caller) = 0;
 
