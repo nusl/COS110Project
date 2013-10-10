@@ -59,7 +59,27 @@ class Piece: public RNG
          *  @param handle to the assailant
          *  @return void
          */
-		virtual void iAttackedYou(Piece* assailant, unsigned int& damage, Map* caller){myAssailant = assailant;}
+		virtual void iAttackedYou(Piece* assailant, unsigned int& damage, Map* caller)
+		{
+			defend(assailant, damage, caller);//Modifies the damage done.
+			currentLife -= damage;
+			myAssailant = assailant;
+		}
+
+        //TODO: Move this to .cpp. Its getting crowded in here :p
+		/** Dodge and Parry chance are the defense modifiers*/
+		virtual void defend(Piece* assailant, unsigned int& damage, Map* caller)
+		{
+		    unsigned int rng = static_cast<unsigned int>(this->random());//FIXME: RNG generates ints as per specification. The result is compared with uints.
+		    if(rng == 0)
+		        return;//disregard 0 value
+		        
+		    if(rng <= getDodgeChance())
+		        damage = 0;
+
+		    if(rng <= getParryChance())
+    		    damage /= 2;
+		}
 		
         const char getState() const {return state;}
         const char getType() const {return type;}
