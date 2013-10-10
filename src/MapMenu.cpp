@@ -3,6 +3,8 @@
 #include "MapMenuItem.h"
 #include "tutils.h"
 
+#include <fstream>
+#include <sstream>
 #include <algorithm>
 
 MapMenu::MapMenu()
@@ -11,16 +13,34 @@ MapMenu::MapMenu()
 
     std::vector<std::string> fileNames;
 
-    tutils::getFilesInDirRecursive(fileNames, ".", ".txt");
-    std::sort(fileNames.begin(), fileNames.end());
-    //lastSortLoc = fileNames.size();
-
-    /*tutils::getFilesInDirRecursive(fileNames, "Maps/Medium", ".txt");
-    std::sort(fileNames.begin() + lastSortLoc, fileNames.end());
-    lastSortLoc = fileNames.size();
-
-    tutils::getFilesInDirRecursive(fileNames, "Maps/Hard", ".txt");
-    std::sort(fileNames.begin() + lastSortLoc, fileNames.end());*/
+    std::string files[3] = {"easy", "medium", "hard"};
+	std::string end = ".txt";
+	
+	std::ifstream in;
+	
+	for(int i = 0; i < 3; i++)
+	{
+		int j = 1;
+		while(true)
+		{
+			std::stringstream ss;
+			ss << files[i];
+			ss << j;
+			ss << end;
+			std::string map = ss.str();
+			
+			in.open(map.c_str());
+			if(in.good())
+			{
+				in.close();
+				fileNames.push_back(map);
+			}
+			else
+				break;
+			
+			j++;
+		}
+	}
 
     for (unsigned i = 0; i < fileNames.size(); ++i)
     {

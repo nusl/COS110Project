@@ -6,5 +6,5 @@ AssassinClassMenuItem::AssassinClassMenuItem() : ClassMenuItem("Assassin")
 
 void AssassinClassMenuItem::execute(Sprite*& s)
 {
-    s = new Assassin();
+    //s = new Assassin();
 }

@@ -44,6 +44,12 @@ void Game::start()
         try
         {
             cMenu[iSel - 1].execute(sprite);
+            if (!sprite)
+            {
+            	std::cout << "This feature is not required for phase 1.\n";
+            	menuDone = false;
+            	continue;
+            }
             menuDone = true;
         } catch(OutOfBoundsException ex){}
     }

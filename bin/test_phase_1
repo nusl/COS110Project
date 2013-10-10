@@ -1,0 +1,6 @@
+#!/bin/bash
+
+cat input_phase_1|./RPG_64	> expected_output_phase_1
+cat input_phase_1|./RPG		> actual_output_phase_1
+
+meld expected_output_phase_1 actual_output_phase_1
