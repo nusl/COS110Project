@@ -123,7 +123,7 @@ void Game::start()
 
 		            std::cin >> intent;
 
-		            if(p.executeCommand(map, intent[0], attempt))
+		            if(p.executeCommand(map, intent[0], attempt))//FIXME: Attempt is an unsigned int, excecute expects an int. Implicit conversion takes place.
 		            {
 		                ++attempt;
 		            }
