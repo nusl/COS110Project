@@ -58,7 +58,7 @@ bool Sprite::attemptAction(Map& caller, const int& attempt)
     }
 
     // Cannot make more moves than possible move count
-    if ((getMoveCount() - attempt) < 0)
+    if ((getMoveCount() - attempt) < 0)//FIXME: Subtracting an int from an unsigned int can never be less than 0. The result is unsigned.
     {
         return false;
     }

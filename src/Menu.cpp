@@ -14,7 +14,7 @@ Menu::~Menu()
 
 MenuItem& Menu::operator[](const unsigned& index)
 {
-    if (index < 0 || index >= items.size())
+    if (index < 0 || index >= items.size())//FIXME: Index can never be less than 0. It is unsigned.
     {
         throw OutOfBoundsException("Index was invalid or out of bounds when attempting to access a menu item in the Menu class.");
     }
