@@ -76,6 +76,9 @@ class Sprite : public MovablePiece
         virtual bool pass(Map& caller) = 0;
         
         virtual void reset();//Specialised from Piece implementation
+        
+        //TODO: Implement logic. Keep it as simple as possible so that we can migrate it up the hierarchy if we want to implement it as an added feature.
+        void knockBack(Piece* victim, const size_t& howFar);
 
     private:
 

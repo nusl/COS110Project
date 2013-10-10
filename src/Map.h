@@ -42,8 +42,8 @@ struct Coord
  		return temp;
  	}
 	
-    unsigned int y;
-    unsigned int x;
+    size_t y;
+    size_t x;
 };
 
 class Piece;
