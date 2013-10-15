@@ -163,9 +163,19 @@ void Map::destroyPieceAt(const Coord& coord)
 	map.at(coord.y).at(coord.x).pop();
 }
 
-const inline Piece* Map::getHandleAt(const Coord& coord) const
+inline Piece* const Map::getHandleAt(const Coord& coord) const
 {
 	return map.at(coord.y).at(coord.x).top();
+}
+
+const Coord Map::getCoordOf(const Piece* const piece) const
+{
+	for(mapSize y = 0; y!=map.size(); ++y)
+		for(rowSize x = 0; x!=map[y].size(); ++x)
+			if(map[y][x].top() == piece)
+				return Coord(y,x);
+	//Caller is broken if it expects to find a coordinate of an object that does not exist.
+	assert(false);
 }
 
 //Call action() of pieces on top of the stack at each coordinate.
@@ -200,7 +210,7 @@ void Map::render(std::ostream& os) const
 	os << std::endl;
 }
 
-const Piece* Map::getHandleWaypointStart() const
+Piece* const Map::getHandleWaypointStart() const
 {
 	for(const_mapIterator it = map.begin(); it!=map.end(); ++it)
 	{
@@ -235,7 +245,7 @@ const Coord Map::getSpriteCoord() const
 	assert(false);//we should never fail to return a coordinate to a sprite.	
 }
 
-const Piece* const Map::getHandleBelowOfType(const Coord& coord, const char* const type) const//FIXME: Is there a mechanism to compare types without comparing strings?
+Piece* const Map::getHandleBelowOfType(const Coord& coord, const char* const type) const//FIXME: Is there a mechanism to compare types without comparing strings?
 {
 	std::stack<Piece*> temp = map[coord.y][coord.x];
 	assert(temp.size() != 0);

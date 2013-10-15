@@ -35,7 +35,11 @@ class Runner : public Creep
 		//,false//inMoveOnto
 		)
 		{}
-		virtual void action(const Coord& coord, Map* caller){};
+		virtual void action(const Coord& coord, Map* caller)
+		{
+			Coord location(coord);
+			Creep::wander(location, caller);
+		};
 };
 
 #endif

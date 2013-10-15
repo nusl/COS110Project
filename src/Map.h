@@ -46,14 +46,7 @@ struct Coord
     size_t x;
 };
 
-class Piece;
 
-/** The Map class.
- *
- *  Holds the current state of the game's map as well as some functions to
- *  facilitate actions on the map itself.
- *  Map takes ownership of all pointers that are passed to it.
- */
 class Piece;
 
 /** Map class.
@@ -130,7 +123,7 @@ class Map
          *  @param coord a constant Coord reference.
          *  @return The Piece object at the coordinate on the map as a constant Piece pointer.
          */
-        const Piece* getHandleAt(const Coord& coord) const;
+        Piece* const getHandleAt(const Coord& coord) const;
         
         /** Get the coordinate of a Piece.
          *	Not needed yet.
@@ -138,7 +131,8 @@ class Map
          *  @param coord a constant Coord reference.
          *  @return The coordinate to the Player's Sprite on the map as a const Coord copy.
          */
-         //const Coord getCoordOf(Piece* piece) const;
+
+         const Coord getCoordOf(const Piece* const piece) const;
 
         
         /** Update the current state of the map.
@@ -166,7 +160,7 @@ class Map
          *  @param void
          *  @return Handle(pointer) to Waypoint with state start of type Piece.
          */
-   		const Piece* getHandleWaypointStart() const;
+   		Piece* const getHandleWaypointStart() const;
    		
 		/** Get a coord on the waypoint with state S, which is start.
 		 *
@@ -185,7 +179,7 @@ class Map
          */
         const Coord getSpriteCoord() const;
         
-        const Piece* const getHandleBelowOfType(const Coord& coord, const char* const type) const;
+        Piece* const getHandleBelowOfType(const Coord& coord, const char* const type) const;
 
         
     private:

@@ -81,6 +81,7 @@ class Creep : public MovablePiece
 		bool huntDown	(Coord& from, Map* caller);
 		void wander		(Coord& from, Map* caller);
 		void forget();
+		bool radar		(const Coord& from, Coord& blip, const size_t& range, Map* caller) const;
 
 		bool moveLeft	(Coord& from, Map* caller);
 		bool moveRight	(Coord& from, Map* caller);

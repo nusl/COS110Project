@@ -59,6 +59,26 @@ void Creep::forget()
 	offsetHistory.push_back(lastPosition);
 }
 
+//Checks if a sprite is in range, if it is, return a blip by reference.
+bool Creep::radar(const Coord& from, Coord& blip, const size_t& range, Map* caller) const
+{
+	Coord victim(0,0);
+	if(whoAttackedMe())
+		victim = caller->getCoordOf(whoAttackedMe());
+	else
+		victim = caller->getSpriteCoord();
+
+	Offset distanceFromMe(from, victim);
+
+	//Is it in range, if not return false?
+	if((::abs(distanceFromMe.offsetY) > range) 
+	|| (::abs(distanceFromMe.offsetX) > range))
+		return false;
+
+	blip = victim;
+	return true;
+}
+
 //TODO: Check that creep does not wander too far from origin
 bool Creep::move(const Coord& from, const Coord& to, Map* caller)
 {
@@ -72,7 +92,7 @@ bool Creep::move(const Coord& from, const Coord& to, Map* caller)
 		return false;//cannot move there, it is in history
 
 	//Stay within range
-	if((::abs(newOffset.offsetY) > this->getRange()) || (::abs(newOffset.offsetX) > this->getRange()))
+	if((::abs(newOffset.offsetY) > this->getMoveRange()) || (::abs(newOffset.offsetX) > this->getMoveRange()))
 		return false;
 
 	if(!caller->Map::inBoundary(to))

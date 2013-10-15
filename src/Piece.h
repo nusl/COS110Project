@@ -13,7 +13,7 @@ class Piece: public RNG
 		(unsigned int inMaxLife
 		,unsigned int inCurrentLife
 		,unsigned int inMoveCount
-		,unsigned int inRange
+		,unsigned int inAttackRange
 		,unsigned int inAttackPower
 		,double inHitChance
 		,double inCritChance
@@ -27,7 +27,8 @@ class Piece: public RNG
 		,maxLife(inMaxLife)
 		,currentLife(inCurrentLife)
 		,moveCount(inMoveCount)
-		,range(inRange)
+		,attackRange(inAttackRange)
+		,moveRange(1)//FIXME: All units have a movement range of 1, but this should probably propagate up to the constructor
 		,attackPower(inAttackPower)
 		,hitChance(inHitChance)
 		,critChance(inCritChance)
@@ -49,7 +50,7 @@ class Piece: public RNG
 
 		virtual void action(const Coord& coord, Map* caller) = 0;
 
-		virtual Piece* whoAttackedMe(){return myAssailant;}		
+		virtual Piece* const whoAttackedMe()const{return myAssailant;}		
 		/** Used for interaction between pieces
 		 *
 		 *
@@ -59,16 +60,30 @@ class Piece: public RNG
          *  @param handle to the assailant
          *  @return void
          */
-		virtual void iAttackedYou(Piece* assailant, unsigned int& damage, Map* caller)
+		virtual void iAttackedYou(Piece* const assailant, unsigned int& damage, Map* caller)
 		{
 			defend(assailant, damage, caller);//Modifies the damage done.
 			currentLife -= damage;
 			myAssailant = assailant;
 		}
+		
+		virtual unsigned int totalAttackDamage()
+		{
+			unsigned int damage = getAttackPower();
+			
+			unsigned int rng = static_cast<unsigned int>(this->random());//FIXME: RNG generates ints as per specification. The result is compared with uints.
+			
+		    if(rng <= getHitChance())
+		        damage = 0;
+		    if(rng <= getCritChance())
+		    	damage *= 2;
+		    
+		    return damage;
+		}
 
         //TODO: Move this to .cpp. Its getting crowded in here :p
 		/** Dodge and Parry chance are the defense modifiers*/
-		virtual void defend(Piece* assailant, unsigned int& damage, Map* caller)
+		virtual void defend(Piece* const assailant, unsigned int& damage, Map* caller)
 		{
 		    unsigned int rng = static_cast<unsigned int>(this->random());//FIXME: RNG generates ints as per specification. The result is compared with uints.
 		    if(rng == 0)
@@ -88,7 +103,8 @@ class Piece: public RNG
         const unsigned int getMaxLife() const {return maxLife;}
         const unsigned int getCurrentLife() const {return currentLife;}
         const unsigned int getMoveCount() const {return moveCount;}
-        const unsigned int getRange() const {return range;}
+        const unsigned int getAttackRange() const {return attackRange;}
+        const unsigned int getMoveRange() const {return moveRange;}
         const unsigned int getAttackPower() const {return attackPower;}
 
         const double getHitChance() const {return hitChance;}
@@ -106,7 +122,8 @@ class Piece: public RNG
 		unsigned int maxLife;
 		unsigned int currentLife;
 		unsigned int moveCount;
-		unsigned int range;
+		unsigned int attackRange;
+		unsigned int moveRange;
 		unsigned int attackPower;
 
 		double hitChance;
