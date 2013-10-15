@@ -46,6 +46,7 @@ class Hammer : public Creep
 			moveUp(location,caller);
 			moveLeft(location,caller);
 */
+/*
 			moveLeft(location,caller);
 			if(!moveLeft(location,caller))
 				std::cout << "cannot move left" << std::endl;
@@ -54,6 +55,8 @@ class Hammer : public Creep
 			std::cout << random() << std::endl;
 			std::cout << random() << std::endl;
 			std::cout << random() << std::endl;
+*/
+			wander(location,caller);
 		};
 };
 

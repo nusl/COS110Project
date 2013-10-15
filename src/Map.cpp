@@ -119,16 +119,20 @@ void Map::resetState()
 	}
 }
 
+bool Map::inBoundary(const Coord& in) const
+{
+	if(in.y >= map.size())
+		return false;
+	if(in.x >= map.at(in.y).size())
+		return false;
+
+	return true;
+}
+
 bool Map::move(const Coord& from, const Coord& to)
 {
 	//Are we referring to a location on the map that exists?
-	if(from.y >= map.size())
-		return false;
-	if(from.x >= map.at(from.y).size())
-		return false;
-	if(to.y >= map.size())
-		return false;
-	if(to.x >= map.at(to.y).size())
+	if(!inBoundary(from) || !inBoundary(to))
 		return false;
 
 	//We cannot move an EmptySpace, the caller is broken if this happens.

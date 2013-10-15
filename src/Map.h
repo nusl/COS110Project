@@ -92,6 +92,9 @@ class Map
         void saveState();
         void resetState();
 
+		
+		bool inBoundary(const Coord& in) const;
+
         /** Move the piece at the first coordinate on the map to the location of the second coordinate on the map.
          *
          *  The function will perform the actual move on the map should the move be valid and possible,
