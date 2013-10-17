@@ -71,8 +71,9 @@ bool Creep::radar(const Coord& from, Coord& blip, const size_t& range, Map* call
 	Offset distanceFromMe(from, victim);
 
 	//Is it in range, if not return false?
-	if((::abs(distanceFromMe.offsetY) > range) 
-	|| (::abs(distanceFromMe.offsetX) > range))
+	// NOTE: Frank- Added (unsigned) here as a warning was raised for comparing uint(abs()) with sint(range) below.
+	if(((unsigned)::abs(distanceFromMe.offsetY) > range)
+	|| ((unsigned)::abs(distanceFromMe.offsetX) > range))
 		return false;
 
 	blip = victim;
@@ -92,7 +93,8 @@ bool Creep::move(const Coord& from, const Coord& to, Map* caller)
 		return false;//cannot move there, it is in history
 
 	//Stay within range
-	if((::abs(newOffset.offsetY) > this->getMoveRange()) || (::abs(newOffset.offsetX) > this->getMoveRange()))
+	// NOTE: Frank- Added (unsigned) here as a warning was raised for comparing uint(abs()) with sint(range) below.
+	if(((unsigned)::abs(newOffset.offsetY) > this->getMoveRange()) || ((unsigned)::abs(newOffset.offsetX) > this->getMoveRange()))
 		return false;
 
 	if(!caller->Map::inBoundary(to))

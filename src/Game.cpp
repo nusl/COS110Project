@@ -46,7 +46,6 @@ void Game::start()
             cMenu[iSel - 1].execute(sprite);
             if (!sprite)
             {
-            	std::cout << "This feature is not required for phase 1.\n";
             	menuDone = false;
             	continue;
             }
@@ -72,10 +71,11 @@ void Game::start()
         {
             mMenu[iSel - 1].execute(selectedMap);
             menuDone = true;
-        } catch(OutOfBoundsException ex){}
+		} catch(OutOfBoundsException ex)
+		{
+			continue;
+		}
     }
-
-    // DO STUFFS HURR
 
     Map map(selectedMap);
 
@@ -91,6 +91,7 @@ void Game::start()
     std::string intent;
 
     unsigned attempt = 1;
+	unsigned moveValue;
 
     try
     {
@@ -99,20 +100,11 @@ void Game::start()
         
 			try
 			{
-        
+
 		        // Start of global turn
 
 		        std::cout << "Player's turn has begun." << std::endl;
 
-		        /* CAUTION/WARNING AHEAD:
-		         * ('caution' is a REALLY ugly looking-and-feeling word, wow.)
-		         *
-		         * Undefined behavior could result when the user somehow manages to input more than one line,
-		         * as getline will read each line individually and therefore trigger a new game loop for each
-		         * line it finds. I spent a number of hours trying to find a good solution(like flushing cin buffer
-		         * after a read, or reading the entire buffer, thereby grabbing everything at once) but the solutions
-		         * I tried didn't really work. Use with caution, and take note.
-		         */
 		        while ((attempt <= p.getSpriteHandle()->getMoveCount()))
 		        {
 		            // Start of player turn
@@ -123,7 +115,12 @@ void Game::start()
 
 		            std::cin >> intent;
 
-		            if(p.executeCommand(map, intent[0], attempt))//FIXME: Attempt is an unsigned int, excecute expects an int. Implicit conversion takes place.
+					// Build the player's intent
+
+					tutils::convert<char, unsigned>(intent[1], moveValue);
+					Intent playerIntent(intent[0], (intent.length() > 1 && isdigit(intent[1])) ? moveValue : 1);
+
+					if(p.executeCommand(map, playerIntent, attempt))
 		            {
 		                ++attempt;
 		            }

@@ -17,7 +17,7 @@ class Player
         const Sprite* getSpriteHandle() const;
         bool placeSprite(Map& map) const;
 
-        bool executeCommand(Map& caller, const char& c, const int &attempt);
+		bool executeCommand(Map& caller, const Intent& intent, const unsigned& attempt);
 
     private:
         bool command(const char& c) const;

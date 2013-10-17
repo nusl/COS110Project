@@ -12,6 +12,7 @@ class RangedSprite : public Sprite
 		,unsigned int inMoveCount
 		//,unsigned int inRange
 		,unsigned int inAttackPower
+		,unsigned int inMoveRange
 		,double inHitChance
 		,double inCritChance
 		,double inDodgeChance
@@ -28,6 +29,7 @@ class RangedSprite : public Sprite
 		,inMoveCount
 		,2//inRange
 		,inAttackPower
+		,inMoveRange
 		,inHitChance
 		,inCritChance
 		,inDodgeChance

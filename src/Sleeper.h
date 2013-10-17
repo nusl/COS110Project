@@ -35,7 +35,8 @@ class Sleeper : public Creep
 		//,false//inMoveOnto
 		)
 		{}
-		virtual void action(const Coord& coord, Map* caller){};
+
+		virtual void action(const Coord& coord, Map* caller){}
 };
 
 #endif

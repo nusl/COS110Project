@@ -64,6 +64,7 @@ class Creep : public MovablePiece
 		,inMoveCount
 		,inRange
 		,inAttackPower
+		,1 //inMoveRange - FIXME: May need to propogate this through the Creep derivative constructors.
 		,inHitChance
 		,inCritChance
 		,inDodgeChance

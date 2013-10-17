@@ -2,20 +2,22 @@
 
 #include "InvalidParameterException.h"
 
-#include <iostream>
+#include "PlayerResetException.h"
+#include "PlayerEndException.h"
+#include "Waypoint.h"
 
 const std::string Sprite::commandIntentList = "WASDKP";
 const std::string Sprite::attackIntentList = "K";
 const std::string Sprite::passIntentList = "P";
 
-char Sprite::getIntent() const
+Intent Sprite::getIntent() const
 {
     return intent;
 }
 
 const char Sprite::getDirectionFromIntent() const
 {
-    switch (toupper(intent))
+	switch (toupper(intent.getIntent()))
     {
         case 'W':
             return Direction::up;
@@ -36,16 +38,16 @@ const char Sprite::getDirectionFromIntent() const
     return Direction::invalid;
 }
 
-bool Sprite::command(const char& in)
+bool Sprite::command(const Intent& inIntent)
 {
-    bool valid = commandIntentList.find(toupper(in), 0) != std::string::npos;
+	bool valid = commandIntentList.find(toupper(inIntent.getIntent()), 0) != std::string::npos;
 
     if (!valid)
     {
         return valid;
     }
 
-    intent = in;
+	intent = inIntent;
 
     return valid; //return true if command exists
 }
@@ -63,6 +65,8 @@ bool Sprite::attemptAction(Map& caller, const int& attempt)
         return false;
     }
 
+	bool success = false;
+
     // If you're going to mess with this if-stack please expect weird behavior.
     // Removing the 'else's will cause undefined behavior because the isMoveIntent()
     // function is dependant on the current state of the Sprite, which would be changed by
@@ -70,22 +74,32 @@ bool Sprite::attemptAction(Map& caller, const int& attempt)
     // Rather leave it like this, mmkay?
     if (isRotateIntent())
     {
-        return rotate(caller);
+		success = rotate(caller);
     }
     else if (isAttackIntent())
     {
-        return attack(caller);
+		success = attack(caller);
     }
     else if (isMoveIntent())
     {
-        return move(caller);
+		success = move(caller);
+
+		const Piece* waypoint = caller.getHandleBelowOfType(caller.getSpriteCoord(), typeid(Waypoint).name());
+
+		if(waypoint)
+		{
+			if(waypoint->getState() == 'S')
+				throw PlayerResetException("Player moved over the Start waypoint.");
+			if(waypoint->getState() == 'E')
+				throw PlayerEndException("Player moved over the End waypoint.");
+		}
     }
     else if (isPassIntent())
     {
-        return pass(caller);
+		success = pass(caller);
     }
 
-    return false;
+	return success;
 }
 
 bool Sprite::isAttackIntent() const
@@ -96,7 +110,7 @@ bool Sprite::isAttackIntent() const
         return false;
     }
 
-    return attackIntentList.find(toupper(intent), 0) != std::string::npos;
+	return attackIntentList.find(toupper(intent.getIntent()), 0) != std::string::npos;
 }
 
 bool Sprite::isRotateIntent() const
@@ -131,7 +145,7 @@ bool Sprite::isMoveIntent() const
 
 bool Sprite::isPassIntent() const
 {
-    return passIntentList.find(toupper(intent), 0) != std::string::npos;
+	return passIntentList.find(toupper(intent.getIntent()), 0) != std::string::npos;
 }
 
 void Sprite::reset()

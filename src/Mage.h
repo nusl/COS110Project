@@ -26,6 +26,7 @@ class Mage : public RangedSprite
 		,1//inMoveCount
 		//,2//inRange
 		,30//inAttackPower
+		,3 //inMoveRange
 		,0.80//inHitChance
 		,0.35//inCritChance
 		,0.05//inDodgeChance
@@ -37,7 +38,8 @@ class Mage : public RangedSprite
 		,7//inRegenCounter
 		)
 		{}
-		virtual void action(const Coord& coord, Map* caller){};
+
+		virtual void action(const Coord& coord, Map* caller){}
 
         virtual bool attack(Map& caller);
         virtual bool rotate(Map& caller);

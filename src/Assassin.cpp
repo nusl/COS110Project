@@ -1,9 +1,5 @@
 #include "Assassin.h"
 
-#include "PlayerResetException.h"
-#include "PlayerEndException.h"
-#include "Waypoint.h"
-
 bool Assassin::attack(Map& caller)
 {
     return true;
@@ -19,38 +15,25 @@ bool Assassin::move(Map& caller)
 {
     Coord c = caller.getSpriteCoord();
 
-    switch (getState())
-    {
-        case Direction::up:
-            c.y -= 1;
-            break;
-        case Direction::down:
-            c.y += 1;
-            break;
-        case Direction::left:
-            c.x -= 1;
-            break;
-        case Direction::right:
-            c.x += 1;
-            break;
-    }
+	int moveDistance = (getIntent().getValue() <= getMoveRange() && getIntent().getValue() > 0) ? getIntent().getValue() : 1;
 
-    bool success = caller.move(caller.getSpriteCoord(), c);
-
-	if (success)
+	switch (getState())
 	{
-		const Piece* waypoint = caller.getHandleBelowOfType(c, typeid(Waypoint).name());
+		case Direction::up:
+			c.y -= moveDistance;
+			break;
+		case Direction::down:
+			c.y += moveDistance;
+			break;
+		case Direction::left:
+			c.x -= moveDistance;
+			break;
+		case Direction::right:
+			c.x += moveDistance;
+			break;
+	}
 
-		if(waypoint)
-		{
-			if(waypoint->getState() == 'S')
-		  		throw PlayerResetException("Player moved over the Start waypoint.");
-			if(waypoint->getState() == 'E')
-		  		throw PlayerEndException("Player moved over the End waypoint.");
-	  	}	
-  	}
-
-	return success;
+	return caller.move(caller.getSpriteCoord(), c);
 }
 
 bool Assassin::pass(Map& caller)

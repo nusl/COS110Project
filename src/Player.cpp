@@ -39,11 +39,11 @@ const int& Player::getScore() const
     return score;
 }
 
-bool Player::executeCommand(Map &caller, const char& c, const int& attempt)
+bool Player::executeCommand(Map &caller, const Intent& intent, const unsigned& attempt)
 {
-    if (command(c))
+	if (command(intent.getIntent()))
     {
-        switch (toupper(c))
+		switch (toupper(intent.getIntent()))
         {
             case 'Q':
                 quit();
@@ -51,7 +51,7 @@ bool Player::executeCommand(Map &caller, const char& c, const int& attempt)
         }
     }
 
-    if (!(sprite->command(c)))
+	if (!(sprite->command(intent)))
     {
         return false;
     }

@@ -35,7 +35,8 @@ class Waypoint : public ImmovablePiece
 		,true//inMoveOnto
 		)
 		{}
-		virtual void action(const Coord& coord, Map* caller){};
+
+		virtual void action(const Coord& coord, Map* caller){}
 };
 
 #endif

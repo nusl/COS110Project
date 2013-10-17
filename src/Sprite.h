@@ -12,6 +12,40 @@ namespace Direction
         const char invalid = '!';
 }
 
+struct Intent
+{
+	public:
+		Intent() : intent(' '), value(0)
+		{
+
+		}
+
+		Intent(const char& it, const int& val = 1) : intent(it), value(val)
+		{
+		}
+
+		Intent& operator=(const Intent& other)
+		{
+			this->intent = other.intent;
+			this->value = other.value;
+			return *this;
+		}
+
+		const char& getIntent() const
+		{
+			return intent;
+		}
+
+		const unsigned& getValue() const
+		{
+			return value;
+		}
+
+	private:
+		char intent;
+		unsigned value;
+};
+
 class Sprite : public MovablePiece
 {
 	public:
@@ -21,6 +55,7 @@ class Sprite : public MovablePiece
 		,unsigned int inMoveCount
 		,unsigned int inRange
 		,unsigned int inAttackPower
+		,unsigned int inMoveRange
 		,double inHitChance
 		,double inCritChance
 		,double inDodgeChance
@@ -37,6 +72,7 @@ class Sprite : public MovablePiece
 		,inMoveCount
 		,inRange
 		,inAttackPower
+		,inMoveRange
 		,inHitChance
 		,inCritChance
 		,inDodgeChance
@@ -49,11 +85,11 @@ class Sprite : public MovablePiece
         ,regenCounter(inRegenCounter)
 		{}
 
-        char getIntent() const;
+		Intent getIntent() const;
         const char getDirectionFromIntent() const;
 
 		//Recieves a command, validates if it exists(return bool), sets the intent. Afterward, action() is called. 
-        bool command(const char& in);
+		bool command(const Intent& inIntent);
 
         // Returns true if a turn-consuming action was performed, otherwise returns false
         bool attemptAction(Map& caller, const int& attempt);
@@ -84,7 +120,7 @@ class Sprite : public MovablePiece
 
 		double regenRate;
 		unsigned int regenCounter;
-        char intent;
+		Intent intent;
 
         static const std::string commandIntentList;
         static const std::string attackIntentList;
