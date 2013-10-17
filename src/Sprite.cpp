@@ -153,3 +153,29 @@ void Sprite::reset()
 	Piece::reset();
 	setState('v');
 }
+
+void Sprite::knockBack(Piece* victim, const size_t& howFar)
+{
+	/*
+	 *	if there is an obstacle at the sprite’s range 1
+			the sprite will take 10 damage, the player will lose 10 score points and
+			the sprite will remain where it is
+		if there is an obstacle at the sprite’s range 2
+			the sprite will take 5 damage, the player will lose 5 score points and
+			the sprite will move backwards to its range 1 while facing the same
+			direction as before the move
+		if there is no obstacle at the sprite’s range 1 or 2
+			the sprite will take no damage and will move backwards to its range 2
+			while facing the same direction as before the move
+		if there is a creep at the sprite’s range 1
+			the sprite will take 10 damage, the player will lose 10 score points, the
+			creep will take 20 damage and the sprite will remain where it is
+		if there is a creep at the sprite’s range 2
+			the sprite will take 5 damage, the player will lose 5 score points, the
+			creep will take 10 damage and the sprite will move backwards to its
+			range 1 while facing the same direction as before the move
+		if there is no creep at the sprite’s range 1 or 2
+			the sprite will lose no life and will move backwards to its range 2 while
+			facing the same direction as before the move
+	 */
+}

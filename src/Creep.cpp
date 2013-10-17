@@ -107,7 +107,7 @@ bool Creep::move(const Coord& from, const Coord& to, Map* caller)
 	if(!caller->Map::move(from, to))
 		return false;
 
-std::cout << "MovedOffset: y:" << newOffset.offsetY << " x:" << newOffset.offsetX << std::endl;
+	std::cout << "MovedOffset: y:" << newOffset.offsetY << " x:" << newOffset.offsetX << std::endl;
 
 	for(std::deque<Offset>::iterator it = offsetHistory.begin(); it!=offsetHistory.end(); ++it)
 	std::cout << "Move offset: y:" << it->offsetY << " x:" << it->offsetX << std::endl;
@@ -118,7 +118,6 @@ std::cout << "MovedOffset: y:" << newOffset.offsetY << " x:" << newOffset.offset
 	
 	return true;
 }
-
 
 //TODO:There could be a clean way to remove some of this duplicate code
 bool Creep::moveLeft(Coord& coord, Map* caller)
@@ -132,6 +131,7 @@ bool Creep::moveLeft(Coord& coord, Map* caller)
 	std::cout << typeid(*this).name() << ": Moved left"<< std::endl;
 	return true;
 }
+
 bool Creep::moveRight(Coord& coord, Map* caller)
 {
 	std::cout << typeid(*this).name() << ": Tried to move right"<< std::endl;
@@ -145,6 +145,7 @@ bool Creep::moveRight(Coord& coord, Map* caller)
 	std::cout << typeid(*this).name() << ": Moved right"<< std::endl;
 	return true;
 }
+
 bool Creep::moveUp(Coord& coord, Map* caller)
 {
 	std::cout << typeid(*this).name() << ": Tried to move up"<< std::endl;
@@ -156,6 +157,7 @@ bool Creep::moveUp(Coord& coord, Map* caller)
 		std::cout << typeid(*this).name() << ": Moved up"<< std::endl;
 	return true;
 }
+
 bool Creep::moveDown(Coord& coord, Map* caller)
 {
 	std::cout << typeid(*this).name() << ": Tried to move down"<< std::endl;
