@@ -25,6 +25,7 @@ void MapMenuItem::execute(std::vector<std::string>& s)
 
     while(std::getline(strStream, temp))
     {
+		// Windows likes putting CR-LF in their files. We remove that here.
         tutils::sanitize(temp, "\r\n");
         s.push_back(temp);
     }

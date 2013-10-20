@@ -40,3 +40,12 @@ void Piece::defend(Piece* const assailant, unsigned int& damage, Map* caller)
 	if(rng <= getParryChance())
 		damage /= 2;
 }
+
+void Piece::decreaseLife(const unsigned& howMuch)
+{
+	if (howMuch > getCurrentLife())
+	{
+		currentLife = 0;
+	}
+	currentLife -= howMuch;
+}

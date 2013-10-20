@@ -79,6 +79,8 @@ class Piece: public RNG
         const double getDodgeChance() const {return dodgeChance;}
         const double getParryChance() const {return parryChance;}
 
+		void decreaseLife(const unsigned& howMuch);
+
     protected:
 		void setState(const char& inState){state = inState;}
 
