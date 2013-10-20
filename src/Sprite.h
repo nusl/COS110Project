@@ -3,6 +3,10 @@
 
 #include "MovablePiece.h"
 
+// Forward declare class Player to avoid circular inheritance and hence
+// absolute compiler suicide.
+class Player;
+
 namespace Direction
 {
         const char left = '{';
@@ -100,31 +104,40 @@ class Sprite : public MovablePiece
         bool isPassIntent() const;
 
         // Returns true if attack successful, as any valid attack counts as a turn
-        virtual bool attack(Map& caller) = 0;
+		virtual bool attack(Map& caller) = 0;
 
         // Always return false, as no move is made when rotating
-        virtual bool rotate(Map& caller) = 0;
+		virtual bool rotate(Map& caller) = 0;
 
         // Returns true if move was made, as a move counts as a turn
-        virtual bool move(Map& caller) = 0;
+		virtual bool move(Map& caller) = 0;
 
         // Always returns true, as pass counts as a turn
-        virtual bool pass(Map& caller) = 0;
+		virtual bool pass(Map& caller) = 0;
         
 		virtual void reset();//Specialised from Piece implementation
 
 		//TODO: Implement logic. Keep it as simple as possible so that we can migrate it up the hierarchy if we want to implement it as an added feature.
 		virtual void knockBack(Map* caller);
 
+		Player* getOwner();
+
+		virtual void decreaseLife(const unsigned& howMuch, Map* caller);
+
     private:
+
+		void setOwner(Player* who);
 
 		double regenRate;
 		unsigned int regenCounter;
 		Intent intent;
+		Player* owner;
 
         static const std::string commandIntentList;
         static const std::string attackIntentList;
         static const std::string passIntentList;
+
+	friend class Player;
 };
 
 #endif

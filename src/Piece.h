@@ -59,7 +59,6 @@ class Piece: public RNG
 
 		virtual unsigned int totalAttackDamage();
 
-        //TODO: Move this to .cpp. Its getting crowded in here :p
 		/** Dodge and Parry chance are the defense modifiers. */
 		virtual void defend(Piece* const assailant, unsigned int& damage, Map* caller);
 
@@ -79,7 +78,7 @@ class Piece: public RNG
         const double getDodgeChance() const {return dodgeChance;}
         const double getParryChance() const {return parryChance;}
 
-		void decreaseLife(const unsigned& howMuch);
+		virtual void decreaseLife(const unsigned& howMuch, Map* caller);
 
     protected:
 		void setState(const char& inState){state = inState;}

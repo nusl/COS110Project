@@ -8,6 +8,7 @@ const std::string Player::commands = "Q";
 Player::Player(Sprite* s) : score(0)
 {
     sprite = s;
+	s->setOwner(this);
 }
 
 Player::~Player()

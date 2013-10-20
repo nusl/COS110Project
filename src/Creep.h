@@ -76,7 +76,7 @@ class Creep : public MovablePiece
 		{
 			offsetHistory.push_back(Offset());
 		}
-	
+
 	protected:
 
 		bool huntDown	(Coord& from, Map* caller);

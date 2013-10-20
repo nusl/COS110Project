@@ -9,6 +9,7 @@
 #include "PlayerQuitException.h"
 #include "PlayerEndException.h"
 #include "PlayerResetException.h"
+#include "PlayerDiedException.h"
 
 #include "tutils.h"
 
@@ -150,5 +151,9 @@ void Game::start()
         std::cout << peex.getMessage() << p.getScore() << "." << std::endl;
         map.render(std::cout);
     }
+	catch (PlayerDiedException pdx)
+	{
+		std::cout << pdx.getMessage() << std::endl;
+	}
 
 }

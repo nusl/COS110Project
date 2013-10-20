@@ -2,6 +2,7 @@
 
 #include "EmptySpace.h"
 
+#include <iostream>
 #include <typeinfo>
 
 bool Warrior::attack(Map& caller)
@@ -71,5 +72,6 @@ bool Warrior::move(Map& caller)
 
 bool Warrior::pass(Map& caller)
 {
+	std::cout << "Player has passed on their turn.\n";
     return true;
 }

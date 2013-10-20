@@ -1,5 +1,9 @@
 #include "Piece.h"
 
+#include "Sprite.h"
+
+#include <iostream>
+
 void Piece::reset()
 {
 	currentLife = maxLife;
@@ -9,8 +13,23 @@ void Piece::reset()
 
 void Piece::iAttackedYou(Piece* const assailant, unsigned int& damage, Map* caller)
 {
+	std::cout << "damage before: " << damage << std::endl;
 	defend(assailant, damage, caller);//Modifies the damage done.
-	currentLife -= damage;
+	std::cout << "damage before: " << damage << std::endl;
+	if (dynamic_cast<Sprite*>(assailant))
+	{
+		std::string attackMod = "attacks";
+		if (damage > assailant->getAttackPower())
+		{
+			attackMod = "critical attacks";
+		} else if (damage < assailant->getAttackPower())
+		{
+			attackMod = "misses";
+		}
+		std::cout << "Player " << attackMod << ", dealing a total damage amount of " << ((damage > getCurrentLife()) ? getCurrentLife() : damage) << ".\n";
+	}
+
+	decreaseLife(damage, caller);
 	myAssailant = assailant;
 }
 
@@ -41,11 +60,14 @@ void Piece::defend(Piece* const assailant, unsigned int& damage, Map* caller)
 		damage /= 2;
 }
 
-void Piece::decreaseLife(const unsigned& howMuch)
+void Piece::decreaseLife(const unsigned& howMuch, Map *caller)
 {
-	if (howMuch > getCurrentLife())
+	if (howMuch >= getCurrentLife())
 	{
-		currentLife = 0;
+		// I am dead. Sniff.
+		caller->destroyPieceAt(caller->getCoordOf(this));
+		return;
 	}
+
 	currentLife -= howMuch;
 }

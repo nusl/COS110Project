@@ -4,6 +4,7 @@
 
 #include "PlayerResetException.h"
 #include "PlayerEndException.h"
+#include "PlayerDiedException.h"
 #include "Waypoint.h"
 #include "Creep.h"
 
@@ -151,14 +152,6 @@ void Sprite::reset()
 
 void Sprite::knockBack(Map* caller)
 {
-	/*
-		if there is a creep at the sprite’s range 1
-			the	creep will take 20 damage and the sprite will remain where it is
-		if there is a creep at the sprite’s range 2
-			the creep will take 10 damage and the sprite will move backwards to its
-			range 1 while facing the same direction as before the move
-	*/
-
 	const unsigned KNOCKBACK_RANGE = 2;
 	const unsigned KNOCKBACK_BASE_SPRITE_DAMAGE = 10;
 	const unsigned KNOCKBACK_BASE_CREEP_DAMAGE = 20;
@@ -175,20 +168,41 @@ void Sprite::knockBack(Map* caller)
 		c.y += myY;
 		if (!caller->inBoundary(c))
 		{
-			break;
+			caller->getHandleAt(caller->getSpriteCoord())->decreaseLife(KNOCKBACK_BASE_SPRITE_DAMAGE / i, caller);
+			return;
 		}
 		if (!caller->move(caller->getCoordOf(this), c))
 		{
-			caller->getHandleAt(caller->getSpriteCoord())->decreaseLife(KNOCKBACK_BASE_SPRITE_DAMAGE / i);
-			// Need to decrease player points
+			caller->getHandleAt(caller->getSpriteCoord())->decreaseLife(KNOCKBACK_BASE_SPRITE_DAMAGE / i, caller);
+			// FIXME: Need to decrease player points
 
 			// Is the piece that blocked us a creep?
 			if (dynamic_cast<Creep*>(caller->getHandleAt(c)))
 			{
-				caller->getHandleAt(c)->decreaseLife(KNOCKBACK_BASE_CREEP_DAMAGE / i);
+				caller->getHandleAt(c)->decreaseLife(KNOCKBACK_BASE_CREEP_DAMAGE / i, caller);
 			}
 			return;
 		}
 	}
+}
+
+Player* Sprite::getOwner()
+{
+	return owner;
+}
+
+void Sprite::decreaseLife(const unsigned &howMuch, Map *caller)
+{
+	if (howMuch >= getCurrentLife())
+	{
+		throw PlayerDiedException("Player was killed by taking too much damage.");
+	}
+
+	Piece::decreaseLife(howMuch, caller);
+}
+
+void Sprite::setOwner(Player *who)
+{
+	owner = who;
 }
 

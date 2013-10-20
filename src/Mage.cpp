@@ -2,6 +2,7 @@
 
 #include "EmptySpace.h"
 
+#include <iostream>
 #include <typeinfo>
 
 bool Mage::attack(Map& caller)
@@ -72,5 +73,6 @@ bool Mage::move(Map& caller)
 
 bool Mage::pass(Map& caller)
 {
+	std::cout << "Player has passed on their turn.\n";
     return true;
 }
