@@ -1,2 +1,2 @@
 #!/bin/bash
-cat |tee input|./RPG_linux_64
+cat |tee input|./RPG_64
