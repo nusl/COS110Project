@@ -87,6 +87,7 @@ class Sprite : public MovablePiece
 		)
 		,regenRate(inRegenRate)
         ,regenCounter(inRegenCounter)
+		,turnsSinceLastRegen(0)
 		{}
 
 		Intent getIntent() const;
@@ -104,25 +105,26 @@ class Sprite : public MovablePiece
         bool isPassIntent() const;
 
         // Returns true if attack successful, as any valid attack counts as a turn
-		virtual bool attack(Map& caller) = 0;
+		virtual bool attack(Map& caller);
 
         // Always return false, as no move is made when rotating
-		virtual bool rotate(Map& caller) = 0;
+		virtual bool rotate(Map& caller);
 
         // Returns true if move was made, as a move counts as a turn
-		virtual bool move(Map& caller) = 0;
+		virtual bool move(Map& caller);
 
         // Always returns true, as pass counts as a turn
-		virtual bool pass(Map& caller) = 0;
+		virtual bool pass(Map& caller);
         
 		virtual void reset();//Specialised from Piece implementation
 
-		//TODO: Implement logic. Keep it as simple as possible so that we can migrate it up the hierarchy if we want to implement it as an added feature.
 		virtual void knockBack(Map* caller);
 
 		Player* getOwner();
 
 		virtual void decreaseLife(const unsigned& howMuch, Map* caller);
+
+		void regenerateLife();
 
     private:
 
@@ -130,6 +132,7 @@ class Sprite : public MovablePiece
 
 		double regenRate;
 		unsigned int regenCounter;
+		unsigned int turnsSinceLastRegen;
 		Intent intent;
 		Player* owner;
 

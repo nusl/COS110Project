@@ -48,12 +48,6 @@ class Assassin : public MeleeSprite, public AmmoUnit
 		{}
 
 		virtual void action(const Coord& coord, Map* caller){}
-
-        virtual bool attack(Map& caller);
-        virtual bool rotate(Map& caller);
-        virtual bool move(Map& caller);
-        virtual bool pass(Map& caller);
-
 };
 
 #endif

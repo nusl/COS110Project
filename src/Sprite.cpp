@@ -7,6 +7,11 @@
 #include "PlayerDiedException.h"
 #include "Waypoint.h"
 #include "Creep.h"
+#include "Player.h"
+#include "EmptySpace.h"
+
+#include <iostream>
+#include <typeinfo>
 
 const std::string Sprite::commandIntentList = "WASDKP";
 const std::string Sprite::attackIntentList = "K";
@@ -144,6 +149,80 @@ bool Sprite::isPassIntent() const
 	return passIntentList.find(toupper(intent.getIntent()), 0) != std::string::npos;
 }
 
+bool Sprite::attack(Map &caller)
+{
+	//std::cout << "attacking" << std::endl;
+	Coord c = caller.getCoordOf(this);
+
+	int myX = (getState() == Direction::right) ? 1 : (getState() == Direction::left ? -1 : 0);
+	int myY = (getState() == Direction::down) ? 1 : (getState() == Direction::up ? -1 : 0);
+	//std::cout << myX << " $ " << myY << std::endl;
+	//std::cout << c.x << " % " << c.y << std::endl;
+	for (unsigned i = 0; i < getAttackRange(); ++i)
+	{
+		c.x += myX;
+		c.y += myY;
+		//std::cout << c.x << " - " << c.y << std::endl;
+		//std::cout << typeid(*caller.getHandleAt(c)).name() << std::endl;
+		if (!caller.inBoundary(c))
+		{
+			std::cout << "Player tries to attack nothing and wastes a turn." << std::endl;
+			return true;
+		}
+		if (typeid(EmptySpace) != typeid(*caller.getHandleAt(c)))
+		{
+			//std::cout << "did attack on : " << typeid(*caller.getHandleAt(c)).name() << std::endl;
+			// Attack stuff
+			unsigned int totalDamage = totalAttackDamage();
+			//std::cout << "Before attack: " << caller.getHandleAt(c)->getCurrentLife() << std::endl;
+			caller.getHandleAt(c)->iAttackedYou(this, totalDamage, &caller);
+			//std::cout << "After attack: " << caller.getHandleAt(c)->getCurrentLife() << std::endl;
+			return true;
+		}
+	}
+
+	// Attempted attacking nothing, which wastes a turn. Return true.
+	std::cout << "Player tries to attack nothing and wastes a turn." << std::endl;
+	return true;
+}
+
+bool Sprite::rotate(Map &caller)
+{
+	setState(getDirectionFromIntent());
+	return false;
+}
+
+bool Sprite::move(Map &caller)
+{
+	Coord c = caller.getSpriteCoord();
+
+	int moveDistance = (getIntent().getValue() <= getMoveRange() && getIntent().getValue() > 0) ? getIntent().getValue() : 1;
+
+	switch (getState())
+	{
+		case Direction::up:
+			c.y -= moveDistance;
+			break;
+		case Direction::down:
+			c.y += moveDistance;
+			break;
+		case Direction::left:
+			c.x -= moveDistance;
+			break;
+		case Direction::right:
+			c.x += moveDistance;
+			break;
+	}
+
+	return caller.move(caller.getSpriteCoord(), c);
+}
+
+bool Sprite::pass(Map &caller)
+{
+	std::cout << "Player has passed on their turn.\n";
+	return true;
+}
+
 void Sprite::reset()
 {
 	Piece::reset();
@@ -198,7 +277,14 @@ void Sprite::decreaseLife(const unsigned &howMuch, Map *caller)
 		throw PlayerDiedException("Player was killed by taking too much damage.");
 	}
 
+	// Since the player has lost life, we can now start regenerating life.
+
 	Piece::decreaseLife(howMuch, caller);
+}
+
+void Sprite::regenerateLife()
+{
+
 }
 
 void Sprite::setOwner(Player *who)
