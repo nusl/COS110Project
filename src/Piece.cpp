@@ -82,11 +82,15 @@ void Piece::defend(Piece* const assailant, unsigned int& damage, Map* caller)
 	if(static_cast<unsigned int>(this->random()) <= static_cast<unsigned int>(getDodgeChance()*100))
 	{
 		damage = 0;
+	}
+	else
+	{
 		if(static_cast<unsigned int>(this->random()) <= static_cast<unsigned int>(getParryChance()*100))
 		{
 			damage /= 2;
 		}
 	}
+
 //	std::cout << "Defense: " << damage << " Dodge: " << getDodgeChance() << " Parry: " << getParryChance() << std::endl;
 }
 
