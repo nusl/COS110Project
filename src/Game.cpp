@@ -106,9 +106,6 @@ void Game::start()
 
 		        std::cout << "Player's turn has begun." << std::endl;
 
-				p.getSpriteHandle()->regenerateLife();
-				p.getSpriteHandle()->tick();
-
 		        while ((attempt <= p.getSpriteHandle()->getMoveCount()))
 		        {
 		            // Start of player turn
@@ -126,6 +123,8 @@ void Game::start()
 
 					if(p.executeCommand(map, playerIntent, attempt))
 		            {
+						p.getSpriteHandle()->regenerateLife();
+						p.getSpriteHandle()->tick();
 		                ++attempt;
 		            }
 		        }

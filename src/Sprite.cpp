@@ -148,8 +148,8 @@ bool Sprite::attack(Map &caller)
 
 	int myX = (getState() == Direction::right) ? 1 : (getState() == Direction::left ? -1 : 0);
 	int myY = (getState() == Direction::down) ? 1 : (getState() == Direction::up ? -1 : 0);
-
-	for (unsigned i = 0; i < ((intent.getValue() > getAttackRange()) ? getAttackRange() : intent.getValue()); ++i)
+	//((intent.getValue() > getAttackRange()) ? getAttackRange() : intent.getValue())
+	for (unsigned i = 0; i < getAttackRange(); ++i)
 	{
 		c.x += myX;
 		c.y += myY;
