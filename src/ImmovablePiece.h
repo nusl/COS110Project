@@ -25,6 +25,7 @@ class ImmovablePiece : public Piece
 		,0//inMoveCount
 		,0//inRange
 		,0//inAttackPower
+		,0 //inMoveRange
 		,0//inHitChance
 		,0//inCritChance
 		,0//inDodgeChance

@@ -12,6 +12,7 @@ class MeleeSprite : public Sprite
 		,unsigned int inMoveCount
 		//,unsigned int inRange
 		,unsigned int inAttackPower
+		,unsigned int inMoveRange
 		,double inHitChance
 		,double inCritChance
 		,double inDodgeChance
@@ -28,6 +29,7 @@ class MeleeSprite : public Sprite
 		,inMoveCount
 		,1//inRange
 		,inAttackPower
+		,inMoveRange
 		,inHitChance
 		,inCritChance
 		,inDodgeChance

@@ -27,6 +27,7 @@ class Ranger : public RangedSprite, public AmmoUnit
 		,1//inMoveCount
 		//,2//inRange
 		,15//inAttackPower
+		,1 //inMoveRange
 		,0.75//inHitChance
 		,0.15//inCritChance
 		,0.15//inDodgeChance
@@ -43,11 +44,7 @@ class Ranger : public RangedSprite, public AmmoUnit
 		,10//inpPowerIncrease
 		)
 		{}
-		virtual void action(const Coord& coord, Map* caller){};
 
-        virtual bool attack(Map& caller);
-        virtual bool rotate(Map& caller);
-        virtual bool move(Map& caller);
-        virtual bool pass(Map& caller);
+		virtual void action(const Coord& coord, Map* caller){}
 };
 #endif

@@ -181,7 +181,6 @@ class Map
         
         Piece* const getHandleBelowOfType(const Coord& coord, const char* const type) const;
 
-        
     private:
 
         /** A 2D vector of a stack of pointers to pieces present on the map.

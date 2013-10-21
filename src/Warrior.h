@@ -26,6 +26,7 @@ class Warrior : public MeleeSprite
 		,1//inMoveCount
 		//,1//inRange
 		,20//inAttackPower
+		,1 //inMoveRange
 		,0.95//inHitChance
 		,0.05//inCritChance
 		,0.025//inDodgeChance
@@ -37,12 +38,8 @@ class Warrior : public MeleeSprite
 		,10//inRegenCounter
 		)
 		{}
-		virtual void action(const Coord& coord, Map* caller){};
 
-        virtual bool attack(Map& caller);
-        virtual bool rotate(Map& caller);
-        virtual bool move(Map& caller);
-        virtual bool pass(Map& caller);
+		virtual void action(const Coord& coord, Map* caller){}
 };
 
 #endif

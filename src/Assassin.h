@@ -29,6 +29,7 @@ class Assassin : public MeleeSprite, public AmmoUnit
         ,2//inMoveCount
 		//,1//inRange
         ,5   //inAttackPower
+		,1 //inMoveRange
 		,0.95//inHitChance
         ,0.20//inCritChance
         ,0.50//inDodgeChance
@@ -46,13 +47,7 @@ class Assassin : public MeleeSprite, public AmmoUnit
 		)
 		{}
 
-        virtual void action(const Coord& coord, Map* caller){};
-
-        virtual bool attack(Map& caller);
-        virtual bool rotate(Map& caller);
-        virtual bool move(Map& caller);
-        virtual bool pass(Map& caller);
-
+		virtual void action(const Coord& coord, Map* caller){}
 };
 
 #endif

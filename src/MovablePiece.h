@@ -12,6 +12,7 @@ class MovablePiece : public Piece
 		,unsigned int inMoveCount
 		,unsigned int inRange
 		,unsigned int inAttackPower
+		,unsigned int inMoveRange
 		,double inHitChance
 		,double inCritChance
 		,double inDodgeChance
@@ -26,6 +27,7 @@ class MovablePiece : public Piece
 		,inMoveCount
 		,inRange
 		,inAttackPower
+		,inMoveRange
 		,inHitChance
 		,inCritChance
 		,inDodgeChance

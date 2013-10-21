@@ -22,8 +22,8 @@ class Wall : public ImmovablePiece
 		//,bool inMoveOnto
 		):
 		ImmovablePiece
-		(INT_MAX//inMaxLife
-		,INT_MAX//inCurrentLife
+		(0//inMaxLife, zero because wall has no hp and takes no damage.
+		,0//inCurrentLife
 		//,0//inMoveCount
 		//,0//inRange
 		//,0//inAttackPower
@@ -36,7 +36,12 @@ class Wall : public ImmovablePiece
 		,false//inMoveOnto
 		)
 		{}
-		virtual void action(const Coord& coord, Map* caller){};
+
+		virtual void action(const Coord& coord, Map* caller){}
+
+		virtual void iAttackedYou(Piece* const assailant, unsigned int& damage, Map* caller);
+
+		virtual void decreaseLife(const unsigned &howMuch, Map *caller);
 };
 
 #endif

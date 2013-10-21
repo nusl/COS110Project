@@ -8,6 +8,7 @@ const std::string Player::commands = "Q";
 Player::Player(Sprite* s) : score(0)
 {
     sprite = s;
+	s->setOwner(this);
 }
 
 Player::~Player()
@@ -39,11 +40,11 @@ const int& Player::getScore() const
     return score;
 }
 
-bool Player::executeCommand(Map &caller, const char& c, const int& attempt)
+bool Player::executeCommand(Map &caller, const Intent& intent, const unsigned& attempt)
 {
-    if (command(c))
+	if (command(intent.getIntent()))
     {
-        switch (toupper(c))
+		switch (toupper(intent.getIntent()))
         {
             case 'Q':
                 quit();
@@ -51,7 +52,7 @@ bool Player::executeCommand(Map &caller, const char& c, const int& attempt)
         }
     }
 
-    if (!(sprite->command(c)))
+	if (!(sprite->command(intent)))
     {
         return false;
     }
@@ -59,7 +60,7 @@ bool Player::executeCommand(Map &caller, const char& c, const int& attempt)
 	return sprite->attemptAction(caller, attempt);
 }
 
-const Sprite* Player::getSpriteHandle() const
+Sprite* Player::getSpriteHandle() const
 {
     return sprite;
 }
