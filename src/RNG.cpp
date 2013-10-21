@@ -50,6 +50,12 @@ unsigned int RNG::type() const
     throw std::domain_error(std::string("A class has been included in the hierarchy that has not been registered in the RNG. Unregistered class name: ") + std::string(typeid(*this).name()));
 }
 
+void RNG::resetRNG()
+{
+	numberList.clear();
+	seedSet = false;
+}
+
 //	FIXME:What if the number list runs out?
 //	^ Have you ever heard the definition of insanity?
 int RNG::random()

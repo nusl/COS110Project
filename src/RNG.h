@@ -17,6 +17,7 @@ class RNG
 		RNG();
 		virtual unsigned int type() const;
 		int random();
+		void resetRNG();
 	private:
 		std::vector<int> numberList;
 		bool seedSet;
