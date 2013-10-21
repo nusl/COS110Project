@@ -3,6 +3,7 @@
 #include "Sprite.h"
 
 #include <iostream>
+#include "Player.h"
 
 void Piece::reset()
 {
@@ -13,9 +14,9 @@ void Piece::reset()
 
 void Piece::iAttackedYou(Piece* const assailant, unsigned int& damage, Map* caller)
 {
-	std::cout << "damage before: " << damage << std::endl;
+	//std::cout << "damage before: " << damage << std::endl;
 	defend(assailant, damage, caller);//Modifies the damage done.
-	std::cout << "damage before: " << damage << std::endl;
+	//std::cout << "damage before: " << damage << std::endl;
 	if (dynamic_cast<Sprite*>(assailant))
 	{
 		std::string attackMod = "attacks";
@@ -66,6 +67,7 @@ void Piece::decreaseLife(const unsigned& howMuch, Map *caller)
 	{
 		// I am dead. Sniff.
 		caller->destroyPieceAt(caller->getCoordOf(this));
+		static_cast<Sprite*>(caller->getHandleAt(caller->getSpriteCoord()))->getOwner()->addScore(5);
 		return;
 	}
 

@@ -10,6 +10,7 @@
 #include "PlayerEndException.h"
 #include "PlayerResetException.h"
 #include "PlayerDiedException.h"
+#include "PlayerAttackedWaypointException.h"
 
 #include "tutils.h"
 
@@ -154,6 +155,11 @@ void Game::start()
 	catch (PlayerDiedException pdx)
 	{
 		std::cout << pdx.getMessage() << std::endl;
+	}
+	catch (PlayerAttackedWaypointException pawex)
+	{
+		std::cout << pawex.getMessage() << p.getScore() << "." << std::endl;
+		map.render(std::cout);
 	}
 
 }
