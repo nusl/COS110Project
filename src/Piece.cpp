@@ -19,9 +19,6 @@ void Piece::iAttackedYou(Piece* const assailant, unsigned int& damage, Map* call
 	if (damage > assailant->getAttackPower())
 	{
 		attackMod = "critical attacks";
-	} else if (damage < assailant->getAttackPower())
-	{
-		attackMod = "misses";
 	}
 
 	// I check for damage greater than zero here since the Sprite's attack would have

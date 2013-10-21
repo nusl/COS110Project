@@ -301,7 +301,7 @@ void Sprite::regenerateLife()
 
 void Sprite::defend(Piece * const assailant, unsigned int &damage, Map *caller)
 {
-	std::cout << "Player defends against a total damage amount of " << damage << "." << std::cout;
+	std::cout << "Player defends against a total damage amount of " << damage << "." << std::endl;
 	Piece::defend(assailant, damage, caller);
 }
 

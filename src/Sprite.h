@@ -131,6 +131,8 @@ class Sprite : public MovablePiece
 
 		void checkWaypoint(Map* caller);
 
+		virtual void tick() {} // Fires on every turn
+
     private:
 
 		void setOwner(Player* who);

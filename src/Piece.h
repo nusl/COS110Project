@@ -74,7 +74,7 @@ class Piece: public RNG
         const unsigned int getAttackPower() const {return attackPower;}
 
         const double getHitChance() const {return hitChance;}
-        const double getCritChance() const {return critChance;}
+		virtual const double getCritChance() const {return critChance;}
         const double getDodgeChance() const {return dodgeChance;}
         const double getParryChance() const {return parryChance;}
 

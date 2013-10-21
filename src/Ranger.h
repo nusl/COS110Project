@@ -33,7 +33,7 @@ class Ranger : public RangedSprite, public AmmoUnit
 		,0.15//inDodgeChance
 		,0.05//inParryChance
 		,'v'//inState
-		,'m'//inType
+		,'m'//inTypes
 		//,false//inMoveOnto
 		,0.07//inRegenRate
 		,3//inRegenCounter
@@ -43,8 +43,18 @@ class Ranger : public RangedSprite, public AmmoUnit
 		,30//inCurrentAmmo
 		,10//inpPowerIncrease
 		)
+		,critTurnCounter(0)
 		{}
 
 		virtual void action(const Coord& coord, Map* caller){}
+
+		virtual void iAttackedYou(Piece * const assailant, unsigned int &damage, Map *caller);
+
+		virtual void tick();
+
+		virtual const double getCritChance() const;
+
+	private:
+		unsigned critTurnCounter;
 };
 #endif
