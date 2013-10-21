@@ -19,9 +19,6 @@ void Piece::iAttackedYou(Piece* const assailant, unsigned int& damage, Map* call
 	if (damage > assailant->getAttackPower())
 	{
 		attackMod = "critical attacks";
-	} else if (damage < assailant->getAttackPower())
-	{
-		attackMod = "misses";
 	}
 
 	// I check for damage greater than zero here since the Sprite's attack would have
@@ -55,6 +52,11 @@ void Piece::iAttackedYou(Piece* const assailant, unsigned int& damage, Map* call
 
 unsigned int Piece::totalAttackDamage()
 {
+<<<<<<< HEAD
+	if(random() <= (getHitChance()*100))
+	{
+		if(random() <= (getCritChance()*100))
+=======
 	unsigned int damage = 0;
 	
 	unsigned int hitRng = static_cast<unsigned int>(this->random());
@@ -64,20 +66,36 @@ unsigned int Piece::totalAttackDamage()
 	{
 		damage = getAttackPower();
 		if((critRng) <= static_cast<unsigned int>(getCritChance()*100) && (critRng!=0))
+>>>>>>> bf934dac3c0d4f0e815723eb3b823d817d6475eb
 		{
-			damage *= 2;
+			return getAttackPower() * 2;
 		}
+<<<<<<< HEAD
+		return getAttackPower();
 	} else
 	{
-		damage = 0;
+		return 0;
+	}
+	return 1000;
+=======
 	}
 //	std::cout <<std::boolalpha << "Damage: " << damage << " Hit chance: " << getHitChance()<< std::endl
 //	<< " Crit chance: " << getCritChance() << std::endl;
 	return damage;
+>>>>>>> bf934dac3c0d4f0e815723eb3b823d817d6475eb
 }
 
 void Piece::defend(Piece* const assailant, unsigned int& damage, Map* caller)
 {
+<<<<<<< HEAD
+	if((static_cast<unsigned int>(this->random())) <= (getDodgeChance()*100))
+	{
+		damage = 0;
+	} else if((static_cast<unsigned int>(this->random())) <= (getParryChance()*100))
+	{
+		damage /= 2;
+	}
+=======
 	if(static_cast<unsigned int>(this->random()) <= static_cast<unsigned int>(getDodgeChance()*100))
 	{
 		damage = 0;
@@ -87,6 +105,7 @@ void Piece::defend(Piece* const assailant, unsigned int& damage, Map* caller)
 		}
 	}
 //	std::cout << "Defense: " << damage << " Dodge: " << getDodgeChance() << " Parry: " << getParryChance() << std::endl;
+>>>>>>> bf934dac3c0d4f0e815723eb3b823d817d6475eb
 }
 
 void Piece::increaseLife(const unsigned &howMuch)
