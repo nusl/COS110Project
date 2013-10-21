@@ -221,6 +221,8 @@ void Sprite::reset()
 {
 	Piece::reset();
 	setState('v');
+	shouldRegen = false;
+	turnsSinceLastRegen = 0;
 }
 
 void Sprite::knockBack(Map* caller)
