@@ -9,11 +9,10 @@ void Boulder::iAttackedYou(Piece* const assailant, unsigned int& damage, Map* ca
 	{
 		static_cast<Sprite*>(assailant)->getOwner()->addScore(150);
 	}
-	else
+	else if (damage > 0)
 	{
-		static_cast<Sprite*>(assailant)->getOwner()->removeScore(this->getAttackPower());
+		static_cast<Sprite*>(assailant)->getOwner()->removeScore(assailant->getAttackPower());
 	}
 
 	Piece::iAttackedYou(assailant, damage, caller);
 }
-

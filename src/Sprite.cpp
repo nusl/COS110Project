@@ -149,7 +149,7 @@ bool Sprite::attack(Map &caller)
 	int myX = (getState() == Direction::right) ? 1 : (getState() == Direction::left ? -1 : 0);
 	int myY = (getState() == Direction::down) ? 1 : (getState() == Direction::up ? -1 : 0);
 
-	for (unsigned i = 0; i < getAttackRange(); ++i)
+	for (unsigned i = 0; i < ((intent.getValue() > getAttackRange()) ? getAttackRange() : intent.getValue()); ++i)
 	{
 		c.x += myX;
 		c.y += myY;
@@ -236,6 +236,7 @@ void Sprite::knockBack(Map* caller)
 		if (!caller->inBoundary(c))
 		{
 			caller->getHandleAt(caller->getSpriteCoord())->decreaseLife(KNOCKBACK_BASE_SPRITE_DAMAGE / i, caller);
+			static_cast<Sprite*>(caller->getHandleAt(caller->getSpriteCoord()))->getOwner()->removeScore(KNOCKBACK_BASE_SCORE / i);
 			return;
 		}
 
@@ -248,7 +249,8 @@ void Sprite::knockBack(Map* caller)
 			// Is the piece that blocked us a creep?
 			if (dynamic_cast<Creep*>(caller->getHandleAt(c)))
 			{
-				caller->getHandleAt(c)->decreaseLife(KNOCKBACK_BASE_CREEP_DAMAGE / i, caller);
+				unsigned dmg = KNOCKBACK_BASE_CREEP_DAMAGE / i;
+				caller->getHandleAt(c)->iAttackedYou(caller->getHandleAt(caller->getSpriteCoord()), dmg, caller);
 			}
 			return;
 		}

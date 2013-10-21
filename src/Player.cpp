@@ -3,6 +3,8 @@
 #include "InvalidParameterException.h"
 #include "PlayerQuitException.h"
 
+#include <iostream>
+
 const std::string Player::commands = "Q";
 
 Player::Player(Sprite* s) : score(0)
@@ -31,8 +33,9 @@ void Player::removeScore(const int& value)
     {
         throw InvalidParameterException("Attempted to remove a score value of less than zero.");
     }
-
+	//std::cout << "Removed score: " << value << ", Current: " << getScore() << std::endl;
     score -= value;
+	//std::cout << "Removed score: " << value << ", After: " << getScore() << std::endl;
 }
 
 const int& Player::getScore() const
