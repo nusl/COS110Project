@@ -9,6 +9,7 @@ void Piece::reset()
 {
 	currentLife = maxLife;
 	myAssailant = 0;
+	RNG::resetRNG();
 	//NOTE: State?
 }
 
