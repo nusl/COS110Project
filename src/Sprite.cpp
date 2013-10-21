@@ -92,15 +92,7 @@ bool Sprite::attemptAction(Map& caller, const int& attempt)
     {
 		success = move(caller);
 
-		const Piece* waypoint = caller.getHandleBelowOfType(caller.getSpriteCoord(), typeid(Waypoint).name());
-
-		if(waypoint)
-		{
-			if(waypoint->getState() == 'S')
-				throw PlayerResetException("Player moved over the Start waypoint.");
-			if(waypoint->getState() == 'E')
-				throw PlayerEndException("Player moved over the End waypoint.");
-		}
+		checkWaypoint(&caller);
     }
     else if (isPassIntent())
     {
@@ -230,7 +222,7 @@ void Sprite::knockBack(Map* caller)
 	const unsigned KNOCKBACK_RANGE = 2;
 	const unsigned KNOCKBACK_BASE_SPRITE_DAMAGE = 10;
 	const unsigned KNOCKBACK_BASE_CREEP_DAMAGE = 20;
-	//const unsigned KNOCKBACK_BASE_SCORE = 10;
+	const unsigned KNOCKBACK_BASE_SCORE = 10;
 
 	Coord c = caller->getCoordOf(this);
 
@@ -246,10 +238,12 @@ void Sprite::knockBack(Map* caller)
 			caller->getHandleAt(caller->getSpriteCoord())->decreaseLife(KNOCKBACK_BASE_SPRITE_DAMAGE / i, caller);
 			return;
 		}
+
 		if (!caller->move(caller->getCoordOf(this), c))
 		{
 			caller->getHandleAt(caller->getSpriteCoord())->decreaseLife(KNOCKBACK_BASE_SPRITE_DAMAGE / i, caller);
-			// FIXME: Need to decrease player points
+
+			static_cast<Sprite*>(caller->getHandleAt(caller->getSpriteCoord()))->getOwner()->removeScore(KNOCKBACK_BASE_SCORE / i);
 
 			// Is the piece that blocked us a creep?
 			if (dynamic_cast<Creep*>(caller->getHandleAt(c)))
@@ -259,6 +253,8 @@ void Sprite::knockBack(Map* caller)
 			return;
 		}
 	}
+
+	checkWaypoint(caller);
 }
 
 Player* Sprite::getOwner()
@@ -284,16 +280,20 @@ void Sprite::regenerateLife()
 	{
 		if (turnsSinceLastRegen == (regenCounter - 1))
 		{
-			increaseLife(floor(getMaxLife() * regenRate));
+			unsigned regenAmount = floor(getMaxLife() * regenRate);
+			if (regenAmount > (getMaxLife() - getCurrentLife()))
+			{
+				//std::cout << "Regenning: " << getMaxLife() - getCurrentLife() << ", Curr:" << getCurrentLife() << ", Max:" << getMaxLife() << std::endl;
+				increaseLife(getMaxLife() - getCurrentLife());
+			} else
+			{
+				increaseLife(regenAmount);
+			}
+			turnsSinceLastRegen = 0;
+		} else
+		{
+			++turnsSinceLastRegen;
 		}
-	}
-}
-
-void Sprite::tick()
-{
-	if (shouldRegen)
-	{
-		++turnsSinceLastRegen;
 	}
 }
 
@@ -301,6 +301,19 @@ void Sprite::defend(Piece * const assailant, unsigned int &damage, Map *caller)
 {
 	std::cout << "Player defends against a total damage amount of " << damage << "." << std::cout;
 	Piece::defend(assailant, damage, caller);
+}
+
+void Sprite::checkWaypoint(Map *caller)
+{
+	const Piece* waypoint = caller->getHandleBelowOfType(caller->getSpriteCoord(), typeid(Waypoint).name());
+
+	if(waypoint)
+	{
+		if(waypoint->getState() == 'S')
+			throw PlayerResetException("Player moved over the Start waypoint.");
+		if(waypoint->getState() == 'E')
+			throw PlayerEndException("Player moved over the End waypoint.");
+	}
 }
 
 void Sprite::setOwner(Player *who)

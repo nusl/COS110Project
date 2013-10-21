@@ -127,9 +127,9 @@ class Sprite : public MovablePiece
 
 		void regenerateLife();
 
-		void tick();
-
 		void defend(Piece * const assailant, unsigned int &damage, Map *caller);
+
+		void checkWaypoint(Map* caller);
 
     private:
 

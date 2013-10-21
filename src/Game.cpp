@@ -102,13 +102,11 @@ void Game::start()
         
 			try
 			{
-
 		        // Start of global turn
 
 		        std::cout << "Player's turn has begun." << std::endl;
 
 				p.getSpriteHandle()->regenerateLife();
-				p.getSpriteHandle()->tick();
 
 		        while ((attempt <= p.getSpriteHandle()->getMoveCount()))
 		        {

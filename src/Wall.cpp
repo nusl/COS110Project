@@ -3,32 +3,28 @@
 #include "Sprite.h"
 #include "Player.h"
 
-#include <iostream>
 #include <cmath>
+#include <iostream>
 
 void Wall::iAttackedYou(Piece* const assailant, unsigned int& damage, Map* caller)
 {
 	if (dynamic_cast<Sprite*>(assailant))
 	{
-		std::string attackMod = "attacks";
+		// Wall only applies the 10% of life damage penalty and score reduction
+		// if the attack actually hits. An attack value of zero indicates a miss.
+		if (damage > 0)
+		{
+			std::string attackMod = "attacks";
 
-		if (damage > assailant->getAttackPower())
-		{
-			attackMod = "critical attacks";
-		} else if (damage < assailant->getAttackPower())
-		{
-			attackMod = "misses";
+			if (damage > assailant->getAttackPower())
+			{
+				attackMod = "critical attacks";
+			}
+			std::cout << "Player " << attackMod << ", dealing a total damage amount of " << ((damage > getCurrentLife()) ? getCurrentLife() : damage) << ".\n";
+			unsigned healthLoss = floor(assailant->getMaxLife() * 0.1);
+			static_cast<Sprite*>(assailant)->getOwner()->removeScore(healthLoss);
+			assailant->decreaseLife(healthLoss, caller);
 		}
-		std::cout << "Player " << attackMod << ", dealing a total damage amount of " << ((damage > getCurrentLife()) ? getCurrentLife() : damage) << ".\n";
-	}
-
-	// Wall only applies the 10% of life damage penalty and score reduction
-	// if the attack actually hits. An attack value of zero indicates a miss.
-	if (damage > 0)
-	{
-		unsigned healthLoss = floor(assailant->getCurrentLife() * 0.1);
-		static_cast<Sprite*>(assailant)->getOwner()->removeScore(healthLoss);
-		assailant->decreaseLife(healthLoss, caller);
 	}
 
 	static_cast<Sprite*>(assailant)->knockBack(caller);

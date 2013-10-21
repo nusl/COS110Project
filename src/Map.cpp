@@ -102,6 +102,7 @@ void Map::saveState()
 {
 	savedMap = map;
 }
+
 void Map::resetState()
 {
 	map = savedMap;
@@ -137,10 +138,11 @@ bool Map::move(const Coord& from, const Coord& to)
 
 	//We cannot move an EmptySpace, the caller is broken if this happens.
 	assert(typeid(*getHandleAt(from)) != typeid(EmptySpace));
-	
+
 	//Is the location that we want to move into occupied by a piece that we cannot stack on top of?
 	if(!placePieceAt(map.at(from.y).at(from.x).top(), to))
 		return false;
+
 	map.at(from.y).at(from.x).pop();
 	return true;
 }

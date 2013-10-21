@@ -1,7 +1,6 @@
 #ifndef HAMMER_H
 #define HAMMER_H
 
-#include <iostream>
 #include "Creep.h"
 
 class Hammer : public Creep
@@ -57,7 +56,7 @@ class Hammer : public Creep
 			std::cout << random() << std::endl;
 */
 			wander(location,caller);
-		};
+		}
 };
 
 #endif
