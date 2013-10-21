@@ -37,27 +37,34 @@ unsigned int Piece::totalAttackDamage()
 {
 	unsigned int damage = getAttackPower();
 
-	unsigned int rng = static_cast<unsigned int>(this->random());//FIXME: RNG generates ints as per specification. The result is compared with uints.
-
-	if(rng <= getHitChance())
+	unsigned int rng;
+	do
+		rng = static_cast<unsigned int>(this->random());//FIXME: RNG generates ints as per specification. The result is compared with uints.
+	while(!rng);//discard 0
+	
+	if(!(rng <= (getHitChance()*100)))//it misses
 		damage = 0;
-	if(rng <= getCritChance())
+	if(rng <= (getCritChance()*100))
 		damage *= 2;
 
+	std::cout << "Damage: " << damage << " RNG: " << rng << " Hit chance: " << getHitChance() << " Crit chance: " << getCritChance() << std::endl;
 	return damage;
 }
 
 void Piece::defend(Piece* const assailant, unsigned int& damage, Map* caller)
 {
-	unsigned int rng = static_cast<unsigned int>(this->random());//FIXME: RNG generates ints as per specification. The result is compared with uints.
-	if(rng == 0)
-		return;//disregard 0 value
+	unsigned int rng;
+	do
+		rng = static_cast<unsigned int>(this->random());//FIXME: RNG generates ints as per specification. The result is compared with uints.
+	while(!rng);//discard 0
 
-	if(rng <= getDodgeChance())
+	if(rng <= (getDodgeChance()*100))
 		damage = 0;
 
-	if(rng <= getParryChance())
+	if(rng <= (getParryChance()*100))
 		damage /= 2;
+
+	std::cout << "Defense: " << damage << " RNG: " << rng << " Dodge: " << getDodgeChance() << " Parry: " << getParryChance() << std::endl;
 }
 
 void Piece::decreaseLife(const unsigned& howMuch, Map *caller)
