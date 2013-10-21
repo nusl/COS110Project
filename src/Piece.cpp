@@ -32,14 +32,14 @@ void Piece::iAttackedYou(Piece* const assailant, unsigned int& damage, Map* call
 
 		// Defense is a dodge if the damage is zero.
 		// Defense is a parry if the damage is halved(less than the original damage).
-		if (damage == 0)
-		{
-			attackMod = "dodge";
-		}
-		if (damage < assailant->getAttackPower())
-		{
-			attackMod = "parry";
-		}
+//		if (damage == 0)
+//		{
+//			attackMod = "dodge";
+//		}
+//		if (damage < assailant->getAttackPower())
+//		{
+//			attackMod = "parry";
+//		}
 	}
 
 	if (dynamic_cast<Sprite*>(assailant))
@@ -109,4 +109,9 @@ void Piece::decreaseLife(const unsigned& howMuch, Map *caller)
 	}
 
 	currentLife -= howMuch;
+}
+
+void Piece::setAssailant(Piece *who)
+{
+	myAssailant = who;
 }

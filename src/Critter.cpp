@@ -11,6 +11,7 @@ void Critter::action(const Coord& coord, Map* caller)
 	if(radar(coord, blip, getAttackRange(), caller))
 	{
 		unsigned int totalDamage = totalAttackDamage();
-		caller->getHandleAt(blip)->Piece::iAttackedYou(this, totalDamage, caller);//Attack him
+		caller->getHandleAt(blip)->iAttackedYou(this, totalDamage, caller);//Attack him
+		setAssailant(0);
 	}
 }

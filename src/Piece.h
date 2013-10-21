@@ -83,6 +83,7 @@ class Piece: public RNG
 
     protected:
 		void setState(const char& inState){state = inState;}
+		void setAssailant(Piece* who);
 
 	private:
 		Piece* myAssailant;

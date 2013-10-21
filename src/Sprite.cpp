@@ -249,8 +249,7 @@ void Sprite::knockBack(Map* caller)
 			// Is the piece that blocked us a creep?
 			if (dynamic_cast<Creep*>(caller->getHandleAt(c)))
 			{
-				unsigned dmg = KNOCKBACK_BASE_CREEP_DAMAGE / i;
-				caller->getHandleAt(c)->iAttackedYou(caller->getHandleAt(caller->getSpriteCoord()), dmg, caller);
+				caller->getHandleAt(c)->decreaseLife(KNOCKBACK_BASE_CREEP_DAMAGE / i, caller);
 			}
 			return;
 		}
