@@ -29,7 +29,7 @@ void Wall::iAttackedYou(Piece* const assailant, unsigned int& damage, Map* calle
 		static_cast<Sprite*>(assailant)->getOwner()->removeScore(healthLoss);
 		assailant->decreaseLife(healthLoss, caller);
 	}
-
+	std::cout << "SHOULT KNOCKBACK" << std::endl;
 	static_cast<Sprite*>(assailant)->knockBack(caller);
 }
 

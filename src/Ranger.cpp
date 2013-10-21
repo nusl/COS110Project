@@ -30,7 +30,7 @@ bool Ranger::attack(Map& caller)
 			// Attack stuff
 			unsigned int totalDamage = totalAttackDamage();
 			//std::cout << "Before attack: " << caller.getHandleAt(c)->getCurrentLife() << std::endl;
-			caller.getHandleAt(c)->Piece::iAttackedYou(this, totalDamage, &caller);
+			caller.getHandleAt(c)->iAttackedYou(this, totalDamage, &caller);
 			//std::cout << "After attack: " << caller.getHandleAt(c)->getCurrentLife() << std::endl;
 			return true;
 		}
