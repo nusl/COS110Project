@@ -107,6 +107,9 @@ void Game::start()
 
 		        std::cout << "Player's turn has begun." << std::endl;
 
+				p.getSpriteHandle()->regenerateLife();
+				p.getSpriteHandle()->tick();
+
 		        while ((attempt <= p.getSpriteHandle()->getMoveCount()))
 		        {
 		            // Start of player turn
@@ -129,6 +132,8 @@ void Game::start()
 		        }
 		        
 		        map.update();//we need allow pieces to act before rendering the new board state
+
+				std::cout << "Player's turn has ended." << std::endl;
 			}
 		    catch (PlayerResetException pqex)
 			{
@@ -136,8 +141,6 @@ void Game::start()
 				map.resetState();
 			}
 			
-            std::cout << "Player's turn has ended." << std::endl;
-
             // Reset the current attempt to the first attempt(used in player's turn)
             attempt = 1;
         }

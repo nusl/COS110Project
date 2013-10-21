@@ -78,6 +78,7 @@ class Piece: public RNG
         const double getDodgeChance() const {return dodgeChance;}
         const double getParryChance() const {return parryChance;}
 
+		virtual void increaseLife(const unsigned& howMuch);
 		virtual void decreaseLife(const unsigned& howMuch, Map* caller);
 
     protected:

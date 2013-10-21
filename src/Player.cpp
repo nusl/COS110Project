@@ -60,7 +60,7 @@ bool Player::executeCommand(Map &caller, const Intent& intent, const unsigned& a
 	return sprite->attemptAction(caller, attempt);
 }
 
-const Sprite* Player::getSpriteHandle() const
+Sprite* Player::getSpriteHandle() const
 {
     return sprite;
 }

@@ -12,6 +12,7 @@
 
 #include <iostream>
 #include <typeinfo>
+#include <cmath>
 
 const std::string Sprite::commandIntentList = "WASDKP";
 const std::string Sprite::attackIntentList = "K";
@@ -151,19 +152,16 @@ bool Sprite::isPassIntent() const
 
 bool Sprite::attack(Map &caller)
 {
-	//std::cout << "attacking" << std::endl;
 	Coord c = caller.getCoordOf(this);
 
 	int myX = (getState() == Direction::right) ? 1 : (getState() == Direction::left ? -1 : 0);
 	int myY = (getState() == Direction::down) ? 1 : (getState() == Direction::up ? -1 : 0);
-	//std::cout << myX << " $ " << myY << std::endl;
-	//std::cout << c.x << " % " << c.y << std::endl;
+
 	for (unsigned i = 0; i < getAttackRange(); ++i)
 	{
 		c.x += myX;
 		c.y += myY;
-		//std::cout << c.x << " - " << c.y << std::endl;
-		//std::cout << typeid(*caller.getHandleAt(c)).name() << std::endl;
+
 		if (!caller.inBoundary(c))
 		{
 			std::cout << "Player tries to attack nothing and wastes a turn." << std::endl;
@@ -171,12 +169,8 @@ bool Sprite::attack(Map &caller)
 		}
 		if (typeid(EmptySpace) != typeid(*caller.getHandleAt(c)))
 		{
-			//std::cout << "did attack on : " << typeid(*caller.getHandleAt(c)).name() << std::endl;
-			// Attack stuff
 			unsigned int totalDamage = totalAttackDamage();
-			//std::cout << "Before attack: " << caller.getHandleAt(c)->getCurrentLife() << std::endl;
 			caller.getHandleAt(c)->iAttackedYou(this, totalDamage, &caller);
-			//std::cout << "After attack: " << caller.getHandleAt(c)->getCurrentLife() << std::endl;
 			return true;
 		}
 	}
@@ -278,13 +272,33 @@ void Sprite::decreaseLife(const unsigned &howMuch, Map *caller)
 	}
 
 	// Since the player has lost life, we can now start regenerating life.
-
+	shouldRegen = true;
 	Piece::decreaseLife(howMuch, caller);
 }
 
 void Sprite::regenerateLife()
 {
+	if (shouldRegen)
+	{
+		if (turnsSinceLastRegen == (regenCounter - 1))
+		{
+			increaseLife(floor(getMaxLife() * regenRate));
+		}
+	}
+}
 
+void Sprite::tick()
+{
+	if (shouldRegen)
+	{
+		++turnsSinceLastRegen;
+	}
+}
+
+void Sprite::defend(Piece * const assailant, unsigned int &damage, Map *caller)
+{
+	std::cout << "Player defends against a total damage amount of " << damage << "." << std::cout;
+	Piece::defend(assailant, damage, caller);
 }
 
 void Sprite::setOwner(Player *who)

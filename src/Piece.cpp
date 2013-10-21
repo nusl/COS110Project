@@ -14,19 +14,38 @@ void Piece::reset()
 
 void Piece::iAttackedYou(Piece* const assailant, unsigned int& damage, Map* caller)
 {
-	//std::cout << "damage before: " << damage << std::endl;
-	defend(assailant, damage, caller);//Modifies the damage done.
-	//std::cout << "damage before: " << damage << std::endl;
+	std::string attackMod = "attacks";
+
+	if (damage > assailant->getAttackPower())
+	{
+		attackMod = "critical attacks";
+	} else if (damage < assailant->getAttackPower())
+	{
+		attackMod = "misses";
+	}
+
+	// I check for damage greater than zero here since the Sprite's attack would have
+	// missed should the damage be zero. Since the damage is zero and the attack missed,
+	// the creep does not need to do any defending against a missed attack.
+	if (damage > 0)
+	{
+		//Modifies the damage done.
+		defend(assailant, damage, caller);
+
+		// Defense is a dodge if the damage is zero.
+		// Defense is a parry if the damage is halved(less than the original damage).
+		if (damage == 0)
+		{
+			attackMod = "dodge";
+		}
+		if (damage < assailant->getAttackPower())
+		{
+			attackMod = "parry";
+		}
+	}
+
 	if (dynamic_cast<Sprite*>(assailant))
 	{
-		std::string attackMod = "attacks";
-		if (damage > assailant->getAttackPower())
-		{
-			attackMod = "critical attacks";
-		} else if (damage < assailant->getAttackPower())
-		{
-			attackMod = "misses";
-		}
 		std::cout << "Player " << attackMod << ", dealing a total damage amount of " << ((damage > getCurrentLife()) ? getCurrentLife() : damage) << ".\n";
 	}
 
@@ -43,12 +62,15 @@ unsigned int Piece::totalAttackDamage()
 		rng = static_cast<unsigned int>(this->random());//FIXME: RNG generates ints as per specification. The result is compared with uints.
 	while(!rng);//discard 0
 	
-	if(!(rng <= (getHitChance()*100)))//it misses
-		damage = 0;
-	if(rng <= (getCritChance()*100))
-		damage *= 2;
+	if(!(rng <= (getHitChance()*100)))
+	{
+		if(rng <= (getCritChance()*100))
+		{
+			damage *= 2;
+		}
+	}
 
-	std::cout << "Damage: " << damage << " RNG: " << rng << " Hit chance: " << getHitChance() << " Crit chance: " << getCritChance() << std::endl;
+	//std::cout << "Damage: " << damage << " RNG: " << rng << " Hit chance: " << getHitChance() << " Crit chance: " << getCritChance() << std::endl;
 	return damage;
 }
 
@@ -59,13 +81,20 @@ void Piece::defend(Piece* const assailant, unsigned int& damage, Map* caller)
 		rng = static_cast<unsigned int>(this->random());//FIXME: RNG generates ints as per specification. The result is compared with uints.
 	while(!rng);//discard 0
 
-	if(rng <= (getDodgeChance()*100))
+	if((100 - rng) <= (getDodgeChance()*100))
 		damage = 0;
-
-	if(rng <= (getParryChance()*100))
+	if((100 - rng) <= (getParryChance()*100))
 		damage /= 2;
 
-	std::cout << "Defense: " << damage << " RNG: " << rng << " Dodge: " << getDodgeChance() << " Parry: " << getParryChance() << std::endl;
+	//std::cout << "Defense: " << damage << " RNG: " << rng << " Dodge: " << getDodgeChance() << " Parry: " << getParryChance() << std::endl;
+}
+
+void Piece::increaseLife(const unsigned &howMuch)
+{
+	if (howMuch > 0)
+	{
+		currentLife += howMuch;
+	}
 }
 
 void Piece::decreaseLife(const unsigned& howMuch, Map *caller)
@@ -74,7 +103,6 @@ void Piece::decreaseLife(const unsigned& howMuch, Map *caller)
 	{
 		// I am dead. Sniff.
 		caller->destroyPieceAt(caller->getCoordOf(this));
-		static_cast<Sprite*>(caller->getHandleAt(caller->getSpriteCoord()))->getOwner()->addScore(5);
 		return;
 	}
 

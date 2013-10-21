@@ -88,6 +88,7 @@ class Sprite : public MovablePiece
 		,regenRate(inRegenRate)
         ,regenCounter(inRegenCounter)
 		,turnsSinceLastRegen(0)
+		,shouldRegen(false)
 		{}
 
 		Intent getIntent() const;
@@ -126,6 +127,10 @@ class Sprite : public MovablePiece
 
 		void regenerateLife();
 
+		void tick();
+
+		void defend(Piece * const assailant, unsigned int &damage, Map *caller);
+
     private:
 
 		void setOwner(Player* who);
@@ -133,6 +138,7 @@ class Sprite : public MovablePiece
 		double regenRate;
 		unsigned int regenCounter;
 		unsigned int turnsSinceLastRegen;
+		bool shouldRegen;
 		Intent intent;
 		Player* owner;
 

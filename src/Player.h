@@ -14,7 +14,7 @@ class Player
         void removeScore(const int& value);
         const int& getScore() const;
 
-        const Sprite* getSpriteHandle() const;
+		Sprite* getSpriteHandle() const;
         bool placeSprite(Map& map) const;
 
 		bool executeCommand(Map& caller, const Intent& intent, const unsigned& attempt);
