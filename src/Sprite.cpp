@@ -9,6 +9,7 @@
 #include "Creep.h"
 #include "Player.h"
 #include "EmptySpace.h"
+#include "Wall.h"
 
 #include <iostream>
 #include <typeinfo>
@@ -162,7 +163,12 @@ bool Sprite::attack(Map &caller)
 		if (typeid(EmptySpace) != typeid(*caller.getHandleAt(c)))
 		{
 			unsigned int totalDamage = totalAttackDamage();
+			
+			wallRule(totalDamage, caller.getHandleAt(c), caller);
+				
 			caller.getHandleAt(c)->iAttackedYou(this, totalDamage, &caller);
+			
+			
 			return true;
 		}
 	}
@@ -170,6 +176,36 @@ bool Sprite::attack(Map &caller)
 	// Attempted attacking nothing, which wastes a turn. Return true.
 	std::cout << "Player tries to attack nothing and wastes a turn." << std::endl;
 	return true;
+}
+
+void Sprite::wallRule(unsigned int& damage, Piece* victim, Map& caller)
+{
+	if (typeid(Wall) != typeid(*caller.getHandleAt(c)))
+		return;
+		
+//	if (dynamic_cast<Sprite*>(assailant))	//now we know it is a sprite now
+//	{
+		std::string attackMod = "attacks";
+
+		if (damage > this->getAttackPower())
+		{
+			attackMod = "critical attacks";
+		}
+		std::cout << "Player " << attackMod << ", dealing a total damage amount of " << ((damage > victim->getCurrentLife()) ? victim->getCurrentLife() : damage) << ".\n";
+
+		// Wall only applies the 10% of life damage penalty and score reduction
+		// if the attack actually hits. An attack value of zero indicates a miss.
+		if (damage > 0)
+		{
+			unsigned healthLoss = floor(getMaxLife() * 0.1);
+			//static_cast<Sprite*>(assailant)->getOwner()->removeScore(healthLoss); //again, we know now it is a sprite and a cast is not necessary
+			getOwner()->removeScore(healthLoss);
+			decreaseLife(healthLoss, &caller);
+		}
+	//}
+
+	//static_cast<Sprite*>(assailant)->knockBack(caller); //No cast is needed
+	knockBack(&caller);
 }
 
 bool Sprite::rotate(Map &caller)

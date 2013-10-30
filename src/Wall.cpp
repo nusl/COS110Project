@@ -8,6 +8,7 @@
 
 void Wall::iAttackedYou(Piece* const assailant, unsigned int& damage, Map* caller)
 {
+/*
 	if (dynamic_cast<Sprite*>(assailant))
 	{
 		std::string attackMod = "attacks";
@@ -29,6 +30,7 @@ void Wall::iAttackedYou(Piece* const assailant, unsigned int& damage, Map* calle
 	}
 
 	static_cast<Sprite*>(assailant)->knockBack(caller);
+*/
 }
 
 void Wall::decreaseLife(const unsigned &howMuch, Map *caller)

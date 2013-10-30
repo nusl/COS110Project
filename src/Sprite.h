@@ -132,6 +132,8 @@ class Sprite : public MovablePiece
 		void checkWaypoint(Map* caller);
 
 		virtual void tick() {} // Fires on every turn
+		
+		void wallRule(unsigned int& damage, Piece* victim, Map& caller);
 
     private:
 
