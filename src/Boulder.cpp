@@ -10,11 +10,11 @@ void Boulder::iAttackedYou(Piece* const assailant, unsigned int& damage, Map* ca
 	//std::cout << "dmg: " << damage << ", ap: " << assailant->getAttackPower() << std::endl;
 	if ((damage > assailant->getAttackPower()) && (damage >= getCurrentLife()))
 	{
-		static_cast<Sprite*>(assailant)->getOwner()->addScore(150);
+		static_cast<Sprite*>(assailant)->getOwner()->addScore(150);//FIXME: This can segfault if assailant is not Sprite
 	}
 	else if (damage > 0)
 	{
-		static_cast<Sprite*>(assailant)->getOwner()->removeScore(assailant->getAttackPower());
+		static_cast<Sprite*>(assailant)->getOwner()->removeScore(assailant->getAttackPower());//FIXME: This can segfault if assailant is not Sprite
 	}
 
 	Piece::iAttackedYou(assailant, damage, caller);

@@ -8,6 +8,6 @@ void Waypoint::iAttackedYou(Piece * const assailant, unsigned int &damage, Map *
 {
 	//caller->destroyPieceAt(caller->getCoordOf(this));
 	Piece::iAttackedYou(assailant, damage, caller);
-	static_cast<Sprite*>(assailant)->getOwner()->removeScore(250);
+	static_cast<Sprite*>(assailant)->getOwner()->removeScore(250);//FIXME: This can segfault if assailant is not Sprite
 	throw PlayerAttackedWaypointException("Player attacked a waypoint.");
 }
