@@ -164,7 +164,10 @@ bool Sprite::attack(Map &caller)
 		{
 			unsigned int totalDamage = totalAttackDamage();
 			
-			wallRule(totalDamage, caller.getHandleAt(c), caller);
+			if (typeid(Wall) == typeid(*caller.getHandleAt(c)))
+			{
+				wallRule(totalDamage, caller.getHandleAt(c), caller);
+			}
 				
 			caller.getHandleAt(c)->iAttackedYou(this, totalDamage, &caller);
 			
@@ -179,10 +182,7 @@ bool Sprite::attack(Map &caller)
 }
 
 void Sprite::wallRule(unsigned int& damage, Piece* victim, Map& caller)
-{
-	if (typeid(Wall) != typeid(*caller.getHandleAt(c)))
-		return;
-		
+{		
 //	if (dynamic_cast<Sprite*>(assailant))	//now we know it is a sprite now
 //	{
 		std::string attackMod = "attacks";
