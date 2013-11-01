@@ -56,10 +56,10 @@ unsigned int Piece::totalAttackDamage()
 	unsigned int damage = 0;
 	
 	unsigned int hitRng = static_cast<unsigned int>(this->random());
-	unsigned int critRng = static_cast<unsigned int>(this->random());
 	
 	if((hitRng) <= static_cast<unsigned int>(getHitChance()*100) && (hitRng!=0))
 	{
+		unsigned int critRng = static_cast<unsigned int>(this->random());
 		damage = getAttackPower();
 		if((critRng) <= static_cast<unsigned int>(getCritChance()*100) && (critRng!=0))
 		{
