@@ -36,8 +36,6 @@ class Boulder : public ImmovablePiece
 		)
 		{}
 		virtual void action(const Coord& coord, Map* caller){};
-
-		virtual void iAttackedYou(Piece* const assailant, unsigned int& damage, Map* caller);
 };
 
 #endif

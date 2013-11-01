@@ -134,6 +134,7 @@ class Sprite : public MovablePiece
 		virtual void tick() {} // Fires on every turn
 		
 		void wallRule(unsigned int& damage, Piece* victim, Map& caller);
+		void boulderRule(unsigned int& damage, Piece* victim, Map& caller);
 
     private:
 

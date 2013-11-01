@@ -10,6 +10,7 @@
 #include "Player.h"
 #include "EmptySpace.h"
 #include "Wall.h"
+#include "Boulder.h"
 
 #include <iostream>
 #include <typeinfo>
@@ -164,14 +165,20 @@ bool Sprite::attack(Map &caller)
 		{
 			unsigned int totalDamage = totalAttackDamage();
 			
-			if (typeid(Wall) == typeid(*caller.getHandleAt(c)))
+			wallRule(totalDamage, caller.getHandleAt(c), caller);
+			boulderRule(totalDamage, caller.getHandleAt(c), caller);
+
+			std::string attackMod = "attacks";
+
+			if (totalDamage > this->getAttackPower())
 			{
-				wallRule(totalDamage, caller.getHandleAt(c), caller);
+				attackMod = "critical attacks";
 			}
-				
+
+			std::cout << "Player " << attackMod << ", dealing a total damage amount of " << ((totalDamage > caller.getHandleAt(c)->getCurrentLife()) ? caller.getHandleAt(c)->getCurrentLife() : totalDamage) << ".\n";
+
 			caller.getHandleAt(c)->iAttackedYou(this, totalDamage, &caller);
-			
-			
+
 			return true;
 		}
 	}
@@ -183,29 +190,33 @@ bool Sprite::attack(Map &caller)
 
 void Sprite::wallRule(unsigned int& damage, Piece* victim, Map& caller)
 {		
-//	if (dynamic_cast<Sprite*>(assailant))	//now we know it is a sprite now
-//	{
-		std::string attackMod = "attacks";
 
-		if (damage > this->getAttackPower())
-		{
-			attackMod = "critical attacks";
-		}
-		std::cout << "Player " << attackMod << ", dealing a total damage amount of " << ((damage > victim->getCurrentLife()) ? victim->getCurrentLife() : damage) << ".\n";
-
-		// Wall only applies the 10% of life damage penalty and score reduction
-		// if the attack actually hits. An attack value of zero indicates a miss.
-		if (damage > 0)
-		{
-			unsigned healthLoss = floor(getMaxLife() * 0.1);
-			//static_cast<Sprite*>(assailant)->getOwner()->removeScore(healthLoss); //again, we know now it is a sprite and a cast is not necessary
-			getOwner()->removeScore(healthLoss);
-			decreaseLife(healthLoss, &caller);
-		}
-	//}
-
-	//static_cast<Sprite*>(assailant)->knockBack(caller); //No cast is needed
+	if (typeid(Wall) != typeid(*victim))
+		return;
+	// Wall only applies the 10% of life damage penalty and score reduction
+	// if the attack actually hits. An attack value of zero indicates a miss.
+	if (damage > 0)
+	{
+		unsigned healthLoss = floor(getMaxLife() * 0.1);
+		getOwner()->removeScore(healthLoss);
+		decreaseLife(healthLoss, &caller);
+	}
 	knockBack(&caller);
+}
+
+void Sprite::boulderRule(unsigned int& damage, Piece* victim, Map& caller)
+{
+	if (typeid(Boulder) != typeid(*victim))
+		return;
+
+	if ((damage > getAttackPower()) && (damage >= victim->getCurrentLife()))
+	{
+		getOwner()->addScore(150);
+	}
+	else if (damage > 0)
+	{
+		getOwner()->removeScore(getAttackPower());
+	}
 }
 
 bool Sprite::rotate(Map &caller)

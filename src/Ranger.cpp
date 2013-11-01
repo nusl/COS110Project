@@ -4,7 +4,7 @@
 void Ranger::iAttackedYou(Piece * const assailant, unsigned int &damage, Map *caller)
 {
 	critTurnCounter = 1;
-	Piece::iAttackedYou(assailant, damage, caller);
+	Sprite::iAttackedYou(assailant, damage, caller);
 }
 
 void Ranger::tick()
