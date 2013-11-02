@@ -326,13 +326,14 @@ void Sprite::regenerateLife()
 {
 	if (shouldRegen)
 	{
-		if (turnsSinceLastRegen == (regenCounter - 1))
+		if (turnsSinceLastRegen == regenCounter - 1)
 		{
 			unsigned regenAmount = floor(getMaxLife() * regenRate);
 			if (regenAmount > (getMaxLife() - getCurrentLife()))
 			{
 				//std::cout << "Regenning: " << getMaxLife() - getCurrentLife() << ", Curr:" << getCurrentLife() << ", Max:" << getMaxLife() << std::endl;
 				increaseLife(getMaxLife() - getCurrentLife());
+				shouldRegen = false;
 			} else
 			{
 				increaseLife(regenAmount);
