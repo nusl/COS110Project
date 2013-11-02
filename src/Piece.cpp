@@ -15,16 +15,9 @@ void Piece::reset()
 
 void Piece::iAttackedYou(Piece* const assailant, unsigned int& damage, Map* caller)
 {
-	// I check for damage greater than zero here since the Sprite's attack would have
-	// missed should the damage be zero. Since the damage is zero and the attack missed,
-	// the creep does not need to do any defending against a missed attack.
-	if (damage > 0)
-	{
-		//Modifies the damage done.
-		defend(assailant, damage, caller);
-	}
+	defend(assailant, damage, caller);
 	decreaseLife(damage, caller);
-	myAssailant = assailant;
+	setAssailant(assailant);
 }
 
 unsigned int Piece::totalAttackDamage()

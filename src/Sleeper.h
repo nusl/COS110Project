@@ -36,7 +36,7 @@ class Sleeper : public Creep
 		)
 		{}
 
-		void iAttackedYou(Piece* const assailant, unsigned int& damage, Map* caller)
+		virtual void iAttackedYou(Piece* const assailant, unsigned int& damage, Map* caller)
 		{	
 			if(!whoAttackedMe())//holds null if it has no assialant. Therefore it is sleeping
 			{//take full damage if sleeping
