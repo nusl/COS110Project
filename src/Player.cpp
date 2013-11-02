@@ -23,7 +23,7 @@ void Player::addScore(const int& value)
     {
         throw InvalidParameterException("Attempted to add a score value of less than zero.");
     }
-
+	std::cout << "Added score: " << value << std::endl;
     score += value;
 }
 
@@ -33,9 +33,8 @@ void Player::removeScore(const int& value)
     {
         throw InvalidParameterException("Attempted to remove a score value of less than zero.");
     }
-	//std::cout << "Removed score: " << value << ", Current: " << getScore() << std::endl;
+	std::cout << "Removed score: " << value << std::endl;
     score -= value;
-	//std::cout << "Removed score: " << value << ", After: " << getScore() << std::endl;
 }
 
 const int& Player::getScore() const
@@ -70,7 +69,12 @@ Sprite* Player::getSpriteHandle() const
 
 bool Player::placeSprite(Map& map) const
 {
-    return map.placePieceAt(sprite, map.getCoordWaypointStart());
+	return map.placePieceAt(sprite, map.getCoordWaypointStart());
+}
+
+void Player::reset()
+{
+	score = 0;
 }
 
 bool Player::command(const char& c) const

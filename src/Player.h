@@ -16,6 +16,7 @@ class Player
 
 		Sprite* getSpriteHandle() const;
         bool placeSprite(Map& map) const;
+		void reset();
 
 		bool executeCommand(Map& caller, const Intent& intent, const unsigned& attempt);
 

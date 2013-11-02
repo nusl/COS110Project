@@ -135,6 +135,7 @@ class Sprite : public MovablePiece
 		
 		void wallRule(unsigned int& damage, Piece* victim, Map& caller);
 		void boulderRule(unsigned int& damage, Piece* victim, Map& caller);
+		void creepRule(int damage, Piece* victim, Map& caller);
 
     private:
 
