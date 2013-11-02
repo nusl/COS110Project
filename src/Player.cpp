@@ -23,7 +23,7 @@ void Player::addScore(const int& value)
     {
         throw InvalidParameterException("Attempted to add a score value of less than zero.");
     }
-	std::cout << "Added score: " << value << std::endl;
+	//std::cout << "Added score: " << value << std::endl;
     score += value;
 }
 
@@ -33,7 +33,7 @@ void Player::removeScore(const int& value)
     {
         throw InvalidParameterException("Attempted to remove a score value of less than zero.");
     }
-	std::cout << "Removed score: " << value << std::endl;
+	//std::cout << "Removed score: " << value << std::endl;
     score -= value;
 }
 
