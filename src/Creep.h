@@ -73,6 +73,7 @@ class Creep : public MovablePiece
 		,inType
 		//,false//inMoveOnto
 		)
+		,canGoOutOfRange(false)
 		{
 			offsetHistory.push_back(Offset());
 		}
@@ -82,8 +83,9 @@ class Creep : public MovablePiece
 		bool huntDown	(Coord& from, Map* caller);
 		void wander		(Coord& from, Map* caller);
 		void forget();
-		bool radar		(const Coord& from, Coord& blip, const size_t& range, Map* caller) const;
-
+		bool crossRadar		(const Coord& from, Coord& blip, const size_t& range, Map* caller) const;
+		bool squareRadar	(const Coord& from, Coord& blip, const size_t& range, Map* caller) const;
+		
 		bool moveLeft	(Coord& from, Map* caller);
 		bool moveRight	(Coord& from, Map* caller);
 		bool moveUp		(Coord& from, Map* caller);
@@ -91,6 +93,7 @@ class Creep : public MovablePiece
 	private:
 		bool move(const Coord& from, const Coord& to, Map* caller);
 		
+		bool canGoOutOfRange;
 		std::deque<Offset> offsetHistory;
 };
 

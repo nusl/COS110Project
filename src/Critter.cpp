@@ -8,7 +8,7 @@ void Critter::action(const Coord& coord, Map* caller)
 
 	Coord blip(0,0);
 	//Is my attacker in range?
-	if(radar(coord, blip, getAttackRange(), caller))
+	if(crossRadar(coord, blip, getAttackRange(), caller))
 	{
 		unsigned int totalDamage = totalAttackDamage();
 		caller->getHandleAt(blip)->iAttackedYou(this, totalDamage, caller);//Attack him

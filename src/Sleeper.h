@@ -36,7 +36,22 @@ class Sleeper : public Creep
 		)
 		{}
 
-		virtual void action(const Coord& coord, Map* caller){}
+		virtual void action(const Coord& coord, Map* caller)
+		{
+			if(whoAttackedMe())
+			{
+				Coord blip(0,0);
+				Coord location(coord);
+				
+				if(crossRadar(coord, blip, getAttackRange(), caller))
+				{
+					unsigned int totalDamage = totalAttackDamage();
+					caller->getHandleAt(blip)->iAttackedYou(this, totalDamage, caller);//Attack him
+				}
+				else
+					huntDown(location, caller);
+			}
+		}
 };
 
 #endif
