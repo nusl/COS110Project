@@ -84,6 +84,13 @@ class Piece: public RNG
     protected:
 		void setState(const char& inState){state = inState;}
 		void setAssailant(Piece* who);
+		
+		void setAttackPower(const unsigned int& in){attackPower = in;}
+
+		void setHitChance(const unsigned int& in)	{hitChance = in;}
+		void setCritChance(const unsigned int& in)	{critChance = in;}
+		void setDodgeChance(const unsigned int& in)	{dodgeChance = in;}
+		void setParryChance(const unsigned int& in)	{parryChance = in;}
 
 	private:
 		Piece* myAssailant;
