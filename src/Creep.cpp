@@ -322,19 +322,19 @@ bool Creep::move(const Coord& from, const Coord& to, Map* caller)
 //TODO:There could be a clean way to remove some of this duplicate code
 bool Creep::moveLeft(Coord& coord, Map* caller)
 {
-	std::cout << typeid(*this).name() << ": Tried to move left"<< std::endl;
+	//std::cout << typeid(*this).name() << ": Tried to move left"<< std::endl;
 	const Coord from(coord);
 	const Coord to((from-Coord(0,1)));
 	if(!move(from, to, caller))
 		return false;
 	coord = to;//update the current location
-	std::cout << typeid(*this).name() << ": Moved left"<< std::endl;
+	//std::cout << typeid(*this).name() << ": Moved left"<< std::endl;
 	return true;
 }
 
 bool Creep::moveRight(Coord& coord, Map* caller)
 {
-	std::cout << typeid(*this).name() << ": Tried to move right"<< std::endl;
+	//std::cout << typeid(*this).name() << ": Tried to move right"<< std::endl;
 
 	const Coord from(coord);
 	const Coord to((from+Coord(0,1)));
@@ -342,30 +342,30 @@ bool Creep::moveRight(Coord& coord, Map* caller)
 		return false;
 	coord = to;//update the current location
 
-	std::cout << typeid(*this).name() << ": Moved right"<< std::endl;
+	//std::cout << typeid(*this).name() << ": Moved right"<< std::endl;
 	return true;
 }
 
 bool Creep::moveUp(Coord& coord, Map* caller)
 {
-	std::cout << typeid(*this).name() << ": Tried to move up"<< std::endl;
+	//std::cout << typeid(*this).name() << ": Tried to move up"<< std::endl;
 	const Coord from(coord);
 	const Coord to((from-Coord(1,0)));
 	if(!move(from, to, caller))
 		return false;
 	coord = to;//update the current location
-	std::cout << typeid(*this).name() << ": Moved up"<< std::endl;
+		//std::cout << typeid(*this).name() << ": Moved up"<< std::endl;
 	return true;
 }
 
 bool Creep::moveDown(Coord& coord, Map* caller)
 {
-	std::cout << typeid(*this).name() << ": Tried to move down"<< std::endl;
+	//std::cout << typeid(*this).name() << ": Tried to move down"<< std::endl;
 	const Coord from(coord);
 	const Coord to((from+Coord(1,0)));
 	if(!move(from, to, caller))
 		return false;
 	coord = to;//update the current location
-	std::cout << typeid(*this).name() << ": Moved down"<< std::endl;
+		//std::cout << typeid(*this).name() << ": Moved down"<< std::endl;
 	return true;
 }

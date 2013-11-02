@@ -35,7 +35,7 @@ class Boulder : public ImmovablePiece
 		,false//inMoveOnto
 		)
 		{}
-		virtual void action(const Coord& coord, Map* caller){};
+		virtual void action(const Coord& coord, Map* caller){}
 };
 
 #endif

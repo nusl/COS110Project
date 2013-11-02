@@ -175,6 +175,8 @@ bool Sprite::attack(Map &caller)
 				attackMod = "critical attacks";
 			}
 
+			creepRule(((totalDamage > caller.getHandleAt(c)->getCurrentLife()) ? caller.getHandleAt(c)->getCurrentLife() : totalDamage), caller.getHandleAt(c), caller);
+
 			std::cout << "Player " << attackMod << ", dealing a total damage amount of " << ((totalDamage > caller.getHandleAt(c)->getCurrentLife()) ? caller.getHandleAt(c)->getCurrentLife() : totalDamage) << ".\n";
 
 			caller.getHandleAt(c)->iAttackedYou(this, totalDamage, &caller);
@@ -198,7 +200,6 @@ void Sprite::wallRule(unsigned int& damage, Piece* victim, Map& caller)
 	if (damage > 0)
 	{
 		unsigned healthLoss = floor(getMaxLife() * 0.1);
-		getOwner()->removeScore(healthLoss);
 		decreaseLife(healthLoss, &caller);
 	}
 	knockBack(&caller);
@@ -217,6 +218,15 @@ void Sprite::boulderRule(unsigned int& damage, Piece* victim, Map& caller)
 	{
 		getOwner()->removeScore(getAttackPower());
 	}
+	getOwner()->addScore(((damage > victim->getCurrentLife()) ? victim->getCurrentLife() : damage));
+}
+
+void Sprite::creepRule(int damage, Piece *victim, Map &caller)
+{
+	if (!dynamic_cast<Creep*>(victim))
+		return;
+
+	getOwner()->addScore(damage);
 }
 
 bool Sprite::rotate(Map &caller)
@@ -262,6 +272,7 @@ void Sprite::reset()
 	setState('v');
 	shouldRegen = false;
 	turnsSinceLastRegen = 0;
+	getOwner()->reset();
 }
 
 void Sprite::knockBack(Map* caller)
@@ -320,19 +331,21 @@ void Sprite::decreaseLife(const unsigned &howMuch, Map *caller)
 	// Since the player has lost life, we can now start regenerating life.
 	shouldRegen = true;
 	Piece::decreaseLife(howMuch, caller);
+	getOwner()->removeScore(howMuch);
 }
 
 void Sprite::regenerateLife()
 {
 	if (shouldRegen)
 	{
-		if (turnsSinceLastRegen == (regenCounter - 1))
+		if (turnsSinceLastRegen == regenCounter - 1)
 		{
 			unsigned regenAmount = floor(getMaxLife() * regenRate);
 			if (regenAmount > (getMaxLife() - getCurrentLife()))
 			{
 				//std::cout << "Regenning: " << getMaxLife() - getCurrentLife() << ", Curr:" << getCurrentLife() << ", Max:" << getMaxLife() << std::endl;
 				increaseLife(getMaxLife() - getCurrentLife());
+				shouldRegen = false;
 			} else
 			{
 				increaseLife(regenAmount);

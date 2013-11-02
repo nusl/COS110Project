@@ -1,4 +1,5 @@
 #include "Critter.h"
+#include <iostream>
 
 void Critter::action(const Coord& coord, Map* caller)
 {
@@ -10,7 +11,9 @@ void Critter::action(const Coord& coord, Map* caller)
 	//Is my attacker in range?
 	if(crossRadar(coord, blip, getAttackRange(), caller))
 	{
+		//std::cout << "Critter attack b: " << getAttackPower() << std::endl;
 		unsigned int totalDamage = totalAttackDamage();
+		//std::cout << "Critter attack a: " << totalDamage << std::endl;
 		caller->getHandleAt(blip)->iAttackedYou(this, totalDamage, caller);//Attack him
 		setAssailant(0);
 	}
