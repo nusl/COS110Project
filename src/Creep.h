@@ -78,6 +78,8 @@ class Creep : public MovablePiece
 			offsetHistory.push_back(Offset());
 		}
 
+		virtual void reset();
+
 	protected:
 
 		bool huntDown	(Coord& from, Map* caller);
@@ -90,11 +92,11 @@ class Creep : public MovablePiece
 		bool moveRight	(Coord& from, Map* caller);
 		bool moveUp		(Coord& from, Map* caller);
 		bool moveDown	(Coord& from, Map* caller);
+		
+		std::deque<Offset> offsetHistory;
+		bool canGoOutOfRange;
 	private:
 		bool move(const Coord& from, const Coord& to, Map* caller);
-		
-		bool canGoOutOfRange;
-		std::deque<Offset> offsetHistory;
 };
 
 #endif

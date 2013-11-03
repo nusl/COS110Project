@@ -34,9 +34,22 @@ class Runner : public Creep
 		,'R'//inType
 		//,false//inMoveOnto
 		)
+		,inComfortZone(true)
+		,wasAttackedLastTurn(false)
+		,critChanceDoubled(false)
 		{}
 
+		virtual void iAttackedYou(Piece* const assailant, unsigned int& damage, Map* caller);
+
 		virtual void action(const Coord& coord, Map* caller);
+	protected:
+		void moveBack(Coord& coord, Map* caller);
+		void runAway(const Coord& victim, Coord& me, Map* caller);
+		
+	private:
+		bool inComfortZone;
+		bool wasAttackedLastTurn;
+		bool critChanceDoubled;
 };
 
 #endif

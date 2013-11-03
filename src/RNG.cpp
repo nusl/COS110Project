@@ -18,6 +18,8 @@
 #include "Ranger.h"
 #include "Warrior.h"
 
+#include <iostream>
+
 RNG::RNG():seedSet(false){}
 
 unsigned int RNG::type() const
@@ -74,6 +76,6 @@ int RNG::random()
 	
 	int randNum = numberList[0];
 	numberList.erase(numberList.begin());
-//	std::cout << "RNG_main: " << typeid(*this).name() << " : " << randNum << std::endl;
+	//std::cout << "RNG_main: " << typeid(*this).name() << " : " << randNum << std::endl;
 	return randNum;
 }

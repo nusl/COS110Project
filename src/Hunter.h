@@ -37,8 +37,6 @@ class Hunter : public Creep
 		,wasAttackedLastTurn(false)
 		{}
 		
-		bool wasAttackedLastTurn;
-		
 		virtual void iAttackedYou(Piece* const assailant, unsigned int& damage, Map* caller)
 		{
 			wasAttackedLastTurn = true;
@@ -90,6 +88,8 @@ class Hunter : public Creep
 			}
 			wasAttackedLastTurn = false;
 		};
+		private:
+			bool wasAttackedLastTurn;
 };
 
 #endif
