@@ -43,9 +43,13 @@ class Assassin : public MeleeSprite, public AmmoUnit
 		,25//inCurrentAmmo
 		,20//inPowerIncrease
 		)
-		{}
+		{
+			setAttackPower(getAttackPower() + getAmmoPower());
+		}
 
 		virtual void action(const Coord& coord, Map* caller){}
+
+		virtual bool attack(Map &caller);
 };
 
 #endif

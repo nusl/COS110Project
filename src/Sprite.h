@@ -121,7 +121,8 @@ class Sprite : public MovablePiece
 
 		virtual void knockBack(Map* caller);
 
-		Player* getOwner();
+		void addScore(const int& score);
+		void removeScore(const int& score);
 
 		virtual void decreaseLife(const unsigned& howMuch, Map* caller);
 
@@ -140,6 +141,7 @@ class Sprite : public MovablePiece
     private:
 
 		void setOwner(Player* who);
+		Player* getOwner();
 
 		double regenRate;
 		unsigned int regenCounter;

@@ -156,6 +156,7 @@ void Game::start()
 	catch (PlayerDiedException pdx)
 	{
 		std::cout << pdx.getMessage() << std::endl;
+		map.render(std::cout);
 	}
 	catch (PlayerAttackedWaypointException pawex)
 	{
