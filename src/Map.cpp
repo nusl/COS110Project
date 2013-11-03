@@ -19,6 +19,8 @@
 #include "Waypoint.h"
 #include "EmptySpace.h"
 
+#include <iostream>
+
 typedef std::vector<std::vector<std::stack<Piece*> > >::const_iterator	const_mapIterator;
 typedef std::vector<std::stack<Piece*> >::const_iterator				const_rowIterator;
 typedef std::vector<std::vector<std::stack<Piece*> > >::iterator		mapIterator;
@@ -76,10 +78,15 @@ Map::Map(const std::vector<std::string>& mapState)
         }
         map.push_back(rowOnMap);
     }
+    	for(mapSize y = 0; y!=map.size(); ++y)
+			for(rowSize x = 0; x!=map[y].size(); ++x)
+				if(typeid(*(map[y][x].top())) != typeid(EmptySpace) && typeid(*(map[y][x].top())) != typeid(Waypoint))
+					creepOrder.push_back(map[y][x].top());
 }
 
 Map::~Map()
 {
+	resetState();//TODO: Remove this for Phase 4, this is just to make the evaluation order thing not break the destructor.
 	deallocMap();
 }
 
@@ -162,7 +169,16 @@ void Map::destroyPieceAt(const Coord& coord)
 	//We should not delete an EmptySpace except in the destructor, the caller is broken if this happens.
 	assert(typeid(*getHandleAt(coord)) != typeid(EmptySpace));
 
-	map.at(coord.y).at(coord.x).pop();
+
+//FIXME: Remove this ugly thing in Phase4
+//-----------------------------------------------------------------
+Piece *tmp = getHandleAt(coord);
+	for(std::vector<Piece*>::size_type i = 0; i!=creepOrder.size(); ++i)
+		if(creepOrder[i] == tmp)
+			creepOrder.erase(creepOrder.begin()+i);
+//-----------------------------------------------------------------
+		map.at(coord.y).at(coord.x).pop();
+
 }
 
 inline Piece* const Map::getHandleAt(const Coord& coord) const
@@ -172,6 +188,7 @@ inline Piece* const Map::getHandleAt(const Coord& coord) const
 
 const Coord Map::getCoordOf(const Piece* const piece) const
 {
+//std::cout << typeid(*piece).name() << std::endl;
 	for(mapSize y = 0; y!=map.size(); ++y)
 		for(rowSize x = 0; x!=map[y].size(); ++x)
 			if(map[y][x].top() == piece)
@@ -184,10 +201,8 @@ const Coord Map::getCoordOf(const Piece* const piece) const
 //Actions are called on a row by row bases.
 void Map::update()
 {
-	const std::vector<std::vector<std::stack<Piece*> > > strictOrder = map;//FIXME: This could get expensive
-	for(mapSize y = 0; y!=strictOrder.size(); ++y)
-		for(rowSize x = 0; x!=strictOrder[y].size(); ++x)
-			strictOrder[y][x].top()->action(Coord(y,x), this);
+	for(std::vector<Piece*>::size_type i = 0; i!=creepOrder.size(); ++i)
+		creepOrder[i]->action(getCoordOf(creepOrder[i]), this);//FIXME: Phase 3 crap. Do not feed it. It'll rape you to death, eat your flesh, and sew your skin into its clothing – and if you're very, very lucky, it'll do it in that order
 }
 
 //Renders the map by calling getState()

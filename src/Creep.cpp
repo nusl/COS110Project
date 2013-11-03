@@ -361,7 +361,7 @@ bool Creep::moveUp(Coord& coord, Map* caller)
 	if(!move(from, to, caller))
 		return false;
 	coord = to;//update the current location
-		//std::cout << typeid(*this).name() << ": Moved up"<< std::endl;
+	//std::cout << typeid(*this).name() << ": Moved up"<< std::endl;
 	return true;
 }
 
@@ -373,6 +373,6 @@ bool Creep::moveDown(Coord& coord, Map* caller)
 	if(!move(from, to, caller))
 		return false;
 	coord = to;//update the current location
-		//std::cout << typeid(*this).name() << ": Moved down"<< std::endl;
+	//std::cout << typeid(*this).name() << ": Moved down"<< std::endl;
 	return true;
 }
