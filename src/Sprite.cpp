@@ -93,8 +93,10 @@ bool Sprite::attemptAction(Map& caller, const int& attempt)
     else if (isMoveIntent())
     {
 		success = move(caller);
-
-		checkWaypoint(&caller);
+		if (success)
+		{
+			checkWaypoint(&caller);
+		}
     }
     else if (isPassIntent())
     {
