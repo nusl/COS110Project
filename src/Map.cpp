@@ -201,7 +201,7 @@ const Coord Map::getCoordOf(const Piece* const piece) const
 //Actions are called on a row by row bases.
 void Map::update()
 {
-	std::list<Piece*> tmp = creepOrder;//needs a temporary otherwise the iterator is invalidated.
+	std::list<Piece*> tmp = creepOrder;//needs a temporary otherwise the iterator is invalidated by modification of destroyPieceAt.
 	for(std::list<Piece*>::iterator it = tmp.begin(); it!=tmp.end(); ++it)
 		(*it)->action(getCoordOf(*it), this);//FIXME: Phase 3 crap. Do not feed it. It'll rape you to death, eat your flesh, and sew your skin into its clothing – and if you're very, very lucky, it'll do it in that order
 }

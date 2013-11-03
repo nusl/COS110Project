@@ -15,8 +15,8 @@ void Hammer::action(const Coord& coord, Map* caller)
 		{
 			if (dynamic_cast<Sprite*>(caller->getHandleAt(blip)))
 			{
-				unsigned ap = getAttackPower();
-				static_cast<Sprite*>(caller->getHandleAt(blip))->iAttackedYou(this, ap, caller);
+				unsigned int totalDamage = totalAttackDamage();
+				static_cast<Sprite*>(caller->getHandleAt(blip))->iAttackedYou(this, totalDamage, caller);
 			}
 		} else {
 			huntDown(location, caller);
