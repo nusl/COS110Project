@@ -35,3 +35,15 @@ const double Ranger::getCritChance() const
 	}
 	return Piece::getCritChance();
 }
+
+bool Ranger::attack(Map &caller)
+{
+	if (hasAmmo())
+	{
+		bang(1);
+	} else
+	{
+		setAttackPower(15);
+	}
+	return Sprite::attack(caller);
+}

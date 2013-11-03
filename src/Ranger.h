@@ -44,7 +44,9 @@ class Ranger : public RangedSprite, public AmmoUnit
 		,10//inpPowerIncrease
 		)
 		,critTurnCounter(0)
-		{}
+		{
+			setAttackPower(getAttackPower() + getAmmoPower());
+		}
 
 		virtual void action(const Coord& coord, Map* caller){}
 
@@ -53,6 +55,8 @@ class Ranger : public RangedSprite, public AmmoUnit
 		virtual void tick();
 
 		virtual const double getCritChance() const;
+
+		virtual bool attack(Map &caller);
 
 	private:
 		unsigned critTurnCounter;

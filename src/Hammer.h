@@ -36,27 +36,9 @@ class Hammer : public Creep
 		)
 		{}
 
-		virtual void action(const Coord& coord, Map* caller)
-		{
-			Coord location(coord);
-/*
-			moveDown(location,caller);
-			moveRight(location,caller);
-			moveUp(location,caller);
-			moveLeft(location,caller);
-*/
-/*
-			moveLeft(location,caller);
-			if(!moveLeft(location,caller))
-				std::cout << "cannot move left" << std::endl;
-			else
-				std::cout << "moved left" << std::endl;
-			std::cout << random() << std::endl;
-			std::cout << random() << std::endl;
-			std::cout << random() << std::endl;
-*/
-			wander(location,caller);
-		}
+		virtual void action(const Coord& coord, Map* caller);
+
+		virtual void decreaseLife(const unsigned& howMuch, Map* caller);
 };
 
 #endif

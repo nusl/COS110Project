@@ -177,7 +177,7 @@ void Creep::wander(Coord& from, Map* caller)
 	//assign the move a value 0-3 where, up=0, down=1, left=2, right=3	
 	const unsigned int initialMove = (rndval/25);
 
-std::cout << "Moveid: " << initialMove << std::endl;
+//std::cout << "Moveid: " << initialMove << std::endl;
 	/*Depending on the initial move, the order of the move tries will be the following:
 	
 		up=0	down=1	left=2	right=3
