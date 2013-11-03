@@ -2,6 +2,7 @@
 #define MAP_H
 
 #include <vector>
+#include <list>
 #include <stack>
 #include <string>
 #include <ostream>
@@ -192,7 +193,7 @@ class Map
          */
         std::vector<std::vector<std::stack<Piece*> > > map;
         std::vector<std::vector<std::stack<Piece*> > > savedMap;
-        std::vector<Piece*> creepOrder;//FIXME: Remove for Phase 4
+        std::list<Piece*> creepOrder;//FIXME: Remove for Phase 4
 };
 
 #endif

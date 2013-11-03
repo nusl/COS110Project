@@ -76,6 +76,6 @@ int RNG::random()
 	
 	int randNum = numberList[0];
 	numberList.erase(numberList.begin());
-	//std::cout << "RNG_main: " << typeid(*this).name() << " : " << randNum << std::endl;
+//	std::cout << "RNG_main: " << typeid(*this).name() << " : " << randNum << std::endl;
 	return randNum;
 }

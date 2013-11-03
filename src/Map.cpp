@@ -20,6 +20,8 @@
 #include "EmptySpace.h"
 
 #include <iostream>
+#include <algorithm>
+#include <list>
 
 typedef std::vector<std::vector<std::stack<Piece*> > >::const_iterator	const_mapIterator;
 typedef std::vector<std::stack<Piece*> >::const_iterator				const_rowIterator;
@@ -173,9 +175,7 @@ void Map::destroyPieceAt(const Coord& coord)
 //FIXME: Remove this ugly thing in Phase4
 //-----------------------------------------------------------------
 Piece *tmp = getHandleAt(coord);
-	for(std::vector<Piece*>::size_type i = 0; i!=creepOrder.size(); ++i)
-		if(creepOrder[i] == tmp)
-			creepOrder.erase(creepOrder.begin()+i);
+creepOrder.remove(tmp);
 //-----------------------------------------------------------------
 		map.at(coord.y).at(coord.x).pop();
 
@@ -201,8 +201,9 @@ const Coord Map::getCoordOf(const Piece* const piece) const
 //Actions are called on a row by row bases.
 void Map::update()
 {
-	for(std::vector<Piece*>::size_type i = 0; i!=creepOrder.size(); ++i)
-		creepOrder[i]->action(getCoordOf(creepOrder[i]), this);//FIXME: Phase 3 crap. Do not feed it. It'll rape you to death, eat your flesh, and sew your skin into its clothing – and if you're very, very lucky, it'll do it in that order
+	std::list<Piece*> tmp = creepOrder;//needs a temporary otherwise the iterator is invalidated.
+	for(std::list<Piece*>::iterator it = tmp.begin(); it!=tmp.end(); ++it)
+		(*it)->action(getCoordOf(*it), this);//FIXME: Phase 3 crap. Do not feed it. It'll rape you to death, eat your flesh, and sew your skin into its clothing – and if you're very, very lucky, it'll do it in that order
 }
 
 //Renders the map by calling getState()
