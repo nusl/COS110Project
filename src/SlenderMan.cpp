@@ -30,7 +30,7 @@ void SlenderMan::action(const Coord &coord, Map *caller)
 		}
 		if (caller->getSpriteCoord().y != coord.y)
 		{
-			moveCoord.y += (caller->getSpriteCoord().y > coord.x) ? 1 : -1;
+			moveCoord.y += (caller->getSpriteCoord().y > coord.y) ? 1 : -1;
 		}
 		if (caller->inBoundary(moveCoord))
 		{
