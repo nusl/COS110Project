@@ -23,6 +23,7 @@ class SlenderMan : public Creep
 		,stalkTurns(5)
 		,turnCounter(0)
 		,stalkCount(0)
+		,newState('.')
 		,shouldHunt(false)
 		{
 		}
@@ -35,6 +36,7 @@ class SlenderMan : public Creep
 		unsigned stalkTurns;
 		unsigned turnCounter;
 		unsigned stalkCount;
+		char newState;
 		// Used to add some suspense to it. Slender man shows himself, then moves forward on the next turn.
 		// Creates an effect of slow pondering, then moving. Might be creepy.
 		bool shouldHunt;

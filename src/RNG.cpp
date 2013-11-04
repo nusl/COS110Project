@@ -17,6 +17,7 @@
 #include "Mage.h"
 #include "Ranger.h"
 #include "Warrior.h"
+#include "SlenderMan.h"
 
 #include "Barrier.h"
 #include "Bridge.h"
@@ -55,6 +56,8 @@ unsigned int RNG::type() const
 		return 12;
 	if(typeid(*this) == typeid(Bridge))
 		return 13;
+	if(typeid(*this) == typeid(SlenderMan))
+		return 999999;
 
     throw std::domain_error(std::string("A class has been included in the hierarchy that has not been registered in the RNG. Unregistered class name: ") + std::string(typeid(*this).name()));
 }
