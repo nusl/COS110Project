@@ -19,6 +19,7 @@
 #include "Waypoint.h"
 #include "EmptySpace.h"
 #include "SlenderMan.h"
+#include "VoidBlock.h"
 
 typedef std::vector<std::vector<std::stack<Piece*> > >::const_iterator	const_mapIterator;
 typedef std::vector<std::stack<Piece*> >::const_iterator				const_rowIterator;
@@ -71,6 +72,9 @@ Map::Map(const std::vector<std::string>& mapState)
                     break;
 				case 'I':
 					pointOnMap.push(new SlenderMan());
+					break;
+				case ' ':
+					pointOnMap.push(new VoidBlock(this));
 					break;
                 default:
                     deallocMap();

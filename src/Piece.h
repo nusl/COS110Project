@@ -62,7 +62,7 @@ class Piece: public RNG
 		/** Dodge and Parry chance are the defense modifiers. */
 		virtual void defend(Piece* const assailant, unsigned int& damage, Map* caller);
 
-        const char getState() const {return state;}
+		virtual const char getState() const {return state;}
         const char getType() const {return type;}
 		const bool canBeMovedOnto() const{return moveOnto;}//can I be moved onto by another piece? Like a waypoint and an empty piece.
 
