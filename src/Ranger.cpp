@@ -47,3 +47,9 @@ bool Ranger::attack(Map &caller)
 	}
 	return Sprite::attack(caller);
 }
+
+void Ranger::reset()
+{
+	reload();
+	Sprite::reset();
+}

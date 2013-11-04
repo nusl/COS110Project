@@ -73,7 +73,7 @@ int RNG::random()
 			numberList.push_back(num);
 		}
 	}
-	
+
 	int randNum = numberList[0];
 	numberList.erase(numberList.begin());
 //	std::cout << "RNG_main: " << typeid(*this).name() << " : " << randNum << std::endl;
