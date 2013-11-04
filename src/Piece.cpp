@@ -57,7 +57,7 @@ void Piece::defend(Piece* const assailant, unsigned int& damage, Map* callerz)
 		}
 	}
 
-//	std::cout << "Defense: " << damage << " Dodge: " << getDodgeChance() << " Parry: " << getParryChance() << std::endl;
+	//std::cout << "Defense: " << damage << " Dodge: " << getDodgeChance() << " Parry: " << getParryChance() << std::endl;
 }
 
 void Piece::increaseLife(const unsigned &howMuch)

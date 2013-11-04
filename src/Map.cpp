@@ -18,6 +18,7 @@
 #include "Wall.h"
 #include "Waypoint.h"
 #include "EmptySpace.h"
+#include "SlenderMan.h"
 
 #include <iostream>
 #include <algorithm>
@@ -72,9 +73,12 @@ Map::Map(const std::vector<std::string>& mapState)
                     //The first object created at the bottom of all stacks is an EmptySpace() object
                     //So, do not create one here.
                     break;
+				case 'I':
+					pointOnMap.push(new SlenderMan());
+					break;
                 default:
                     deallocMap();
-                    throw std::domain_error("Map that was loaded specifies a board piece that does not exist");
+					throw std::domain_error("Map that was loaded specifies a board piece that does not exist: " + *it2);
             }
             rowOnMap.push_back(pointOnMap);
         }

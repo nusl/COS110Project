@@ -16,7 +16,7 @@
 #include <typeinfo>
 #include <cmath>
 
-const std::string Sprite::commandIntentList = "WASDKP";
+const std::string Sprite::commandIntentList = "WASDKPX";
 const std::string Sprite::attackIntentList = "K";
 const std::string Sprite::passIntentList = "P";
 const std::string Sprite::specialIntentList = "X";
@@ -183,13 +183,13 @@ bool Sprite::attack(Map &caller)
 				attackMod = "critical attacks";
 			}
 
+			caller.getHandleAt(c)->iAttackedYou(this, totalDamage, &caller);
+
 			std::cout << "Player " << attackMod << ", dealing a total damage amount of " << ((totalDamage > caller.getHandleAt(c)->getCurrentLife()) ? caller.getHandleAt(c)->getCurrentLife() : totalDamage) << ".\n";
 
 			wallRule(totalDamage, caller.getHandleAt(c), caller);
 			boulderRule(totalDamage, caller.getHandleAt(c), caller);
 			creepRule(((totalDamage > caller.getHandleAt(c)->getCurrentLife()) ? caller.getHandleAt(c)->getCurrentLife() : totalDamage), caller.getHandleAt(c), caller);
-
-			caller.getHandleAt(c)->iAttackedYou(this, totalDamage, &caller);
 
 			return true;
 		}
