@@ -147,6 +147,12 @@ bool Map::move(const Coord& from, const Coord& to)
 	return true;
 }
 
+bool Map::placePieceAtForce(Piece* piece, const Coord& coord)
+{	
+	map.at(coord.y).at(coord.x).push(piece);
+	return true;
+}
+
 bool Map::placePieceAt(Piece* piece, const Coord& coord)
 {
 	//Does the piece at coord allow another piece to be placed on top of it?
