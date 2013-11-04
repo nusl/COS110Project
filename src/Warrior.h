@@ -38,7 +38,7 @@ class Warrior : public MeleeSprite
 		,10//inRegenCounter
 		)
 		{}
-
+		virtual bool performSpecial(Map& caller);
 		virtual void action(const Coord& coord, Map* caller){}
 };
 

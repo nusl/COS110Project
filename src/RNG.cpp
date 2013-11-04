@@ -18,6 +18,9 @@
 #include "Ranger.h"
 #include "Warrior.h"
 
+#include "Barrier.h"
+#include "Bridge.h"
+
 #include <iostream>
 
 RNG::RNG():seedSet(false){}
@@ -48,6 +51,10 @@ unsigned int RNG::type() const
 		return 10;
 	if(typeid(*this) == typeid(Warrior))
 		return 11;
+	if(typeid(*this) == typeid(Barrier))
+		return 12;
+	if(typeid(*this) == typeid(Bridge))
+		return 13;
 
     throw std::domain_error(std::string("A class has been included in the hierarchy that has not been registered in the RNG. Unregistered class name: ") + std::string(typeid(*this).name()));
 }
