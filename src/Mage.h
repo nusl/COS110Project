@@ -40,6 +40,7 @@ class Mage : public RangedSprite
 		{}
 
 		virtual void action(const Coord& coord, Map* caller){}
+		virtual bool performSpecial(Map& caller);
 };
 
 #endif

@@ -16,7 +16,7 @@
 #include <typeinfo>
 #include <cmath>
 
-const std::string Sprite::commandIntentList = "WASDKP";
+const std::string Sprite::commandIntentList = "WASDKPX";
 const std::string Sprite::attackIntentList = "K";
 const std::string Sprite::passIntentList = "P";
 const std::string Sprite::specialIntentList = "X";
@@ -75,7 +75,6 @@ bool Sprite::attemptAction(Map& caller, const int& attempt)
     {
         return false;
     }
-
 	bool success = false;
 
     // If you're going to mess with this if-stack please expect weird behavior.
@@ -275,6 +274,8 @@ bool Sprite::pass(Map &caller)
 	std::cout << "Player has passed on their turn.\n";
 	return true;
 }
+
+
 
 bool Sprite::performSpecial(Map &caller)
 {
