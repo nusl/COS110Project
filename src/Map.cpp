@@ -176,6 +176,15 @@ inline Piece* const Map::getHandleAt(const Coord& coord) const
 	return map.at(coord.y).at(coord.x).top();
 }
 
+bool Map::exists(const Piece* const piece) const
+{
+	for(mapSize y = 0; y!=map.size(); ++y)
+		for(rowSize x = 0; x!=map[y].size(); ++x)
+			if(map[y][x].top() == piece)
+				return true;
+	return false;
+}
+
 const Coord Map::getCoordOf(const Piece* const piece) const
 {
 	for(mapSize y = 0; y!=map.size(); ++y)

@@ -44,6 +44,7 @@ class Ranger : public RangedSprite, public AmmoUnit
 		,10//inpPowerIncrease
 		)
 		,critTurnCounter(0)
+		,specialActionCounter(1)
 		{
 			setAttackPower(getAttackPower() + getAmmoPower());
 		}
@@ -59,8 +60,11 @@ class Ranger : public RangedSprite, public AmmoUnit
 		virtual bool attack(Map &caller);
 
 		virtual void reset();
+		
+		virtual bool performSpecial(Map& caller);
 
 	private:
 		unsigned critTurnCounter;
+		unsigned int specialActionCounter;
 };
 #endif

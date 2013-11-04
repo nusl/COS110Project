@@ -46,7 +46,7 @@ class Piece: public RNG
 		virtual void action(const Coord& coord, Map* caller) = 0;
 
 		virtual Piece* const whoAttackedMe()const{return myAssailant;}
-
+		void setAssailant(Piece* who);
 		/** Used for interaction between pieces
 		 *
          *  @param handle to the assailant
@@ -83,7 +83,6 @@ class Piece: public RNG
 
     protected:
 		void setState(const char& inState){state = inState;}
-		void setAssailant(Piece* who);
 		
 		void setAttackPower(const unsigned int& in){attackPower = in;}
 

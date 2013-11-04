@@ -135,6 +135,7 @@ class Map
          */
 
          const Coord getCoordOf(const Piece* const piece) const;
+         bool exists(const Piece* const piece) const;
 
         
         /** Update the current state of the map.
