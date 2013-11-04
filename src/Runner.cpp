@@ -18,21 +18,21 @@ struct Negate
 void Runner::iAttackedYou(Piece* const assailant, unsigned int& damage, Map* caller)
 {
 	Piece::iAttackedYou(assailant, damage, caller);
-	wasAttackedLastTurn = true;	
 }
-
+#include <iostream>
 void Runner::moveBack(Coord& coord, Map* caller)
 {
+//std::cout << "moveBack"<< std::endl;
 	//Relinquish range boundary enforcement temporarily. Otherwise all moves will be illegal since we are already out of range
 	Negate scoped(canGoOutOfRange,true);
 	
 	const int columnOffset	= offsetHistory.back().offsetY;
 	const int rowOffset		= offsetHistory.back().offsetX;
-	
+//std::cout << "returning col off" << columnOffset << "rowOffset" << rowOffset << std::endl;	
 	const int myMoveRange = static_cast<int>(getMoveRange());
 	
-	const bool isAboveRange = (columnOffset > myMoveRange);
-	const bool isBelowRange = ((columnOffset < 0) && (::abs(columnOffset) > myMoveRange));
+	const bool isBelowRange = (columnOffset > myMoveRange);
+	const bool isAboveRange = ((columnOffset < 0) && (::abs(columnOffset) > myMoveRange));
 	const bool isRightRange	= (rowOffset > myMoveRange);
 	const bool isLeftRange	= ((rowOffset < 0) && (::abs(rowOffset) > myMoveRange));
 	
@@ -61,6 +61,8 @@ void Runner::moveBack(Coord& coord, Map* caller)
 
 void Runner::runAway(const Coord& victim, Coord& me, Map* caller)
 {
+	//Relinquish range boundary enforcement temporarily. Otherwise all moves will be illegal since we are going out of range
+	Negate scoped(canGoOutOfRange,true);
 	//There is a 3 liner to make this shorter, but this is slightly clearer
 	Offset direction(me, victim);
 	const bool isAbove = (direction.offsetY < 0);
@@ -85,6 +87,13 @@ void Runner::runAway(const Coord& victim, Coord& me, Map* caller)
 	//try to make the move twice	
 	for(size_t i = 0; i!=2; ++i)
 		(this->*execMove)(me, caller);
+
+	if(((unsigned)::abs(offsetHistory.back().offsetY) > getMoveRange())
+	|| ((unsigned)::abs(offsetHistory.back().offsetX) > getMoveRange()))
+		inComfortZone = false;
+	else
+		inComfortZone = true;
+	forget();
 }
 
 void Runner::action(const Coord& coord, Map* caller)
@@ -97,8 +106,17 @@ void Runner::action(const Coord& coord, Map* caller)
 	movement but attacking/running away will take precedence if the sprite attacks again.
 	*/
 	Coord location(coord);
-	if(!inComfortZone && !wasAttackedLastTurn)
+	if(!inComfortZone)
+	{
 		moveBack(location, caller);
+		setAssailant(0);
+		if(((unsigned)::abs(offsetHistory.back().offsetY) > getMoveRange())
+		|| ((unsigned)::abs(offsetHistory.back().offsetX) > getMoveRange()))
+		inComfortZone = false;
+	else
+		inComfortZone = true;
+		return;
+	}
 
 	if(Piece::whoAttackedMe())//do I have an assailant?
 	{	
@@ -122,10 +140,9 @@ void Runner::action(const Coord& coord, Map* caller)
 				setHitChance(getHitChance()*2.0);
 				critChanceDoubled = true;
 			}
-			setAssailant(0);
-			wasAttackedLastTurn = false;
 		}
+		setAssailant(0);
 	}
 	else
-		Creep::wander(location, caller);
+		Creep::wander(location, caller);	
 }
