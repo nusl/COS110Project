@@ -16,7 +16,7 @@ class Barrier: public ImmovablePiece
 		//,double inCritChance
 		//,double inDodgeChance
 		//,double inParryChance
-		//,char inState
+		char inState
 		//,char inType
 		//,bool inMoveOnto
 		):
@@ -30,13 +30,13 @@ class Barrier: public ImmovablePiece
 		//,0//inCritChance
 		//,0//inDodgeChance
 		//,0//inParryChance
-		,'|'//inState
+		,inState
 		,'|'//inType
 		,false//inMoveOnto
 		)
 		{}
 	virtual void action(const Coord& coord, Map* caller){}
-	void build(const Coord& myMaster, const Coord& myLocation, Map* caller);
+	void build(const Coord& myMaster, const Coord& myLocation, Map* caller, const char stateChar);
 };
 
 #endif

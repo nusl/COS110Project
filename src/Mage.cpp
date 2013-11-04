@@ -18,14 +18,19 @@ bool Mage::performSpecial(Map& caller)
 		std::cout << "Tried to make a barrier that is not even inside the map!..Wow" << std::endl;
 		return false;
 	}
-	
-	Barrier* barrier = new Barrier();
+
+	char barrierChar;
+	if(getState() == Direction::right || getState() == Direction::left)
+		barrierChar = '-';
+	else
+		barrierChar = '|';
+	Barrier* barrier = new Barrier(barrierChar);
 	if(!caller.placePieceAt(barrier, placementLocation))
 	{
 		std::cout << "Rookie move: tried to make a barrier on top of another piece" << std::endl;
 		return false;
 	}
-	barrier->build(caller.getCoordOf(this), placementLocation, &caller);
+	barrier->build(caller.getCoordOf(this), placementLocation, &caller, barrierChar);
 
 	return true;
 }

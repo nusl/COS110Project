@@ -2,7 +2,7 @@
 #include "Offset.h"
 
 #include <iostream>
-void Barrier::build(const Coord& myMaster, const Coord& myLocation, Map* caller)
+void Barrier::build(const Coord& myMaster, const Coord& myLocation, Map* caller, const char stateChar)
 {
 	Offset directionFromMaster(myMaster, myLocation);
 	
@@ -11,8 +11,8 @@ void Barrier::build(const Coord& myMaster, const Coord& myLocation, Map* caller)
 	if(!caller->inBoundary(placementLocation))
 		return;
 
-	Barrier* childBarrier = new Barrier();
+	Barrier* childBarrier = new Barrier(stateChar);
 	if(caller->placePieceAt(childBarrier, placementLocation))
-		childBarrier->build(myLocation, placementLocation, caller);
+		childBarrier->build(myLocation, placementLocation, caller, stateChar);
 	return;
 }
