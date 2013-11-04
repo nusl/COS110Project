@@ -4,6 +4,11 @@
 #include <iostream>
 bool Warrior::performSpecial(Map& caller)
 {
+	if(specialActionCounter == 0)
+	{
+		std::cout << "Your special ability has been depleted" << std::endl;
+		return false;
+	}
 	Coord placementLocation = caller.getCoordOf(this);
 
 	int myX = (getState() == Direction::right) ? 1 : (getState() == Direction::left ? -1 : 0);
@@ -19,10 +24,15 @@ bool Warrior::performSpecial(Map& caller)
 		return false;
 	}
 
-	if(!caller.placePieceAtForce(new Bridge(), placementLocation))
-	{
-		std::cout << "Rookie move: tried to make a barrier on top of another piece" << std::endl;
-		return false;
-	}
+	caller.placePieceAtForce(new Bridge(), placementLocation);
+	
+	--specialActionCounter;
+	std::cout << "You have " << specialActionCounter << " shots left of your special ability." << std::endl;
 	return true;
+}
+
+void Warrior::reset()
+{
+	specialActionCounter = 5;
+	Sprite::reset();
 }

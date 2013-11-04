@@ -37,10 +37,14 @@ class Mage : public RangedSprite
 		,0.15//inRegenRate
 		,7//inRegenCounter
 		)
+		,specialActionCounter(3)
 		{}
 
 		virtual void action(const Coord& coord, Map* caller){}
 		virtual bool performSpecial(Map& caller);
+		virtual void reset();
+	private:
+		unsigned int specialActionCounter;
 };
 
 #endif

@@ -3,6 +3,8 @@
 
 #include "Creep.h"
 
+#include <iostream>
+
 class Sleeper : public Creep
 {
 	public:
@@ -38,6 +40,7 @@ class Sleeper : public Creep
 
 		virtual void iAttackedYou(Piece* const assailant, unsigned int& damage, Map* caller)
 		{	
+//		std::cout << "sleeper damage: " << damage << std::endl;
 			if(!whoAttackedMe())//holds null if it has no assialant. Therefore it is sleeping
 			{//take full damage if sleeping
 				decreaseLife(damage, caller);

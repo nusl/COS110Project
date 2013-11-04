@@ -4,6 +4,11 @@
 #include <iostream>
 bool Mage::performSpecial(Map& caller)
 {
+	if(specialActionCounter == 0)
+	{
+		std::cout << "Your special ability has been depleted" << std::endl;
+		return false;
+	}
 	Coord placementLocation = caller.getCoordOf(this);
 
 	int myX = (getState() == Direction::right) ? 1 : (getState() == Direction::left ? -1 : 0);
@@ -32,5 +37,14 @@ bool Mage::performSpecial(Map& caller)
 	}
 	barrier->build(caller.getCoordOf(this), placementLocation, &caller, barrierChar);
 
+	--specialActionCounter;
+	std::cout << "You have " << specialActionCounter << " shots left of your special ability." << std::endl;
+	
 	return true;
+}
+
+void Mage::reset()
+{
+	specialActionCounter = 3;
+	Sprite::reset();
 }
