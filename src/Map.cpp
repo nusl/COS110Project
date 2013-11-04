@@ -19,10 +19,6 @@
 #include "Waypoint.h"
 #include "EmptySpace.h"
 
-#include <iostream>
-#include <algorithm>
-#include <list>
-
 typedef std::vector<std::vector<std::stack<Piece*> > >::const_iterator	const_mapIterator;
 typedef std::vector<std::stack<Piece*> >::const_iterator				const_rowIterator;
 typedef std::vector<std::vector<std::stack<Piece*> > >::iterator		mapIterator;
@@ -80,15 +76,10 @@ Map::Map(const std::vector<std::string>& mapState)
         }
         map.push_back(rowOnMap);
     }
-    	for(mapSize y = 0; y!=map.size(); ++y)
-			for(rowSize x = 0; x!=map[y].size(); ++x)
-				if(typeid(*(map[y][x].top())) != typeid(EmptySpace) && typeid(*(map[y][x].top())) != typeid(Waypoint))
-					creepOrder.push_back(map[y][x].top());
 }
 
 Map::~Map()
 {
-	resetState();//TODO: Remove this for Phase 4, this is just to make the evaluation order thing not break the destructor.
 	deallocMap();
 }
 
@@ -156,6 +147,12 @@ bool Map::move(const Coord& from, const Coord& to)
 	return true;
 }
 
+bool Map::placePieceAtForce(Piece* piece, const Coord& coord)
+{	
+	map.at(coord.y).at(coord.x).push(piece);
+	return true;
+}
+
 bool Map::placePieceAt(Piece* piece, const Coord& coord)
 {
 	//Does the piece at coord allow another piece to be placed on top of it?
@@ -171,14 +168,7 @@ void Map::destroyPieceAt(const Coord& coord)
 	//We should not delete an EmptySpace except in the destructor, the caller is broken if this happens.
 	assert(typeid(*getHandleAt(coord)) != typeid(EmptySpace));
 
-
-//FIXME: Remove this ugly thing in Phase4
-//-----------------------------------------------------------------
-Piece *tmp = getHandleAt(coord);
-creepOrder.remove(tmp);
-//-----------------------------------------------------------------
-		map.at(coord.y).at(coord.x).pop();
-
+	map.at(coord.y).at(coord.x).pop();
 }
 
 inline Piece* const Map::getHandleAt(const Coord& coord) const
@@ -188,7 +178,6 @@ inline Piece* const Map::getHandleAt(const Coord& coord) const
 
 const Coord Map::getCoordOf(const Piece* const piece) const
 {
-//std::cout << typeid(*piece).name() << std::endl;
 	for(mapSize y = 0; y!=map.size(); ++y)
 		for(rowSize x = 0; x!=map[y].size(); ++x)
 			if(map[y][x].top() == piece)
@@ -201,9 +190,10 @@ const Coord Map::getCoordOf(const Piece* const piece) const
 //Actions are called on a row by row bases.
 void Map::update()
 {
-	std::list<Piece*> tmp = creepOrder;//needs a temporary otherwise the iterator is invalidated by modification of destroyPieceAt.
-	for(std::list<Piece*>::iterator it = tmp.begin(); it!=tmp.end(); ++it)
-		(*it)->action(getCoordOf(*it), this);//FIXME: Phase 3 crap. Do not feed it. It'll rape you to death, eat your flesh, and sew your skin into its clothing – and if you're very, very lucky, it'll do it in that order
+	const std::vector<std::vector<std::stack<Piece*> > > strictOrder = map;//FIXME: This could get expensive
+	for(mapSize y = 0; y!=strictOrder.size(); ++y)
+		for(rowSize x = 0; x!=strictOrder[y].size(); ++x)
+			strictOrder[y][x].top()->action(Coord(y,x), this);
 }
 
 //Renders the map by calling getState()

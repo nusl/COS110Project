@@ -43,7 +43,7 @@ unsigned int Piece::totalAttackDamage()
 	return damage;
 }
 
-void Piece::defend(Piece* const assailant, unsigned int& damage, Map* caller)
+void Piece::defend(Piece* const assailant, unsigned int& damage, Map* callerz)
 {
 	if(static_cast<unsigned int>(this->random()) <= static_cast<unsigned int>(getDodgeChance()*100))
 	{

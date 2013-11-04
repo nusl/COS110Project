@@ -108,6 +108,7 @@ class Map
          *  @return bool indicating if it is possible to place a piece on top of whatever piece is already in place at coord.
          */
         bool placePieceAt(Piece* piece, const Coord& coord);
+        bool placePieceAtForce(Piece* piece, const Coord& coord);
 
         /** Destroys piece at coord.
          *
@@ -193,7 +194,6 @@ class Map
          */
         std::vector<std::vector<std::stack<Piece*> > > map;
         std::vector<std::vector<std::stack<Piece*> > > savedMap;
-        std::list<Piece*> creepOrder;//FIXME: Remove for Phase 4
 };
 
 #endif

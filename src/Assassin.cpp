@@ -11,3 +11,9 @@ bool Assassin::attack(Map &caller)
 	}
 	return Sprite::attack(caller);
 }
+
+void Assassin::reset()
+{
+	reload();
+	Sprite::reset();
+}

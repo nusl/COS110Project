@@ -7,18 +7,19 @@
 #include "PlayerDiedException.h"
 #include "Waypoint.h"
 #include "Creep.h"
-#include "Player.h"
 #include "EmptySpace.h"
 #include "Wall.h"
 #include "Boulder.h"
+#include "Player.h"
 
 #include <iostream>
 #include <typeinfo>
 #include <cmath>
 
-const std::string Sprite::commandIntentList = "WASDKP";
+const std::string Sprite::commandIntentList = "WASDKPX";
 const std::string Sprite::attackIntentList = "K";
 const std::string Sprite::passIntentList = "P";
+const std::string Sprite::specialIntentList = "X";
 
 Intent Sprite::getIntent() const
 {
@@ -74,7 +75,6 @@ bool Sprite::attemptAction(Map& caller, const int& attempt)
     {
         return false;
     }
-
 	bool success = false;
 
     // If you're going to mess with this if-stack please expect weird behavior.
@@ -101,7 +101,10 @@ bool Sprite::attemptAction(Map& caller, const int& attempt)
     else if (isPassIntent())
     {
 		success = pass(caller);
-    }
+	} else if (isSpecialIntent())
+	{
+		success = performSpecial(caller);
+	}
 
 	return success;
 }
@@ -146,6 +149,11 @@ bool Sprite::isPassIntent() const
 	return passIntentList.find(toupper(intent.getIntent()), 0) != std::string::npos;
 }
 
+bool Sprite::isSpecialIntent() const
+{
+	return specialIntentList.find(toupper(intent.getIntent()), 0) != std::string::npos;
+}
+
 bool Sprite::attack(Map &caller)
 {
 	Coord c = caller.getCoordOf(this);
@@ -166,9 +174,6 @@ bool Sprite::attack(Map &caller)
 		if (typeid(EmptySpace) != typeid(*caller.getHandleAt(c)))
 		{
 			unsigned int totalDamage = totalAttackDamage();
-			
-			wallRule(totalDamage, caller.getHandleAt(c), caller);
-			boulderRule(totalDamage, caller.getHandleAt(c), caller);
 
 			std::string attackMod = "attacks";
 
@@ -177,9 +182,11 @@ bool Sprite::attack(Map &caller)
 				attackMod = "critical attacks";
 			}
 
-			creepRule(((totalDamage > caller.getHandleAt(c)->getCurrentLife()) ? caller.getHandleAt(c)->getCurrentLife() : totalDamage), caller.getHandleAt(c), caller);
-
 			std::cout << "Player " << attackMod << ", dealing a total damage amount of " << ((totalDamage > caller.getHandleAt(c)->getCurrentLife()) ? caller.getHandleAt(c)->getCurrentLife() : totalDamage) << ".\n";
+
+			wallRule(totalDamage, caller.getHandleAt(c), caller);
+			boulderRule(totalDamage, caller.getHandleAt(c), caller);
+			creepRule(((totalDamage > caller.getHandleAt(c)->getCurrentLife()) ? caller.getHandleAt(c)->getCurrentLife() : totalDamage), caller.getHandleAt(c), caller);
 
 			caller.getHandleAt(c)->iAttackedYou(this, totalDamage, &caller);
 
@@ -268,6 +275,14 @@ bool Sprite::pass(Map &caller)
 	return true;
 }
 
+
+
+bool Sprite::performSpecial(Map &caller)
+{
+	// TODO: Special actions performed here. Check what the intent is and do whatever you need. Add more intent chars to vector at top of file.
+	return false;
+}
+
 void Sprite::reset()
 {
 	Piece::reset();
@@ -296,7 +311,7 @@ void Sprite::knockBack(Map* caller)
 		if (!caller->inBoundary(c))
 		{
 			caller->getHandleAt(caller->getSpriteCoord())->decreaseLife(KNOCKBACK_BASE_SPRITE_DAMAGE / i, caller);
-			static_cast<Sprite*>(caller->getHandleAt(caller->getSpriteCoord()))->getOwner()->removeScore(KNOCKBACK_BASE_SCORE / i);
+			static_cast<Sprite*>(caller->getHandleAt(caller->getSpriteCoord()))->removeScore(KNOCKBACK_BASE_SCORE / i);
 			return;
 		}
 
@@ -304,7 +319,7 @@ void Sprite::knockBack(Map* caller)
 		{
 			caller->getHandleAt(caller->getSpriteCoord())->decreaseLife(KNOCKBACK_BASE_SPRITE_DAMAGE / i, caller);
 
-			static_cast<Sprite*>(caller->getHandleAt(caller->getSpriteCoord()))->getOwner()->removeScore(KNOCKBACK_BASE_SCORE / i);
+			static_cast<Sprite*>(caller->getHandleAt(caller->getSpriteCoord()))->removeScore(KNOCKBACK_BASE_SCORE / i);
 
 			// Is the piece that blocked us a creep?
 			if (dynamic_cast<Creep*>(caller->getHandleAt(c)))

@@ -58,6 +58,8 @@ class Ranger : public RangedSprite, public AmmoUnit
 
 		virtual bool attack(Map &caller);
 
+		virtual void reset();
+
 	private:
 		unsigned critTurnCounter;
 };

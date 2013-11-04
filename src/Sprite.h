@@ -104,6 +104,7 @@ class Sprite : public MovablePiece
         bool isRotateIntent() const;
         bool isMoveIntent() const;
         bool isPassIntent() const;
+		bool isSpecialIntent() const;
 
         // Returns true if attack successful, as any valid attack counts as a turn
 		virtual bool attack(Map& caller);
@@ -117,6 +118,8 @@ class Sprite : public MovablePiece
         // Always returns true, as pass counts as a turn
 		virtual bool pass(Map& caller);
         
+		virtual bool performSpecial(Map& caller);
+
 		virtual void reset();//Specialised from Piece implementation
 
 		virtual void knockBack(Map* caller);
@@ -153,6 +156,7 @@ class Sprite : public MovablePiece
         static const std::string commandIntentList;
         static const std::string attackIntentList;
         static const std::string passIntentList;
+		static const std::string specialIntentList;
 
 	friend class Player;
 };
